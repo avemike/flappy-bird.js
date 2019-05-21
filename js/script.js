@@ -29,5 +29,5 @@
     canvas.height = window.innerHeight
     canvas.width = window.innerWidth
 
-    const baza = new Base({width : 336, height : 112})
+    const baza = new Base(336, 112)
     baza.draw()

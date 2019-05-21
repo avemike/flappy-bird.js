@@ -1,5 +1,5 @@
 class Base {
-    constructor({width, height}){
+    constructor(width, height){
         this.width = width
         this.height = height
         this.posY = canvas.height - this.height
@@ -7,6 +7,7 @@ class Base {
     }
 
     render() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height)
         ctx.drawImage(base, this.posX, this.posY)
     }
 
