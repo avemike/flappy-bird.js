@@ -1,33 +1,12 @@
-// (function(){
-//     var canvas = document.getElementById('app')
-//     var ctx = canvas.getContext('2d')
-
-//     canvas.height = window.innerHeight
-//     canvas.width = window.innerWidth
-
-//     const baseY = canvas.height - 112
-//     const bg_dayY = canvas.height - 1080
-    
-
-//     function draw(){
-//         const bg_day = document.querySelector('.bg_day')
-//         const base = document.querySelector('.base')
-//             for(let i = 0; i <= canvas.width; i += 288){
-//                 ctx.drawImage(bg_day, i, bg_dayY)
-//             }
-//             for(let i = 0; i <= canvas.width; i += 336)
-//             ctx.drawImage(base, i, baseY)
-
-//     }
-//     draw()
-//   })();
-
     const canvas = document.querySelector('#app')
     const ctx = canvas.getContext('2d')
     const base = document.querySelector('.base')
+    const pipe = document.querySelector('.pipe')
 
     canvas.height = window.innerHeight
     canvas.width = window.innerWidth
 
-    const baza = new Base(336, 112)
-    baza.draw()
+    const baza = new Bases()
+    const rurka = new Pipes()
+    rurka.draw()
+    // baza.draw()

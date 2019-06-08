@@ -5,6 +5,7 @@ class Base {
         this.offsetX = offsetX
         this.offsetY = canvas.height - this.height
     }
+
     render() {
         ctx.drawImage(base, this.offsetX, this.offsetY)
     }
@@ -12,11 +13,12 @@ class Base {
         this.offsetX -= 6
     }
     draw() {
-        console.log(this.offsetX)
+        // console.log(this.offsetX)
         this.changeOffset()
         this.detect()
         this.render()
     }
+
     detect() {
         if (this.offsetX < - this.width ) {
             this.offsetX += 20 * 336
