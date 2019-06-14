@@ -4,8 +4,8 @@ class Pipe{
         this.height = height
         this.offsetX = offsetX
         this.offsetY = -145
-        let max = canvas.height - 580
-        let min = -300
+        let max = 178
+        let min = -351
         this.numb = Math.floor(Math.random() * (max - min)) + min
     }
 
