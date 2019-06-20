@@ -1,10 +1,11 @@
 class Pipes{
     constructor(){
         this.pipes = []
-
-        for(let i=0; i < 11; i++){
+        this.pipes.push(new Pipe(50, 320, canvas.width))
+        for(let i=1; i < this.pipes.length + 1; i++){
             this.pipes.push(new Pipe(50, 320, canvas.width + (150 * i)))
         }
+
     }
 
     render(){
@@ -17,7 +18,7 @@ class Pipes{
             this.render()
             this.draw()
         })
-        // console.log(this.numb)
+        console.log(this.pipes)
         // this.render()
     }
 }

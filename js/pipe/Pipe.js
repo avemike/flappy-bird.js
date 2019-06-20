@@ -3,9 +3,9 @@ class Pipe{
         this.width = width
         this.height = height
         this.offsetX = offsetX
-        this.offsetY = -145
-        let max = 178
-        let min = -351
+        // this.offsetY = -145
+        let max = -150
+        let min = -650
         this.numb = Math.floor(Math.random() * (max - min)) + min
     }
 
@@ -20,14 +20,14 @@ class Pipe{
 
     draw(){
         this.changeOffset()
-        this.detect()
+        // this.detect()
         this.render()
-        console.log(this.numb)
+        // console.log(this.numb)
     }
 
-    detect() {
-        if (this.offsetX < - this.width ) {
-            this.offsetX += 11 * 150
-        }
-    }
+    // detect() {
+    //     if (this.offsetX < - this.width ) {
+    //         this.offsetX += 12 * 150
+    //     }
+    // }
 }
