@@ -8,5 +8,8 @@
 
     const baza = new Bases()
     const rurka = new Pipes()
-    rurka.draw()
-    // baza.draw()
+    const cleaner = new Cleaner()
+    // controlling all processes
+    const main = new commonW(cleaner, rurka, baza)
+    main.render()
+  

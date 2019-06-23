@@ -3,7 +3,6 @@ class Pipe{
         this.width = width
         this.height = height
         this.offsetX = offsetX
-        // this.offsetY = -145
         let max = -150
         let min = -650
         this.numb = Math.floor(Math.random() * (max - min)) + min
@@ -11,7 +10,6 @@ class Pipe{
 
     render(){
         ctx.drawImage(pipe, this.offsetX, this.numb)
-        // ctx.clearRect(0, 0, canvas.width, canvas.height)
     }
 
     changeOffset(){
@@ -20,14 +18,6 @@ class Pipe{
 
     draw(){
         this.changeOffset()
-        // this.detect()
         this.render()
-        // console.log(this.numb)
     }
-
-    // detect() {
-    //     if (this.offsetX < - this.width ) {
-    //         this.offsetX += 12 * 150
-    //     }
-    // }
 }
