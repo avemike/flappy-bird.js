@@ -11,7 +11,9 @@ class Pipe{
     render(){
         ctx.drawImage(pipe, this.offsetX, this.numb)
     }
-
+    isOverScreen(){
+      return this.offsetX <= -this.width ? true : false
+    }
     changeOffset(){
         this.offsetX -= 4
     }
