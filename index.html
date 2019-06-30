@@ -8,15 +8,27 @@
     <style>
         * {
             margin: 0;
+            padding: 0;
+            box-sizing: border-box;
         }
-        #app {
-            width: 100vw;
-            height: 100vh;
+        #app{
+            display: block;
         }
     </style>
 </head>
 <body>
-    <canvas id="app"></canvas>
-    <script src="script.js"></script>
+  <canvas id="app">
+    <img style='display: none' class="base" src="images/base.png" alt="">
+    <img style='display: none' class="pipe" src="images/pipes.png" alt="">
+    <!-- <img style='display: none' class="pipe" src="images/pipe-green-turned.png" alt=""> -->
+  </canvas>
+  <script src="js/base/Base.js"></script>
+  <script src="js/base/Bases.js"></script>
+  <script src="js/pipe/Pipe.js"></script>
+  <script src="js/pipe/Pipes.js"></script>
+  <script src="js/common_wolf.js"></script>
+  <script src="js/cleaner.js"></script>
+  <script src="js/script.js"></script>
+  
 </body>
 </html>
