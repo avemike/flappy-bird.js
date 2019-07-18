@@ -29,14 +29,10 @@ class Bird {
         const { momentum } = this.params;
         this.params.y += momentum*2;
     }
-    animate() {
-        window.requestAnimationFrame(() => {
-            clear(this.params.canvas, this.params.ctx)
-            this.render()
-            this.gravity()
-            this.move()
-            this.animate()
-        })
+    draw() {
+      this.render()
+      this.gravity()
+      this.move()
     }
 
     render() {
@@ -48,6 +44,6 @@ class Bird {
             width,
             ratio,
         } = this.params
-        ctx.drawImage(sprites[0], x, y, width, width * ratio)
+        ctx.drawImage(sprites, x, y, width, width * ratio)
     }
 }

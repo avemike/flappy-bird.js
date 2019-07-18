@@ -8,23 +8,30 @@
     <style>
         * {
             margin: 0;
+            padding: 0;
+            box-sizing: border-box;
         }
-        html, body {
-            width: 100%;
-            height: 100%;
-        }
-        #app {
+        #app{
             display: block;
         }
 
     </style>
 </head>
 <body>
-    <canvas id="app"></canvas>
-    <img style="display: none" class="ptaszek" src="./assets/bird.svg" width="170px" height="120px" alt="">
-    <script src="js/clear.js"></script>
-    <script src="js/Bird.js"></script>    
-    <script src="js/script.js"></script>
-    <script src="js/resize.js"></script>
+  <canvas id="app">
+    <img style='display: none' class="base" src="images/base.png" alt="">
+    <img style='display: none' class="pipe" src="images/pipes.png" alt="">
+    <img style="display: none" class="bird" src="./assets/bird.svg" width="170px" height="120px" alt="">    
+    <!-- <img style='display: none' class="pipe" src="images/pipe-green-turned.png" alt=""> -->
+  </canvas>
+  <script src="js/base/Base.js"></script>
+  <script src="js/base/Bases.js"></script>
+  <script src="js/pipe/Pipe.js"></script>
+  <script src="js/pipe/Pipes.js"></script>
+  <script src="js/common_wolf.js"></script>
+  <script src="js/cleaner.js"></script>
+  <script src="js/Bird.js"></script>
+  <script src="js/script.js"></script>
+  
 </body>
 </html>

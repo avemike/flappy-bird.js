@@ -1,3 +1,3 @@
 # flappy-bird.js
 
-xd
+2P flappy bird in JS
