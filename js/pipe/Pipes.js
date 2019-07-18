@@ -1,15 +1,15 @@
 class Pipes{
     constructor(){
         this.pipes = []
-        console.log(window.innerWidth)
         let i = 0;
         do {
-          this.pipes.push(new Pipe(52, 320, canvas.width + 210 * i))          
+          this.pipes.push(new Pipe(52, 320, canvas.width + 212 * i))   
           i++;
         } while(i*210 < window.innerWidth)
     }
     create() {
-      this.pipes.push(new Pipe(52, 320, canvas.width))
+      let lastPipeOffset = this.pipes[this.pipes.length - 1].offsetX
+      this.pipes.push(new Pipe(52, 320, lastPipeOffset + 212 ))
     }
     draw(){     
       if(this.pipes[0].isOverScreen()) { 
