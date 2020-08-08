@@ -10,7 +10,7 @@ class Base {
         ctx.drawImage(base, this.offsetX, this.offsetY)
     }
     changeOffset() {
-        this.offsetX -= 6
+        this.offsetX -= 4
     }
     draw() {
         // console.log(this.offsetX)
