@@ -1,15 +1,17 @@
-class commonW{
+class Game{
   constructor(...drawable) {
     this.drawable = drawable
   }
-  render() {
+  create() {
     window.requestAnimationFrame( () => {
       // execute all draw animations within given objects
       this.drawable.forEach( object => {
         object.draw()
       })
 
-      this.render()
+      this.create()
     })
   }
 }
+
+export default Game

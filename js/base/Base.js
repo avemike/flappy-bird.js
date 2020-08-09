@@ -1,9 +1,12 @@
+import {canvasHeight} from '../canvasSize/setCanvasSize.js'
+import {ctx, base} from './../constants.js'
+
 class Base {
     constructor(width, height, offsetX) {
         this.width = width
         this.height = height
         this.offsetX = offsetX
-        this.offsetY = canvas.height - this.height
+        this.offsetY = canvasHeight - this.height
     }
 
     render() {
@@ -13,15 +16,16 @@ class Base {
         this.offsetX -= 4
     }
     draw() {
-        // console.log(this.offsetX)
         this.changeOffset()
-        this.detect()
+        this.isOverScreen()
         this.render()
     }
 
-    detect() {
+    isOverScreen() {
         if (this.offsetX < - this.width ) {
             this.offsetX += 20 * 336
         }
     }
 }
+
+export default Base

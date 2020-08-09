@@ -1,14 +1,12 @@
-const canvas = document.querySelector('#app')
-const ctx = canvas.getContext('2d')
-const base = document.querySelector('.base')
-const pipe = document.querySelector('.pipe')
-
-canvas.height = window.innerHeight * 0.9
-canvas.width = window.innerWidth * 0.3
+import {canvasWidth, canvasHeight} from './canvasSize/setCanvasSize.js'
+import Bases from './base/Bases.js'
+import Pipes from './pipe/Pipes.js'
+import Cleaner from './cleaner.js'
+import Game from './game.js'
 
 const baza = new Bases()
 const rurka = new Pipes()
 const cleaner = new Cleaner()
 // controlling all processes
-const main = new commonW(cleaner, rurka, baza)
+const main = new Game(cleaner, rurka, baza)
 main.render()
