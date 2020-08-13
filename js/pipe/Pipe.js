@@ -1,19 +1,23 @@
+import {ctx, pipe} from './../constants.js'
+
 class Pipe{
     constructor(width, height, offsetX){
         this.width = width
         this.height = height
         this.offsetX = offsetX
-        let max = -150
-        let min = -650
-        this.numb = Math.floor(Math.random() * (max - min)) + min
+        let max = 0
+        let min = 0 
+        this.offsetY = Math.floor(Math.random() * (max - min)) + min
     }
 
     render(){
-        ctx.drawImage(pipe, this.offsetX, this.numb)
+        ctx.drawImage(pipe, this.offsetX, this.offsetY)
     }
+
     isOverScreen(){
-      return this.offsetX <= -this.width ? true : false
+        return this.offsetX <= -this.width ? true : false
     }
+
     changeOffset(){
         this.offsetX -= 4
     }
@@ -23,3 +27,5 @@ class Pipe{
         this.render()
     }
 }
+
+export default Pipe

@@ -1,3 +1,5 @@
+import Base from './Base.js'
+
 class Bases {
     constructor(){
         this.bases = []
@@ -10,3 +12,5 @@ class Bases {
       this.bases.forEach(base => base.draw())
     }
 }
+
+export default Bases

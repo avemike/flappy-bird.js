@@ -1,13 +1,14 @@
-class Bird {
-    constructor({ ctx, canvas, sprites, width, x, y }) {
+import { ctx, bird } from './constants.js'
+
+export default class Bird {
+    constructor() {
         this.params = {
             ctx,
-            canvas,
-            sprites,
-            width,
+            sprites: bird,
+            width: 30,
             ratio: 12 / 17,
-            x: x || 100,
-            y: y || 100,
+            x: 100,
+            y: 100,
             speed: 0,
             momentum: 2
         }

@@ -1,22 +1,16 @@
-  const canvas = document.querySelector('#app')
-  const ctx = canvas.getContext('2d')
-  const base = document.querySelector('.base')
-  const pipe = document.querySelector('.pipe')
-  const bird = document.querySelector('.bird')
+import Bases from './base/Bases.js'
+import Pipes from './pipe/Pipes.js'
+import Cleaner from './cleaner.js'
+import Bird from './Bird.js'
+import Game from './game.js'
+import setCanvasSize from './setCanvasSize.js'
 
-  canvas.height = window.innerHeight
-  canvas.width = window.innerWidth
+setCanvasSize()
 
-  const baza = new Bases()
-  const rurka = new Pipes()
-  const cleaner = new Cleaner()
-  const ptaszek = new Bird({
-    ctx,
-    canvas,
-    sprites: bird,
-    width: 40,
-  })
-  // controlling all processes
-  const main = new commonW(cleaner, rurka, baza, ptaszek)
-  main.render()
-
+const baza = new Bases()
+const rurka = new Pipes()
+const cleaner = new Cleaner()
+const mainBird = new Bird()
+// controlling all processes
+const main = new Game(cleaner, rurka, baza, mainBird)
+main.create()
