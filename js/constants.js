@@ -10,10 +10,10 @@ const pipeProps = {
 };
 
 const canvasSize = {
-  height: window.innerHeight * 0.9,
-  width: window.innerWidth * 0.5, // for testing
+  height: window.innerHeight * 0.6,
+  width: window.innerWidth * 0.2, // for testing
 };
 
-const distBetwPipes = 200;
+const distBetwPipes = 300; // 200 previous
 
 export { canvas, ctx, base, pipe, bird, distBetwPipes, pipeProps, canvasSize };

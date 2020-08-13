@@ -15,15 +15,15 @@ class Bird {
 
     // Controls
     document.addEventListener('keypress', (event) => {
-      if (event.key === 'w') this.params.momentum = -5;
+      if (event.key === 'w') this.params.momentum = -3.4;
     });
   }
 
   gravity() {
     const { momentum } = this.params;
 
-    if (momentum < 4) {
-      this.params.momentum += 0.1;
+    if (momentum < 5) {
+      this.params.momentum += 0.17;
     }
   }
 

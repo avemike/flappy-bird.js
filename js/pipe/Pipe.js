@@ -5,8 +5,8 @@ class Pipe {
     this.width = width;
     this.height = height;
     this.offsetX = offsetX;
-    const max = 0;
-    const min = 0;
+    const max = -100;
+    const min = -400; // temp, we need to calc this
     this.offsetY = Math.floor(Math.random() * (max - min)) + min;
   }
 
