@@ -1,16 +1,16 @@
-import Bases from './base/Bases.js'
-import Pipes from './pipe/Pipes.js'
-import Cleaner from './cleaner.js'
-import Bird from './Bird.js'
-import Game from './game.js'
-import setCanvasSize from './setCanvasSize.js'
+import Bases from './base/Bases';
+import Pipes from './pipe/Pipes';
+import Bird from './Bird';
+import Game from './Game';
+import setCanvasSize from './setCanvasSize';
 
-setCanvasSize()
+import cleaner from './cleaner';
 
-const baza = new Bases()
-const rurka = new Pipes()
-const cleaner = new Cleaner()
-const mainBird = new Bird()
+setCanvasSize();
+
+const baza = new Bases();
+const rurka = new Pipes();
+const mainBird = new Bird();
 // controlling all processes
-const main = new Game(cleaner, rurka, baza, mainBird)
-main.create()
+const main = new Game(cleaner, rurka, baza, mainBird);
+main.create();

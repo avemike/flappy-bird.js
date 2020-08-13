@@ -1,50 +1,46 @@
-import { ctx, bird } from './constants.js'
+import { ctx, bird } from './constants';
 
-export default class Bird {
-    constructor() {
-        this.params = {
-            ctx,
-            sprites: bird,
-            width: 30,
-            ratio: 12 / 17,
-            x: 100,
-            y: 100,
-            speed: 0,
-            momentum: 2
-        }
-        
-        // Controls
-        document.addEventListener('keypress', (event) => {
-            if(event.key === 'w') this.params.momentum = -5
-        })
-    }
+class Bird {
+  constructor() {
+    this.params = {
+      ctx,
+      sprites: bird,
+      width: 30,
+      ratio: 12 / 17,
+      x: 100,
+      y: 100,
+      speed: 0,
+      momentum: 2,
+    };
 
-    gravity() {
-        let { momentum, y } = this.params;
+    // Controls
+    document.addEventListener('keypress', (event) => {
+      if (event.key === 'w') this.params.momentum = -5;
+    });
+  }
 
-        if(momentum < 4) {
-            this.params.momentum += 0.1
-        }
-    }
-    move() {
-        const { momentum } = this.params;
-        this.params.y += momentum*2;
-    }
-    draw() {
-      this.render()
-      this.gravity()
-      this.move()
-    }
+  gravity() {
+    const { momentum } = this.params;
 
-    render() {
-        const {
-            ctx,
-            sprites,
-            x,
-            y,
-            width,
-            ratio,
-        } = this.params
-        ctx.drawImage(sprites, x, y, width, width * ratio)
+    if (momentum < 4) {
+      this.params.momentum += 0.1;
     }
+  }
+
+  move() {
+    const { momentum } = this.params;
+    this.params.y += momentum * 2;
+  }
+
+  draw() {
+    this.render();
+    this.gravity();
+    this.move();
+  }
+
+  render() {
+    const { sprites, x, y, width, ratio } = this.params;
+    ctx.drawImage(sprites, x, y, width, width * ratio);
+  }
 }
+export default Bird;
