@@ -5,8 +5,19 @@ const pipe = document.querySelector('.pipe');
 const bird = document.querySelector('.bird');
 
 const pipeProps = {
-  width: 52,
-  height: 320,
+  width: pipe.width, // 52,
+  height: pipe.height, // prviously 320,
+  onePipeHeight: (pipe.height - 100) / 2,
+  gap: 100,
+};
+
+const distBetwPipes = 300; // 200 previous
+
+const birdProps = {
+  width: 25,
+  height: (25 * 12) / 17,
+  x: 100,
+  startingY: 25,
 };
 
 const canvasSize = {
@@ -14,6 +25,14 @@ const canvasSize = {
   width: window.innerWidth * 0.2, // for testing
 };
 
-const distBetwPipes = 300; // 200 previous
-
-export { canvas, ctx, base, pipe, bird, distBetwPipes, pipeProps, canvasSize };
+export {
+  canvas,
+  ctx,
+  base,
+  pipe,
+  bird,
+  distBetwPipes,
+  pipeProps,
+  birdProps,
+  canvasSize,
+};

@@ -1,35 +1,33 @@
-import { ctx, bird } from './constants';
+import { ctx, bird, birdProps } from './constants';
 
 class Bird {
   constructor() {
-    this.params = {
-      ctx,
-      sprites: bird,
-      width: 30,
-      ratio: 12 / 17,
-      x: 100,
-      y: 100,
-      speed: 0,
-      momentum: 2,
-    };
+    this.ctx = ctx;
+    this.sprites = bird;
+    this.width = birdProps.width;
+    this.ratio = 12 / 17;
+    this.x = birdProps.x;
+    this.y = birdProps.startingY;
+    this.speed = 0;
+    this.momentum = 2;
 
     // Controls
     document.addEventListener('keypress', (event) => {
-      if (event.key === 'w') this.params.momentum = -3.4;
+      if (event.key === 'w') this.momentum = -3.4;
     });
   }
 
   gravity() {
-    const { momentum } = this.params;
+    const { momentum } = this;
 
     if (momentum < 5) {
-      this.params.momentum += 0.17;
+      this.momentum += 0.17;
     }
   }
 
   move() {
-    const { momentum } = this.params;
-    this.params.y += momentum * 2;
+    const { momentum } = this;
+    this.y += momentum * 2;
   }
 
   draw() {
@@ -39,7 +37,7 @@ class Bird {
   }
 
   render() {
-    const { sprites, x, y, width, ratio } = this.params;
+    const { sprites, x, y, width, ratio } = this;
     ctx.drawImage(sprites, x, y, width, width * ratio);
   }
 }

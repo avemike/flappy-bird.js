@@ -1,12 +1,10 @@
-import { ctx, pipe } from '../constants';
+import { ctx, pipe, pipeProps } from '../constants';
 
 class Pipe {
-  constructor(width, height, offsetX) {
-    this.width = width;
-    this.height = height;
-    this.offsetX = offsetX;
+  constructor(offsetX) {
     const max = -100;
     const min = -400; // temp, we need to calc this
+    this.offsetX = offsetX;
     this.offsetY = Math.floor(Math.random() * (max - min)) + min;
   }
 
@@ -15,7 +13,7 @@ class Pipe {
   }
 
   isOverScreen() {
-    return this.offsetX <= -this.width;
+    return this.offsetX <= -pipeProps.width;
   }
 
   changeOffset() {

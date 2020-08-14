@@ -6,20 +6,14 @@ class Pipes {
     this.pipes = [];
     let i = 0;
     do {
-      this.pipes.push(
-        new Pipe(
-          pipeProps.width,
-          pipeProps.height,
-          canvas.width + distBetwPipes * i
-        )
-      );
+      this.pipes.push(new Pipe(canvas.width + distBetwPipes * i));
       i += 1;
     } while (i * pipeProps.width + (i - 1) * distBetwPipes < canvas.width);
   }
 
   create() {
     const lastPipeOffset = this.pipes[this.pipes.length - 1].offsetX;
-    this.pipes.push(new Pipe(52, 320, lastPipeOffset + distBetwPipes));
+    this.pipes.push(new Pipe(lastPipeOffset + distBetwPipes));
   }
 
   draw() {

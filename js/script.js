@@ -8,9 +8,9 @@ import cleaner from './cleaner';
 
 setCanvasSize();
 
-const baza = new Bases();
-const rurka = new Pipes();
-const mainBird = new Bird();
+const bases = new Bases();
+const pipes = new Pipes();
+const bird = new Bird();
 // controlling all processes
-const main = new Game(cleaner, rurka, baza, mainBird);
+const main = new Game({ cleaner, pipes, bases, bird });
 main.create();
