@@ -11,9 +11,9 @@ const pipeProps = {
   gap: 100,
 };
 
-const backgroundSpeed = 3
-
 const distBetwPipes = 300; // 200 previous
+
+const backgroundSpeed = 3;
 
 const birdProps = {
   width: 25,
@@ -21,12 +21,21 @@ const birdProps = {
   x: 100,
   startingY: 100,
   maxAngle: Math.PI / 2,
-  minAngle: -Math.PI / 7
+  minAngle: -Math.PI / 7,
 };
 
 const canvasSize = {
   height: window.innerHeight * 0.6,
   width: window.innerWidth * 0.2, // for testing
+};
+
+const scoreProps = {
+  font: 'Comic Sans MS',
+  fontSize: 30,
+  get x() {
+    return (canvasSize.width - this.fontSize) / 2
+  },
+  y: 70,
 };
 
 export {
@@ -39,5 +48,6 @@ export {
   distBetwPipes,
   pipeProps,
   birdProps,
+  scoreProps,
   canvasSize,
 };
