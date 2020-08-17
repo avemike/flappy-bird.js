@@ -9,25 +9,28 @@ class Bird {
     this.x = birdProps.x;
     this.y = birdProps.startingY;
     this.speed = 0;
-    this.momentum = 4;
-    this.angle = Math.PI / 4;
+    this.momentum = 2;
+    this.angle = 0;
     // Controls
     document.addEventListener('keypress', (event) => {
-      if (event.key === 'w') this.momentum = -6.8;
+      if (event.key === 'w') this.momentum = -5.8;
     });
   }
 
   gravity() {
+    // console.log(this.momentum)
     if (this.momentum < 10) {
-      this.momentum += 0.34;
+      this.momentum += 0.30;
     }
   }
 
   angleControl() {
-    if (Math.sign(this.momentum) === 1 && this.angle < Math.PI / 3)
-      this.angle += this.momentum / 90;
-    else if (Math.sign(this.momentum) === -1 && this.angle > -Math.PI / 4)
-      this.angle += this.momentum / 70;
+    if (Math.sign(this.momentum) === 1 && this.angle < birdProps.maxAngle)
+      this.angle += this.momentum / 110;
+    else if (Math.sign(this.momentum) === -1 && this.angle > birdProps.minAngle){
+      this.angle += this.momentum / 50;
+      // console.log(this.angle);
+    }
   }
 
   // gravity related movement
@@ -52,4 +55,5 @@ class Bird {
     ctx.restore();
   }
 }
+
 export default Bird;

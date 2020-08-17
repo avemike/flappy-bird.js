@@ -17,7 +17,9 @@ const birdProps = {
   width: 25,
   height: (25 * 12) / 17,
   x: 100,
-  startingY: 25,
+  startingY: 100,
+  maxAngle: Math.PI / 2,
+  minAngle: -Math.PI / 7
 };
 
 const canvasSize = {
