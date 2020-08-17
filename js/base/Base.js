@@ -1,4 +1,4 @@
-import { ctx, base, canvasSize } from '../constants';
+import { ctx, base, canvasSize, backgroundSpeed } from '../constants';
 
 class Base {
   constructor(width, height, offsetX) {
@@ -13,7 +13,7 @@ class Base {
   }
 
   changeOffset() {
-    this.offsetX -= 4;
+    this.offsetX -= backgroundSpeed;
   }
 
   draw() {

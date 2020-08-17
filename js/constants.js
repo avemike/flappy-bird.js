@@ -11,6 +11,8 @@ const pipeProps = {
   gap: 100,
 };
 
+const backgroundSpeed = 3
+
 const distBetwPipes = 300; // 200 previous
 
 const birdProps = {
@@ -33,6 +35,7 @@ export {
   base,
   pipe,
   bird,
+  backgroundSpeed,
   distBetwPipes,
   pipeProps,
   birdProps,

@@ -1,4 +1,4 @@
-import { ctx, pipe, pipeProps } from '../constants';
+import { ctx, pipe, pipeProps, backgroundSpeed } from '../constants';
 
 class Pipe {
   constructor(offsetX) {
@@ -17,7 +17,7 @@ class Pipe {
   }
 
   changeOffset() {
-    this.offsetX -= 3;
+    this.offsetX -= backgroundSpeed;
   }
 
   draw() {
