@@ -17,7 +17,7 @@ class Pipe {
   }
 
   changeOffset() {
-    this.offsetX -= 4;
+    this.offsetX -= 3;
   }
 
   draw() {

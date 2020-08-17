@@ -1,4 +1,4 @@
-import { birdProps, pipeProps } from './constants';
+import { birdProps, pipeProps, pipe } from './constants';
 
 class Game {
   //
@@ -6,6 +6,18 @@ class Game {
     this.drawable = [cleaner, pipes, bases, bird];
     this.bird = bird;
     this.pipes = pipes.pipes;
+    this.score = 0
+    this.bestScore = 0
+  }
+
+  checkScore(){
+    const middleOfPipe = this.pipes[0].offsetX + pipeProps.width / 2
+    const middleOfBird = this.bird.x + birdProps.width / 2
+    const distBetweenBirdAndPipe = middleOfBird - middleOfPipe
+    // console.log(middleOfBird, middleOfPipe)
+    if(distBetweenBirdAndPipe < 3 && distBetweenBirdAndPipe >= 0){
+      console.log('punkt')
+    }
   }
 
   collisionCheck() {
@@ -30,6 +42,7 @@ class Game {
   create() {
     window.requestAnimationFrame(() => {
       this.collisionCheck();
+      this.checkScore()
       // execute all draw animations within given objects
       this.drawable.forEach((object) => {
         object.draw();

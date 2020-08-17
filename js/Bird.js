@@ -28,8 +28,9 @@ class Bird {
     if (Math.sign(this.momentum) === 1 && this.angle < birdProps.maxAngle)
       this.angle += this.momentum / 110;
     else if (Math.sign(this.momentum) === -1 && this.angle > birdProps.minAngle){
-      this.angle += this.momentum / 50;
-      // console.log(this.angle);
+      const missingAngle = (birdProps.minAngle - this.angle) / 3
+      this.angle += missingAngle
+      // this.angle += this.momentum / 50;
     }
   }
 
