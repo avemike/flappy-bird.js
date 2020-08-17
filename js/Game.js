@@ -1,4 +1,4 @@
-import { birdProps, pipeProps, pipe, ctx, canvasSize, scoreProps } from './constants';
+import { birdProps, pipeProps, ctx, scoreProps } from './constants';
 
 class Game {
   constructor({ cleaner, pipes, bases, bird }) {
@@ -7,15 +7,16 @@ class Game {
     this.pipes = pipes.pipes;
     this.collided = false;
     this.score = 0;
-    this.bestScore = 0;
+    this.highscore = 0;
   }
 
+  // check if bird is in the middle of the closest pipe and is not colliding with it
+  
   checkScore() {
     const middleOfPipe = this.pipes[0].offsetX + pipeProps.width / 2;
     const middleOfBird = this.bird.x + birdProps.width / 2;
     const distBetweenBirdAndPipe = middleOfBird - middleOfPipe;
 
-    // check if bird is in the middle of the closest pipe and is not colliding with it
     if (
       distBetweenBirdAndPipe < 3 &&
       distBetweenBirdAndPipe >= 0 &&
@@ -32,8 +33,11 @@ class Game {
   }
 
   updateScore() {
-    if (this.checkScore() === true) {
+    if (this.checkScore() == true) {
       this.score += 1;
+      if(this.score > this.highscore){
+        this.highscore = this.score
+      }
     }
     this.renderScore();
   }
@@ -66,10 +70,11 @@ class Game {
       this.drawable.forEach((object) => {
         object.draw();
       });
-
+      
       this.updateScore();
       this.create();
     });
   }
 }
+
 export default Game;

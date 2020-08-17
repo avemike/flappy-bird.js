@@ -34,6 +34,10 @@ class Bird {
     }
   }
 
+  die(){
+    
+  }
+
   // gravity related movement
   move() {
     const { momentum } = this;
