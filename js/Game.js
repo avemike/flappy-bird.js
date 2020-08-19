@@ -12,7 +12,7 @@ class Game {
 
   // check if bird is in the middle of the closest pipe and is not colliding with it
   
-  checkScore() {
+  checkIfScored() {
     const middleOfPipe = this.pipes[0].offsetX + pipeProps.width / 2;
     const middleOfBird = this.bird.x + birdProps.width / 2;
     const distBetweenBirdAndPipe = middleOfBird - middleOfPipe;
@@ -33,7 +33,7 @@ class Game {
   }
 
   updateScore() {
-    if (this.checkScore() == true) {
+    if (this.checkIfScored() == true) {
       this.score += 1;
       if(this.score > this.highscore){
         this.highscore = this.score
