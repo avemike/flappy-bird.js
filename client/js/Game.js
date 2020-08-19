@@ -11,7 +11,7 @@ class Game {
   }
 
   // check if bird is in the middle of the closest pipe and is not colliding with it
-  
+
   checkIfScored() {
     const middleOfPipe = this.pipes[0].offsetX + pipeProps.width / 2;
     const middleOfBird = this.bird.x + birdProps.width / 2;
@@ -20,23 +20,24 @@ class Game {
     if (
       distBetweenBirdAndPipe < 3 &&
       distBetweenBirdAndPipe >= 0 &&
-      this.collided == false
+      this.collided === false
     ) {
       return true;
     }
+    return false;
   }
 
   renderScore() {
     ctx.fillStyle = 'black';
-    ctx.font = `${scoreProps.fontSize}px ${scoreProps.font}`
+    ctx.font = `${scoreProps.fontSize}px ${scoreProps.font}`;
     ctx.fillText(this.score, scoreProps.x, scoreProps.y);
   }
 
   updateScore() {
-    if (this.checkIfScored() == true) {
+    if (this.checkIfScored() === true) {
       this.score += 1;
-      if(this.score > this.highscore){
-        this.highscore = this.score
+      if (this.score > this.highscore) {
+        this.highscore = this.score;
       }
     }
     this.renderScore();
@@ -70,7 +71,7 @@ class Game {
       this.drawable.forEach((object) => {
         object.draw();
       });
-      
+
       this.updateScore();
       this.create();
     });
