@@ -1,41 +1,42 @@
 import { ctx, bird, birdProps } from './constants';
 
 class Bird {
-  constructor() {
+  constructor(socket) {
     this.ctx = ctx;
     this.sprites = bird;
     this.width = birdProps.width;
     this.height = birdProps.height;
     this.x = birdProps.x;
     this.y = birdProps.startingY;
-    this.speed = 0;
     this.momentum = 2;
     this.angle = 0;
+    this.socket = socket;
+
+    this.socket.on('bird', (birdData) => {
+      this.x = birdData.x;
+      this.y = birdData.y;
+      this.momentum = birdData.momentum;
+    });
+
     // Controls
     document.addEventListener('keypress', (event) => {
-      if (event.key === 'w') this.momentum = -5.8;
+      if (event.key === 'w') {
+        this.socket.emit('jump');
+      }
     });
   }
 
-  gravity() {
-    // console.log(this.momentum)
-    if (this.momentum < 10) {
-      this.momentum += 0.30;
-    }
-  }
-
   angleControl() {
-    if (Math.sign(this.momentum) === 1 && this.angle < birdProps.maxAngle){
+    if (Math.sign(this.momentum) === 1 && this.angle < birdProps.maxAngle) {
       this.angle += this.momentum / 120;
-    } else if (Math.sign(this.momentum) === -1 && this.angle > birdProps.minAngle){
-      const missingAngle = (birdProps.minAngle - this.angle) / 3
-      this.angle += missingAngle
+    } else if (
+      Math.sign(this.momentum) === -1 &&
+      this.angle > birdProps.minAngle
+    ) {
+      const missingAngle = (birdProps.minAngle - this.angle) / 3;
+      this.angle += missingAngle;
       // this.angle += this.momentum / 50;
     }
-  }
-
-  die(){
-    
   }
 
   // gravity related movement
@@ -46,9 +47,7 @@ class Bird {
 
   draw() {
     this.render();
-    this.gravity();
     this.angleControl();
-    this.move();
   }
 
   render() {

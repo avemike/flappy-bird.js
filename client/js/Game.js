@@ -1,17 +1,17 @@
 import { birdProps, pipeProps, ctx, scoreProps } from './constants';
 
 class Game {
-  constructor({ cleaner, pipes, bases, bird }) {
+  constructor({ cleaner, pipes, bases, bird, socket }) {
     this.drawable = [cleaner, pipes, bases, bird];
     this.bird = bird;
     this.pipes = pipes.pipes;
     this.collided = false;
     this.score = 0;
     this.highscore = 0;
+    this.socket = socket;
   }
 
   // check if bird is in the middle of the closest pipe and is not colliding with it
-
   checkIfScored() {
     const middleOfPipe = this.pipes[0].offsetX + pipeProps.width / 2;
     const middleOfBird = this.bird.x + birdProps.width / 2;
@@ -66,6 +66,7 @@ class Game {
 
   create() {
     window.requestAnimationFrame(() => {
+      this.socket.emit('frame');
       this.collisionCheck();
       // execute all draw animations within given objects
       this.drawable.forEach((object) => {
