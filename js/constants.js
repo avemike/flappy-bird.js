@@ -3,6 +3,7 @@ const ctx = canvas.getContext('2d');
 const base = document.querySelector('.base');
 const pipe = document.querySelector('.pipe');
 const bird = document.querySelector('.bird');
+const birdStates = document.querySelectorAll('.bird')
 
 const pipeProps = {
   width: pipe.width, // 52,
@@ -44,6 +45,7 @@ export {
   base,
   pipe,
   bird,
+  birdStates,
   backgroundSpeed,
   distBetwPipes,
   pipeProps,
