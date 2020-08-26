@@ -1,9 +1,10 @@
 class Bird {
-  constructor() {
+  constructor(id) {
     this.data = {
       x: 100,
       y: 100,
       momentum: 2,
+      id,
     };
   }
 

@@ -1,8 +1,8 @@
 import { birdProps, pipeProps, ctx, scoreProps } from './constants';
 
 class Game {
-  constructor({ cleaner, pipes, bases, bird, socket }) {
-    this.drawable = [cleaner, pipes, bases, bird];
+  constructor({ cleaner, pipes, bases, bird, enemyBirdsFactory, socket }) {
+    this.drawable = [cleaner, pipes, bases, bird, enemyBirdsFactory];
     this.bird = bird;
     this.pipes = pipes.pipes;
     this.collided = false;

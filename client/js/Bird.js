@@ -1,22 +1,34 @@
 import { ctx, bird, birdProps } from './constants';
 
 class Bird {
-  constructor(socket) {
+  constructor({ type, socket, birdData }) {
     this.ctx = ctx;
     this.sprites = bird;
     this.width = birdProps.width;
     this.height = birdProps.height;
-    this.x = birdProps.x;
-    this.y = birdProps.startingY;
-    this.momentum = 2;
+    this.x = birdData ? birdData.x : birdProps.x;
+    this.y = birdData ? birdData.y : birdProps.startingY;
+    this.momentum = birdData ? birdData.momentum : 2;
     this.angle = 0;
+    this.type = type;
+
+    // skip rest if instance belongs to enemy
+    if (type === 'enemy') return;
+
     this.socket = socket;
 
-    this.socket.on('bird', (birdData) => {
-      this.x = birdData.x;
-      this.y = birdData.y;
-      this.momentum = birdData.momentum;
+    // SET SOCKET
+    this.socket.on('bird', (data) => {
+      this.x = data.x;
+      this.y = data.y;
+      this.momentum = data.momentum;
     });
+
+    // TEMP - DEBUGGING
+    setInterval(() => {
+      this.socket.emit('jump');
+    }, 670);
+    // TEMP
 
     // Controls
     document.addEventListener('keypress', (event) => {
@@ -43,6 +55,12 @@ class Bird {
   move() {
     const { momentum } = this;
     this.y += momentum;
+  }
+
+  // for enemy birds, updates position
+  update(data) {
+    this.y = data.y;
+    this.momentum = data.momentum;
   }
 
   draw() {
