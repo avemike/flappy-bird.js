@@ -1,27 +1,27 @@
-import Bird from './Bird';
+import EnemyBird from './birds/EnemyBird';
 
 // EnemyBirdsFactory creates new EnemyBirds and updates existing ones
 class EnemyBirdsFactory {
   constructor(socket) {
     this.storedBirds = {};
 
-    socket.on('otherBird', (birdData) => {
-      this.use(birdData);
+    socket.on('otherBird', (bird) => {
+      this.use(bird);
     });
     socket.on('otherBirdDc', (birdId) => {
       delete this.storedBirds[birdId];
     });
   }
 
-  use(birdData) {
-    if (!this.storedBirds[birdData.id]) {
+  use(bird) {
+    if (!this.storedBirds[bird.id]) {
       // create new bird
-      const newBird = new Bird({ type: 'enemy', birdData });
-      this.storedBirds[birdData.id] = newBird;
+      const newBird = new EnemyBird({ bird });
+      this.storedBirds[bird.id] = newBird;
       return;
     }
     // update existing bird
-    this.storedBirds[birdData.id].update(birdData);
+    this.storedBirds[bird.id].update(bird);
   }
 
   draw() {
