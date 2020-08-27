@@ -1,7 +1,7 @@
 import io from 'socket.io-client';
 
 import Bases from './base/Bases';
-import Pipes from './pipe/Pipes';
+import PipesFactory from './PipesFactory';
 import Game from './Game';
 import setCanvasSize from './setCanvasSize';
 import cleaner from './cleaner';
@@ -14,12 +14,12 @@ const socket = io('http://localhost:3000');
 
 const enemyBirdsFactory = new EnemyBirdsFactory(socket);
 const bases = new Bases();
-const pipes = new Pipes();
+const pipesFactory = new PipesFactory(socket);
 const bird = new PlayerBird({ socket });
 // controlling all processes
 const main = new Game({
   cleaner,
-  pipes,
+  pipes: pipesFactory,
   bases,
   bird,
   enemyBirdsFactory,

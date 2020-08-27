@@ -67,12 +67,13 @@ class Game {
   create() {
     window.requestAnimationFrame(() => {
       this.socket.emit('frame');
-      this.collisionCheck();
+      // this.collisionCheck(); // TEMP
+
       // execute all draw animations within given objects
       this.drawable.forEach((object) => {
         object.draw();
       });
-      this.updateScore();
+      // this.updateScore(); // TEMP
       this.create();
     });
   }

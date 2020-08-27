@@ -4,6 +4,7 @@ const app = express();
 const http = require('http').createServer(app);
 const socketio = require('socket.io')(http);
 
+const PipesControls = require('./PipesControls');
 const BirdControls = require('./BirdControls');
 
 app.use(express.static('dist'));
@@ -16,6 +17,8 @@ const autoIncrementId = (() => {
   };
 })();
 
+const pipes = new PipesControls();
+
 socketio.on('connection', (socket) => {
   // user has connected
   const bird = new BirdControls(autoIncrementId());
@@ -26,6 +29,8 @@ socketio.on('connection', (socket) => {
   // every frame event
   socket.on('frame', () => {
     bird.gravity();
+    pipes.run();
+    socket.emit('pipes', pipes.data);
     socket.emit('bird', bird.data);
     socket.broadcast.emit('otherBird', bird.data);
   });

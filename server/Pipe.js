@@ -1,4 +1,4 @@
-import { ctx, pipe, pipeProps, backgroundSpeed } from '../constants';
+const { pipeProps, backgroundSpeed } = require('./constants');
 
 class Pipe {
   constructor(offsetX) {
@@ -6,10 +6,6 @@ class Pipe {
     const min = -400; // temp, we need to calc this
     this.offsetX = offsetX;
     this.offsetY = Math.floor(Math.random() * (max - min)) + min;
-  }
-
-  render() {
-    ctx.drawImage(pipe, this.offsetX, this.offsetY);
   }
 
   isOverScreen() {
@@ -20,10 +16,9 @@ class Pipe {
     this.offsetX -= backgroundSpeed;
   }
 
-  draw() {
+  run() {
     this.changeOffset();
-    this.render();
   }
 }
 
-export default Pipe;
+module.exports = Pipe;
