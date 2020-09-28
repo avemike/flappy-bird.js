@@ -1,12 +1,19 @@
-const pipeProps = {
-  width: 52,
-  height: 968,
-  gap: 100,
-  onePipeHeight: (968 - 100) / 2,
+const PIPE_PROPS = {
+  WIDTH: 52,
+  HEIGHT: 968,
+  GAP: 100,
+  ONE_PIPE_HEIGHT: (968 - 100) / 2,
 };
 
-const distBetwPipes = 300;
+const DIST_BETW_PIPES = 300;
 
-const backgroundSpeed = 3;
+const BACKGROUND_SPEED = 3;
 
-module.exports = { backgroundSpeed, distBetwPipes, pipeProps };
+const UPDATE_MILLISECONDS = 16;
+
+module.exports = {
+  BACKGROUND_SPEED,
+  DIST_BETW_PIPES,
+  PIPE_PROPS,
+  UPDATE_MILLISECONDS,
+};

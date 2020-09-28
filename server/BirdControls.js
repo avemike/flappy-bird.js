@@ -1,4 +1,4 @@
-class Bird {
+class BirdControls {
   constructor(id) {
     this.data = {
       x: 100,
@@ -21,4 +21,4 @@ class Bird {
   }
 }
 
-module.exports = Bird;
+module.exports = { BirdControls };

@@ -1,11 +1,11 @@
-const Pipe = require('./Pipe');
+const { Pipe } = require('./Pipe');
+const { DIST_BETW_PIPES } = require('./constants');
 
 class PipesControls {
   constructor() {
     this.pipes = [];
-    this.distBetwPipes = 300;
     for (let i = 0; i < 7; i += 1) {
-      this.pipes.push(new Pipe(1000 + this.distBetwPipes * i));
+      this.pipes.push(new Pipe(1000 + DIST_BETW_PIPES * i));
     }
   }
 
@@ -18,7 +18,7 @@ class PipesControls {
 
   create() {
     const lastPipeOffsetX = this.pipes[this.pipes.length - 1].offsetX;
-    this.pipes.push(new Pipe(lastPipeOffsetX + this.distBetwPipes));
+    this.pipes.push(new Pipe(lastPipeOffsetX + DIST_BETW_PIPES));
   }
 
   // run every frame
@@ -33,4 +33,4 @@ class PipesControls {
   }
 }
 
-module.exports = PipesControls;
+module.exports = { PipesControls };

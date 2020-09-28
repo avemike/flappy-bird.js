@@ -22,7 +22,7 @@
     "eslint": "eslint --fix client/*",
     "dev": "parcel client/index.html",
     "build": "parcel build client/index.html",
-    "server": "parcel build client/index.html && node server/index.js"
+    "server": "parcel build client/index.html && nodemon server/index.js"
   },
   "repository": {
     "type": "git",

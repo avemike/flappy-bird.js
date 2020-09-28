@@ -1,4 +1,4 @@
-const { pipeProps, backgroundSpeed } = require('./constants');
+const { PIPE_PROPS, BACKGROUND_SPEED } = require('./constants');
 
 class Pipe {
   constructor(offsetX) {
@@ -9,11 +9,11 @@ class Pipe {
   }
 
   isOverScreen() {
-    return this.offsetX <= -pipeProps.width;
+    return this.offsetX <= -PIPE_PROPS.WIDTH;
   }
 
   changeOffset() {
-    this.offsetX -= backgroundSpeed;
+    this.offsetX -= BACKGROUND_SPEED;
   }
 
   run() {
@@ -21,4 +21,4 @@ class Pipe {
   }
 }
 
-module.exports = Pipe;
+module.exports = { Pipe };
