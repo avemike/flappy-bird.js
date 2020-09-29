@@ -1,17 +1,17 @@
 import { birdProps, pipeProps, ctx, scoreProps } from './constants';
 
 class Game {
-  constructor({ cleaner, pipes, bases, bird }) {
-    this.drawable = [cleaner, pipes, bases, bird];
+  constructor({ cleaner, pipes, bases, bird, enemyBirdsFactory, socket }) {
+    this.drawable = [cleaner, pipes, bases, enemyBirdsFactory, bird];
     this.bird = bird;
     this.pipes = pipes.pipes;
     this.collided = false;
     this.score = 0;
     this.highscore = 0;
+    this.socket = socket;
   }
 
   // check if bird is in the middle of the closest pipe and is not colliding with it
-  
   checkIfScored() {
     const middleOfPipe = this.pipes[0].offsetX + pipeProps.width / 2;
     const middleOfBird = this.bird.x + birdProps.width / 2;
@@ -20,23 +20,24 @@ class Game {
     if (
       distBetweenBirdAndPipe < 3 &&
       distBetweenBirdAndPipe >= 0 &&
-      this.collided == false
+      this.collided === false
     ) {
       return true;
     }
+    return false;
   }
 
   renderScore() {
     ctx.fillStyle = 'black';
-    ctx.font = `${scoreProps.fontSize}px ${scoreProps.font}`
+    ctx.font = `${scoreProps.fontSize}px ${scoreProps.font}`;
     ctx.fillText(this.score, scoreProps.x, scoreProps.y);
   }
 
   updateScore() {
-    if (this.checkIfScored() == true) {
+    if (this.checkIfScored() === true) {
       this.score += 1;
-      if(this.score > this.highscore){
-        this.highscore = this.score
+      if (this.score > this.highscore) {
+        this.highscore = this.score;
       }
     }
     this.renderScore();
@@ -65,13 +66,14 @@ class Game {
 
   create() {
     window.requestAnimationFrame(() => {
-      this.collisionCheck();
+      this.socket.emit('frame');
+      // this.collisionCheck(); // TEMP
+
       // execute all draw animations within given objects
       this.drawable.forEach((object) => {
         object.draw();
       });
-      
-      this.updateScore();
+      // this.updateScore(); // TEMP
       this.create();
     });
   }

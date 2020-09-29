@@ -2,8 +2,7 @@ const canvas = document.querySelector('#app');
 const ctx = canvas.getContext('2d');
 const base = document.querySelector('.base');
 const pipe = document.querySelector('.pipe');
-const bird = document.querySelector('.bird');
-const birdStates = document.querySelectorAll('.bird')
+const birdStates = document.querySelectorAll('.bird');
 
 const pipeProps = {
   width: pipe.width, // 52,
@@ -34,7 +33,7 @@ const scoreProps = {
   font: 'Comic Sans MS',
   fontSize: 30,
   get x() {
-    return (canvasSize.width - this.fontSize) / 2
+    return (canvasSize.width - this.fontSize) / 2;
   },
   y: 70,
 };
@@ -44,7 +43,6 @@ export {
   ctx,
   base,
   pipe,
-  bird,
   birdStates,
   backgroundSpeed,
   distBetwPipes,

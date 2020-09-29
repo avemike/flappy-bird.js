@@ -1,0 +1,25 @@
+const PIPE_PROPS = {
+  WIDTH: 52,
+  HEIGHT: 968,
+  GAP: 100,
+  ONE_PIPE_HEIGHT: (968 - 100) / 2,
+};
+
+const BIRD_PROPS = {
+  WIDTH: 25,
+  HEIGHT: (25 * 12) / 17,
+};
+
+const DIST_BETW_PIPES = 300;
+
+const BACKGROUND_SPEED = 3;
+
+const UPDATE_MILLISECONDS = 16;
+
+module.exports = {
+  BACKGROUND_SPEED,
+  DIST_BETW_PIPES,
+  PIPE_PROPS,
+  BIRD_PROPS,
+  UPDATE_MILLISECONDS,
+};

@@ -1,4 +1,4 @@
-import { ctx, birdStates, birdProps } from './constants';
+import { ctx, birdProps, birdStates } from '../constants';
 
 class Bird {
   constructor() {
@@ -6,24 +6,9 @@ class Bird {
     this.sprites = birdStates;
     this.width = birdProps.width;
     this.height = birdProps.height;
-    this.x = birdProps.x;
-    this.y = birdProps.startingY;
-    this.speed = 0;
-    this.momentum = 2;
     this.angle = 0;
     this.state = 0;
-    this.i = 0
-    // Controls
-    document.addEventListener('keypress', (event) => {
-      if (event.key === 'w') this.momentum = -5.8;
-    });
-  }
-
-  gravity() {
-    // console.log(this.momentum)
-    if (this.momentum < 10) {
-      this.momentum += 0.3;
-    }
+    this.i = 0;
   }
 
   angleControl() {
@@ -35,21 +20,16 @@ class Bird {
     ) {
       const missingAngle = (birdProps.minAngle - this.angle) / 3;
       this.angle += missingAngle;
-      // this.angle += this.momentum / 50;
     }
   }
 
-  die() {}
-
-  // gravity related movement
-  move() {
-    const { momentum } = this;
-    this.y += momentum;
+  draw() {
+    this.render();
+    this.angleControl();
   }
 
   render() {
     const { sprites, x, y, width, height } = this;
-
     const renderSelectedState = (state) => {
       ctx.save();
       ctx.translate(x + width / 2, y + height / 2);
@@ -58,8 +38,8 @@ class Bird {
       ctx.restore();
     };
 
-    this.i += 1
-    if( this.i % 5 == 0){
+    this.i += 1;
+    if (this.i % 5 === 0) {
       if (this.state < 2) {
         this.state += 1;
       } else {
@@ -68,14 +48,6 @@ class Bird {
     }
 
     renderSelectedState(this.state);
-
-  }
-
-  draw() {
-    this.render();
-    this.gravity();
-    this.angleControl();
-    this.move();
   }
 }
 
