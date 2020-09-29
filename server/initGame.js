@@ -1,6 +1,7 @@
 const { PipesControls } = require('./PipesControls');
 const { BirdControls } = require('./BirdControls');
 const { FrameHandler } = require('./FrameHandler');
+const { checkCollisions } = require('./checkCollisions');
 
 const frameControl = new FrameHandler();
 
@@ -14,6 +15,7 @@ module.exports.initGame = (socketio) => {
     const bird = new BirdControls(socket.id);
 
     frameControl.addCallback(bird.gravity.bind(bird));
+    frameControl.addCallback(() => checkCollisions(bird.data, pipes.data));
 
     socket.emit('bird', bird.data);
     socket.broadcast.emit('otherBird', bird.data);

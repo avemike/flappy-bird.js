@@ -5,6 +5,11 @@ const PIPE_PROPS = {
   ONE_PIPE_HEIGHT: (968 - 100) / 2,
 };
 
+const BIRD_PROPS = {
+  WIDTH: 25,
+  HEIGHT: (25 * 12) / 17,
+};
+
 const DIST_BETW_PIPES = 300;
 
 const BACKGROUND_SPEED = 3;
@@ -15,5 +20,6 @@ module.exports = {
   BACKGROUND_SPEED,
   DIST_BETW_PIPES,
   PIPE_PROPS,
+  BIRD_PROPS,
   UPDATE_MILLISECONDS,
 };
