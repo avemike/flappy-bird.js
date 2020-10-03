@@ -1,4 +1,4 @@
-const { UPDATE_MILLISECONDS } = require('./constants');
+const { UPDATE_MILLISECONDS } = require('../../configs/game');
 
 class FrameHandler {
   constructor() {

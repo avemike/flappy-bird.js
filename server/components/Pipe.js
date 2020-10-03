@@ -1,4 +1,4 @@
-const { PIPE_PROPS, BACKGROUND_SPEED } = require('./constants');
+const { PIPE_PROPS, BACKGROUND_SPEED } = require('../../configs/game');
 
 class Pipe {
   constructor(offsetX) {

@@ -1,7 +1,7 @@
-const { PipesControls } = require('./PipesControls');
-const { BirdControls } = require('./BirdControls');
-const { FrameHandler } = require('./FrameHandler');
-const { checkCollisions } = require('./checkCollisions');
+const { PipesControls } = require('./components/PipesControls');
+const { BirdControls } = require('./components/BirdControls');
+const { FrameHandler } = require('./utils/FrameHandler');
+const { checkCollisions } = require('./utils/checkCollisions');
 
 const frameControl = new FrameHandler();
 

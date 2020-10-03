@@ -1,4 +1,4 @@
-const { BIRD_PROPS, PIPE_PROPS } = require('./constants.js');
+const { BIRD_PROPS, PIPE_PROPS } = require('../../configs/game.js');
 
 module.exports.checkCollisions = (bird, pipes) => {
   // check if bird is too far away for collision
