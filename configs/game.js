@@ -8,16 +8,18 @@ const PIPE_PROPS = {
 const BIRD_PROPS = {
   WIDTH: 25,
   HEIGHT: (25 * 12) / 17,
+  X: 100,
+  STARTING_Y: 100,
+  MAX_ANGLE: Math.PI / 2,
+  MIN_ANGLE: -Math.PI / 7,
 };
 
 const DIST_BETW_PIPES = 300;
-
-const BACKGROUND_SPEED = 3;
-
+const BG_SPEED = 3;
 const UPDATE_MILLISECONDS = 16;
 
 module.exports = {
-  BACKGROUND_SPEED,
+  BG_SPEED,
   DIST_BETW_PIPES,
   PIPE_PROPS,
   BIRD_PROPS,

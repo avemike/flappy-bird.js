@@ -1,4 +1,4 @@
-const { PIPE_PROPS, BACKGROUND_SPEED } = require('../../configs/game');
+const { PIPE_PROPS, BG_SPEED } = require('../../configs/game');
 
 class Pipe {
   constructor(offsetX) {
@@ -13,7 +13,7 @@ class Pipe {
   }
 
   changeOffset() {
-    this.offsetX -= BACKGROUND_SPEED;
+    this.offsetX -= BG_SPEED;
   }
 
   run() {

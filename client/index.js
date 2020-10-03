@@ -1,12 +1,12 @@
 import io from 'socket.io-client';
 
-import Bases from './base/Bases';
-import PipesFactory from './PipesFactory';
 import Game from './Game';
-import setCanvasSize from './setCanvasSize';
-import cleaner from './cleaner';
-import EnemyBirdsFactory from './EnemyBirdsFactory';
-import PlayerBird from './birds/PlayerBird';
+import EnemyBirdsFactory from './factories/EnemyBirdsFactory';
+import PipesFactory from './factories/PipesFactory';
+import Bases from './components/Bases';
+import PlayerBird from './components/PlayerBird';
+import setCanvasSize from './utils/setCanvasSize';
+import cleaner from './utils/cleaner';
 
 setCanvasSize();
 

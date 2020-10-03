@@ -1,19 +1,20 @@
-import { ctx, base, canvasSize, backgroundSpeed } from '../constants';
+import { CTX, BASE_SPR, CANVAS_SIZE } from '../../configs/canvas';
+import { BG_SPEED } from '../../configs/game';
 
 class Base {
   constructor(width, height, offsetX) {
     this.width = width;
     this.height = height;
     this.offsetX = offsetX;
-    this.offsetY = canvasSize.height - this.height;
+    this.offsetY = CANVAS_SIZE.HEIGHT - this.height;
   }
 
   render() {
-    ctx.drawImage(base, this.offsetX, this.offsetY);
+    CTX.drawImage(BASE_SPR, this.offsetX, this.offsetY);
   }
 
   changeOffset() {
-    this.offsetX -= backgroundSpeed;
+    this.offsetX -= BG_SPEED;
   }
 
   draw() {

@@ -1,4 +1,6 @@
-import { birdProps, pipeProps, ctx, scoreProps } from './constants';
+import { BIRD_PROPS, PIPE_PROPS } from '../configs/game';
+import { CTX } from '../configs/canvas';
+import { SCORE_PROPS } from '../configs/score';
 
 class Game {
   constructor({ cleaner, pipes, bases, bird, enemyBirdsFactory, socket }) {
@@ -13,8 +15,8 @@ class Game {
 
   // check if bird is in the middle of the closest pipe and is not colliding with it
   checkIfScored() {
-    const middleOfPipe = this.pipes[0].offsetX + pipeProps.width / 2;
-    const middleOfBird = this.bird.x + birdProps.width / 2;
+    const middleOfPipe = this.pipes[0].offsetX + PIPE_PROPS.WIDTH / 2;
+    const middleOfBird = this.bird.x + BIRD_PROPS.WIDTH / 2;
     const distBetweenBirdAndPipe = middleOfBird - middleOfPipe;
 
     if (
@@ -28,9 +30,9 @@ class Game {
   }
 
   renderScore() {
-    ctx.fillStyle = 'black';
-    ctx.font = `${scoreProps.fontSize}px ${scoreProps.font}`;
-    ctx.fillText(this.score, scoreProps.x, scoreProps.y);
+    CTX.fillStyle = 'black';
+    CTX.font = `${SCORE_PROPS.FONT_SIZE}px ${SCORE_PROPS.FONT}`;
+    CTX.fillText(this.score, SCORE_PROPS.X, SCORE_PROPS.Y);
   }
 
   updateScore() {
@@ -43,31 +45,9 @@ class Game {
     this.renderScore();
   }
 
-  collisionCheck() {
-    // check if bird is too far away for collision
-    if (
-      this.bird.x + birdProps.width < this.pipes[0].offsetX ||
-      this.bird.x > this.pipes[0].offsetX + pipeProps.width
-    ) {
-      this.collided = false;
-      return;
-    }
-
-    const topBird = this.bird.y;
-    const bottomBird = this.bird.y + birdProps.height;
-    const topGap = this.pipes[0].offsetY + pipeProps.onePipeHeight;
-    const bottomGap = topGap + pipeProps.gap;
-
-    // check if bird is colliding
-    if (!(topBird > topGap && bottomBird < bottomGap)) {
-      this.collided = true;
-    }
-  }
-
   create() {
     window.requestAnimationFrame(() => {
       this.socket.emit('frame');
-      // this.collisionCheck(); // TEMP
 
       // execute all draw animations within given objects
       this.drawable.forEach((object) => {
