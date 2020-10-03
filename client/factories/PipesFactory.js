@@ -1,4 +1,4 @@
-import { ctx, pipe as pipeImg } from './constants';
+import { CTX, PIPE_SPR } from '../../configs/canvas';
 
 class PipesFactory {
   constructor(socket) {
@@ -11,7 +11,7 @@ class PipesFactory {
 
   draw() {
     this.pipes.forEach((pipe) => {
-      ctx.drawImage(pipeImg, pipe.offsetX, pipe.offsetY);
+      CTX.drawImage(PIPE_SPR, pipe.offsetX, pipe.offsetY);
     });
   }
 }

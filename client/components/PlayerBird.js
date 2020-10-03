@@ -1,11 +1,11 @@
 import Bird from './Bird';
-import { birdProps } from '../constants';
+import { BIRD_PROPS } from '../../configs/game';
 
 class PlayerBird extends Bird {
   constructor({ socket }) {
     super();
-    this.x = birdProps.x;
-    this.y = birdProps.y;
+    this.x = BIRD_PROPS.X;
+    this.y = BIRD_PROPS.Y;
     this.momentum = 2;
 
     this.socket = socket;

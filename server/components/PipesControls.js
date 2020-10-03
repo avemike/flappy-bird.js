@@ -1,5 +1,5 @@
 const { Pipe } = require('./Pipe');
-const { DIST_BETW_PIPES } = require('./constants');
+const { DIST_BETW_PIPES } = require('../../configs/game');
 
 class PipesControls {
   constructor() {

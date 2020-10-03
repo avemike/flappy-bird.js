@@ -1,4 +1,4 @@
-import EnemyBird from './birds/EnemyBird';
+import EnemyBird from '../components/EnemyBird';
 
 // EnemyBirdsFactory creates new EnemyBirds and updates existing ones
 class EnemyBirdsFactory {
