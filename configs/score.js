@@ -1,4 +1,4 @@
-import CANVAS_SIZE from './canvas';
+import { CANVAS_SIZE } from './canvas';
 
 export const SCORE_PROPS = {
   FONT: 'Comic Sans MS',

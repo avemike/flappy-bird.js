@@ -2,13 +2,14 @@
   "name": "flappy-bird",
   "version": "1.0.0",
   "description": "2P flappy bird in JS",
-  "main": "index.js",
+  "main": "dist/index.html",
   "dependencies": {
     "express": "^4.17.1",
     "socket.io": "^2.3.0",
     "socket.io-client": "^2.3.1"
   },
   "devDependencies": {
+    "cssnano": "^4.1.10",
     "eslint": "^7.10.0",
     "eslint-config-airbnb": "^18.2.0",
     "eslint-config-airbnb-base": "^14.2.0",
@@ -20,7 +21,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "eslint": "eslint --fix client/*",
-    "dev": "parcel client/index.html",
+    "dev": "parcel public/index.html",
     "build": "parcel build public/index.html",
     "server": "parcel build public/index.html && nodemon server/index.js"
   },
