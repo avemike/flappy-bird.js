@@ -25,4 +25,5 @@ const main = new Game({
   enemyBirdsFactory,
   socket,
 });
+
 main.create();

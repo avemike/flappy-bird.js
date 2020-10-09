@@ -22,6 +22,7 @@ module.exports.initGame = (socketio) => {
 
     // every frame sends needed data to client
     socket.on('frame', () => {
+      bird.updateScore(pipes.data);
       socket.emit('pipes', pipes.data);
       socket.emit('bird', bird.data);
       socket.broadcast.emit('otherBird', bird.data);

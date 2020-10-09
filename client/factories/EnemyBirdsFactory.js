@@ -14,6 +14,7 @@ class EnemyBirdsFactory {
   }
 
   use(bird) {
+    console.log(bird.id);
     if (!this.storedBirds[bird.id]) {
       // create new bird
       const newBird = new EnemyBird({ bird });
