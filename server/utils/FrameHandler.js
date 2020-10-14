@@ -12,6 +12,10 @@ class FrameHandler {
   addCallback(callback) {
     this.callbacks.push(callback);
   }
+
+  reset() {
+    this.callbacks = [];
+  }
 }
 
 module.exports = { FrameHandler };

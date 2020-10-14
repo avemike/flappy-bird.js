@@ -23,9 +23,13 @@ class Bird {
     }
   }
 
-  draw() {
-    this.render();
-    this.angleControl();
+  draw(state) {
+    if (state == 'running') {
+      this.render();
+    } else {
+      this.render();
+      this.angleControl();
+    }
   }
 
   render() {

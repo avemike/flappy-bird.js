@@ -8,7 +8,7 @@ class PlayerBird extends Bird {
     this.y = BIRD_PROPS.Y;
     this.momentum = 2;
     this.score = 0;
-
+    this.collision = false;
     this.socket = socket;
 
     // TEMP - DEBUGGING
@@ -29,6 +29,7 @@ class PlayerBird extends Bird {
       this.y = data.y;
       this.momentum = data.momentum;
       this.score = data.score;
+      this.collision = data.collision;
     });
   }
 

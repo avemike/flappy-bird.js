@@ -31,4 +31,5 @@ class EnemyBirdsFactory {
     });
   }
 }
+
 export default EnemyBirdsFactory;

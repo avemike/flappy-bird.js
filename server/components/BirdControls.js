@@ -7,6 +7,7 @@ class BirdControls {
       y: 100,
       momentum: 2,
       score: 0,
+      collision: false,
       id,
     };
   }
@@ -18,7 +19,11 @@ class BirdControls {
     const distBetweenBirdAndPipe = middleOfBird - middleOfPipe;
 
     // check if bird is the middle of the closest pipe in X axis
-    if (distBetweenBirdAndPipe < 3 && distBetweenBirdAndPipe >= 0) {
+    if (
+      distBetweenBirdAndPipe < 3 &&
+      distBetweenBirdAndPipe >= 0 &&
+      this.collided === false
+    ) {
       /* "&& this.collided === false"   <-- add this condition when collision detection
       will be working */
       return true;

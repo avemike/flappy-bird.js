@@ -15,4 +15,5 @@ class EnemyBird extends Bird {
     this.momentum = data.momentum;
   }
 }
+
 export default EnemyBird;
