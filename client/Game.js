@@ -1,4 +1,3 @@
-import { BIRD_PROPS, PIPE_PROPS } from '../configs/game';
 import { CTX } from '../configs/canvas';
 import { SCORE_PROPS } from '../configs/score';
 
@@ -29,7 +28,7 @@ class Game {
 
   setupControls() {
     document.addEventListener('click', () => {
-      if (this.data.state == 'running') {
+      if (this.data.state === 'running') {
         this.socket.emit('start game');
       }
     });
@@ -62,23 +61,10 @@ class Game {
         object.draw(this.data.state);
       });
 
-      this.renderScore(); // TEMP
+      this.renderScore();
       this.create();
     });
   }
-
-  // create() {
-  //   switch (this.state) {
-  //     case 'running':
-  //       this.run();
-  //       break;
-  //     case 'started':
-  //       this.start();
-  //       break;
-  //     case 'over':
-  //       this.over();
-  //   }
-  // }
 }
 
 export default Game;

@@ -20,7 +20,7 @@ class PlayerBird extends Bird {
     // TEMP
 
     this.setupUpdateSocket();
-    this.setupControls();
+    this.manageControls();
   }
 
   setupUpdateSocket() {
@@ -33,12 +33,19 @@ class PlayerBird extends Bird {
     });
   }
 
-  setupControls() {
-    document.addEventListener('keypress', (event) => {
+  manageControls() {
+    const controlTheBird = (event) => {
+      if (this.collision === true) {
+        document.removeEventListener('keypress', controlTheBird);
+        return;
+      }
+
       if (event.key === 'w') {
         this.socket.emit('jump');
       }
-    });
+    };
+
+    document.addEventListener('keypress', controlTheBird);
   }
 }
 export default PlayerBird;
