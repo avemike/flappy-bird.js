@@ -13,18 +13,18 @@ class BirdControls {
   }
 
   checkIfScored(pipesData) {
-    // console.log(pipesData);
     const middleOfPipe = pipesData[0].offsetX + PIPE_PROPS.WIDTH / 2;
     const middleOfBird = this.data.x + BIRD_PROPS.WIDTH / 2;
-    const distBetweenBirdAndPipe = middleOfBird - middleOfPipe;
 
+    const distBetweenBirdAndPipe = middleOfBird - middleOfPipe;
     // check if bird is the middle of the closest pipe in X axis
     if (
       distBetweenBirdAndPipe < 3 &&
       distBetweenBirdAndPipe >= 0 &&
-      this.collided === false
+      this.data.collision === false
     ) {
-      /* "&& this.collided === false"   <-- add this condition when collision detection
+      console.log('punkt');
+      /* "&& this.data.collision === false"   <-- add this condition when collision detection
       will be working */
       return true;
     }
