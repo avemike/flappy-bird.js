@@ -23,7 +23,8 @@
     "eslint": "eslint --fix client/*",
     "dev": "parcel public/index.html",
     "build": "parcel build public/index.html",
-    "server": "parcel build public/index.html && nodemon server/index.js"
+    "server": "parcel build public/index.html && NODE_ENV=production node server/index.js",
+    "server:dev": "nodemon server/index.js"
   },
   "repository": {
     "type": "git",
