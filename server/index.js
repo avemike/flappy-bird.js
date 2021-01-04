@@ -5,7 +5,7 @@ const http = require('http').createServer(app);
 const socketio = require('socket.io')(http);
 const { initGame } = require('./initGame');
 
-if(process.env.NODE_ENV === 'production') {
+if (process.env.NODE_ENV === 'production') {
   app.use(express.static('dist'));
 }
 
