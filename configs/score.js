@@ -1,6 +1,6 @@
 import { CANVAS_SIZE } from './canvas';
 
-export const SCORE_PROPS = {
+const SCORE_PROPS = {
   FONT: 'Comic Sans MS',
   FONT_SIZE: 30,
   get X() {
@@ -8,3 +8,5 @@ export const SCORE_PROPS = {
   },
   Y: 70,
 };
+
+export default SCORE_PROPS;

@@ -1,5 +1,5 @@
-import Bird from './Bird';
-import { BIRD_PROPS } from '../../configs/game';
+import Bird from "./Bird";
+import { BIRD_PROPS } from "../../configs/game";
 
 class PlayerBird extends Bird {
   constructor({ socket }) {
@@ -10,6 +10,7 @@ class PlayerBird extends Bird {
     this.score = 0;
     this.collision = false;
     this.socket = socket;
+    this.controlsAdded = false;
 
     // TEMP - DEBUGGING
     /*
@@ -24,7 +25,7 @@ class PlayerBird extends Bird {
   }
 
   setupUpdateSocket() {
-    this.socket.on('bird', (data) => {
+    this.socket.on("bird", (data) => {
       this.x = data.x;
       this.y = data.y;
       this.momentum = data.momentum;
@@ -35,17 +36,23 @@ class PlayerBird extends Bird {
 
   manageControls() {
     const controlTheBird = (event) => {
-      if (this.collision === true) {
-        document.removeEventListener('keypress', controlTheBird);
-        return;
+      console.log("chuj");
+      if (event.key === "w") {
+        this.socket.emit("jump");
       }
 
-      if (event.key === 'w') {
-        this.socket.emit('jump');
+      if (this.collision) {
+        document.removeEventListener("keypress", controlTheBird);
+        this.added = !this.added;
+        console.log("zabralem");
       }
     };
 
-    document.addEventListener('keypress', controlTheBird);
+    if (!this.added && !this.collision) {
+      document.addEventListener("keypress", controlTheBird);
+      this.added = !this.added;
+      console.log("dodalem");
+    }
   }
 }
 export default PlayerBird;

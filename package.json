@@ -23,9 +23,9 @@
     "watch": "watch \"npm run build\" ./client",
     "test": "echo \"Error: no test specified\" && exit 1",
     "eslint": "eslint --fix client/*",
-    "dev": "parcel public/index.html",
     "build": "parcel build public/index.html",
-    "server": "parcel build public/index.html && nodemon server/index.js"
+    "dev": "parcel watch public/index.html",
+    "server": "nodemon server/index.js"
   },
   "repository": {
     "type": "git",

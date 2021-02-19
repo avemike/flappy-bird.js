@@ -1,5 +1,5 @@
-import { CTX, BIRD_STATES_SPR } from '../../configs/canvas';
-import { BIRD_PROPS } from '../../configs/game';
+import { CTX, BIRD_STATES_SPR } from "../../configs/canvas";
+import { BIRD_PROPS } from "../../configs/game";
 
 class Bird {
   constructor() {
@@ -24,7 +24,7 @@ class Bird {
   }
 
   draw(state) {
-    if (state == 'running') {
+    if (state === "running") {
       this.render();
     } else {
       this.render();

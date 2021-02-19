@@ -12,6 +12,8 @@ const BIRD_PROPS = {
   STARTING_Y: 100,
   MAX_ANGLE: Math.PI / 2,
   MIN_ANGLE: -Math.PI / 7,
+  MOMENTUM: 2,
+  COLLISION: false,
 };
 
 const BASE_PROPS = {

@@ -1,4 +1,4 @@
-const { PIPE_PROPS, BIRD_PROPS } = require('../../configs/game');
+const { PIPE_PROPS, BIRD_PROPS } = require("../../configs/game");
 
 class BirdControls {
   constructor(id) {
@@ -12,6 +12,14 @@ class BirdControls {
     };
   }
 
+  resetState() {
+    const { X, STARTING_Y, MOMENTUM, COLLISION } = BIRD_PROPS;
+    this.data.x = X;
+    this.data.y = STARTING_Y;
+    this.data.momentum = MOMENTUM;
+    this.data.collision = COLLISION;
+  }
+
   checkIfScored(pipesData) {
     const middleOfPipe = pipesData[0].offsetX + PIPE_PROPS.WIDTH / 2;
     const middleOfBird = this.data.x + BIRD_PROPS.WIDTH / 2;
@@ -23,7 +31,7 @@ class BirdControls {
       distBetweenBirdAndPipe >= 0 &&
       this.data.collision === false
     ) {
-      console.log('punkt');
+      console.log("punkt");
       /* "&& this.data.collision === false"   <-- add this condition when collision detection
       will be working */
       return true;
