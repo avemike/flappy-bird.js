@@ -12,6 +12,13 @@ const BIRD_PROPS = {
   STARTING_Y: 100,
   MAX_ANGLE: Math.PI / 2,
   MIN_ANGLE: -Math.PI / 7,
+  MOMENTUM: 2,
+  COLLISION: false,
+};
+
+const BASE_PROPS = {
+  WIDTH: 336,
+  HEIGHT: 112,
 };
 
 const DIST_BETW_PIPES = 300;
@@ -23,5 +30,6 @@ module.exports = {
   DIST_BETW_PIPES,
   PIPE_PROPS,
   BIRD_PROPS,
+  BASE_PROPS,
   UPDATE_MILLISECONDS,
 };

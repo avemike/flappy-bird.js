@@ -1,4 +1,4 @@
-const { UPDATE_MILLISECONDS } = require('../../configs/game');
+const { UPDATE_MILLISECONDS } = require("../../configs/game");
 
 class FrameHandler {
   constructor() {
@@ -11,6 +11,10 @@ class FrameHandler {
 
   addCallback(callback) {
     this.callbacks.push(callback);
+  }
+
+  reset() {
+    this.callbacks = [];
   }
 }
 

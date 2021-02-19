@@ -1,8 +1,15 @@
-const { Pipe } = require('./Pipe');
-const { DIST_BETW_PIPES } = require('../../configs/game');
+const { Pipe } = require("./Pipe");
+const { DIST_BETW_PIPES } = require("../../configs/game");
 
 class PipesControls {
   constructor() {
+    this.pipes = [];
+    for (let i = 0; i < 7; i += 1) {
+      this.pipes.push(new Pipe(1000 + DIST_BETW_PIPES * i));
+    }
+  }
+
+  resetState() {
     this.pipes = [];
     for (let i = 0; i < 7; i += 1) {
       this.pipes.push(new Pipe(1000 + DIST_BETW_PIPES * i));
