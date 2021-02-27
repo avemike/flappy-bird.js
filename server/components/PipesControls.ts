@@ -1,15 +1,21 @@
-const { Pipe } = require('./Pipe');
-const { DIST_BETW_PIPES } = require('../../configs/game');
+import { Pipe } from "./Pipe";
+import { DIST_BETW_PIPES } from "../../configs/game";
 
-class PipesControls {
+export type PipeDataType = {
+  offsetX: number;
+  offsetY: number;
+}[];
+
+export class PipesControls {
+  public pipes: Pipe[] = [];
+
   constructor() {
-    this.pipes = [];
     for (let i = 0; i < 7; i += 1) {
       this.pipes.push(new Pipe(1000 + DIST_BETW_PIPES * i));
     }
   }
 
-  get data() {
+  get data(): PipeDataType {
     return this.pipes.map((pipe) => ({
       offsetX: pipe.offsetX,
       offsetY: pipe.offsetY,
@@ -32,5 +38,3 @@ class PipesControls {
     });
   }
 }
-
-module.exports = { PipesControls };

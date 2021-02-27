@@ -1,0 +1,23 @@
+{
+    "compilerOptions": {
+        "module": "commonjs",
+        "moduleResolution": "node",
+        "noImplicitAny": true,
+        "removeComments": true,
+        "target": "esnext",
+        "allowSyntheticDefaultImports": false,
+        "lib": ["dom", "dom.iterable"],
+        "baseUrl": ".",
+        "preserveConstEnums": true,
+        "sourceMap": true
+    },
+    "include": [
+        "client/**/*.ts",
+        "client/**/*.tsx",
+        "server/**/*.ts",
+        "configs/*",
+    ],
+    "exclude": [
+        "./node_modules",
+    ],
+}

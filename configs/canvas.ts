@@ -1,4 +1,4 @@
-export const CANVAS = document.querySelector('#app');
+export const CANVAS = <HTMLCanvasElement> document.querySelector('#app');
 export const CTX = CANVAS.getContext('2d');
 export const BASE_SPR = document.querySelector('.base');
 export const PIPE_SPR = document.querySelector('.pipe');
