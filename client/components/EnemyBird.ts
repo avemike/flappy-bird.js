@@ -1,7 +1,8 @@
-import Bird from './Bird';
+import { BirdInfo } from "client/types";
+import { Bird } from "./Bird";
 
-class EnemyBird extends Bird {
-  constructor({ bird }) {
+export class EnemyBird extends Bird {
+  constructor({ bird }: { bird: BirdInfo }) {
     super();
     this.x = bird.x;
     this.y = bird.y;
@@ -10,9 +11,8 @@ class EnemyBird extends Bird {
 
   // updates enemy bird position and momentum based on
   // websocket event inside EnemyBirdsFactory.js
-  update(data) {
+  update(data: { y: number; momentum: number }): void {
     this.y = data.y;
     this.momentum = data.momentum;
   }
 }
-export default EnemyBird;

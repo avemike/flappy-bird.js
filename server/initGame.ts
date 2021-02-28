@@ -1,4 +1,4 @@
-import { Socket } from "socket.io";
+import { Server } from "socket.io";
 
 import { PipesControls } from "./components/PipesControls";
 import { BirdControls } from "./components/BirdControls";
@@ -7,7 +7,7 @@ import { checkCollisions } from "./utils/checkCollisions";
 
 const frameControl = new FrameHandler();
 
-export const initGame = (socketio: Socket) => {
+export const initGame = (socketio: Server): void => {
   const pipesControl = new PipesControls();
 
   frameControl.addCallback(pipesControl.run.bind(pipesControl));

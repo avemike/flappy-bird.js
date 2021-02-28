@@ -2,7 +2,7 @@ export type BirdData = {
   x: number;
   y: number;
   momentum: number;
-  id?: number;
+  id?: string;
 };
 
 export class BirdControls {
@@ -11,15 +11,15 @@ export class BirdControls {
     y: 100,
     momentum: 2,
   };
-  constructor(id: number) {
+  constructor(id: string) {
     this.data.id = id;
   }
 
-  jump() {
+  jump(): void {
     this.data.momentum = -5.8;
   }
 
-  gravity() {
+  gravity(): void {
     const { momentum } = this.data;
     if (momentum < 10) {
       this.data.momentum += 0.3;

@@ -22,13 +22,13 @@ export class PipesControls {
     }));
   }
 
-  create() {
+  create(): void {
     const lastPipeOffsetX = this.pipes[this.pipes.length - 1].offsetX;
     this.pipes.push(new Pipe(lastPipeOffsetX + DIST_BETW_PIPES));
   }
 
   // run every frame
-  run() {
+  run(): void {
     if (this.pipes[0].isOverScreen()) {
       this.pipes.shift();
       this.create();

@@ -1,6 +1,7 @@
 import * as express from "express";
 import * as socketio from "socket.io";
 import * as http from "http";
+import { initGame } from "./initGame";
 
 const PORT = process.env.PORT || 3000;
 
@@ -10,8 +11,6 @@ app.set("port", PORT);
 const server = new http.Server(app);
 
 const io = socketio(server);
-
-const { initGame } = require("./initGame");
 
 http.createServer(app);
 

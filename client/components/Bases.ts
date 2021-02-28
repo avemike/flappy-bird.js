@@ -1,17 +1,14 @@
-import Base from './Base';
+import { Base } from "./Base";
 
-class Bases {
+export class Bases {
+  public bases: Base[] = [];
   constructor() {
-    this.bases = [];
-
     for (let i = 0; i < 20; i += 1) {
       this.bases.push(new Base(336, 112, 336 * i));
     }
   }
 
-  draw() {
+  draw(): void {
     this.bases.forEach((base) => base.draw());
   }
 }
-
-export default Bases;

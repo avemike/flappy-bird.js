@@ -11,7 +11,7 @@ export class FrameHandler {
     }, UPDATE_MILLISECONDS);
   }
 
-  addCallback(callback: CallbackType) {
+  addCallback(callback: CallbackType): void {
     this.callbacks.push(callback);
   }
 }

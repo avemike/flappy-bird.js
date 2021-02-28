@@ -1,9 +1,11 @@
 import { BirdData } from "server/components/BirdControls";
-import { Pipe } from "server/components/Pipe";
-import { PipeDataType, PipesControls } from "server/components/PipesControls";
+import { PipeDataType } from "server/components/PipesControls";
 import { BIRD_PROPS, PIPE_PROPS } from "../../configs/game";
 
-export const checkCollisions = (bird: BirdData, pipes: PipeDataType) => {
+export const checkCollisions = (
+  bird: BirdData,
+  pipes: PipeDataType
+): unknown => {
   // check if bird is too far away for collision
   if (
     bird.x + BIRD_PROPS.WIDTH < pipes[0].offsetX ||

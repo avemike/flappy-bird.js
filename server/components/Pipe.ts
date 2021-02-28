@@ -11,15 +11,15 @@ export class Pipe {
     this.offsetY = Math.floor(Math.random() * (max - min)) + min;
   }
 
-  isOverScreen() {
+  isOverScreen(): boolean {
     return this.offsetX <= -PIPE_PROPS.WIDTH;
   }
 
-  changeOffset() {
+  changeOffset(): void {
     this.offsetX -= BG_SPEED;
   }
 
-  run() {
+  run(): void {
     this.changeOffset();
   }
 }

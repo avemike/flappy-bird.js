@@ -1,33 +1,36 @@
-import { CTX, BASE_SPR, CANVAS_SIZE } from '../../configs/canvas';
-import { BG_SPEED } from '../../configs/game';
+import { CTX, BASE_SPR, CANVAS_SIZE } from "../../configs/canvas";
+import { BG_SPEED } from "../../configs/game";
 
-class Base {
-  constructor(width, height, offsetX) {
+export class Base {
+  public width: number;
+  public height: number;
+  public offsetX: number;
+  public offsetY: number;
+
+  constructor(width: number, height: number, offsetX: number) {
     this.width = width;
     this.height = height;
     this.offsetX = offsetX;
     this.offsetY = CANVAS_SIZE.HEIGHT - this.height;
   }
 
-  render() {
+  render(): void {
     CTX.drawImage(BASE_SPR, this.offsetX, this.offsetY);
   }
 
-  changeOffset() {
+  changeOffset(): void {
     this.offsetX -= BG_SPEED;
   }
 
-  draw() {
+  draw(): void {
     this.changeOffset();
     this.isOverScreen();
     this.render();
   }
 
-  isOverScreen() {
+  isOverScreen(): void {
     if (this.offsetX < -this.width) {
       this.offsetX += 20 * 336;
     }
   }
 }
-
-export default Base;
