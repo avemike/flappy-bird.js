@@ -42,10 +42,10 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "test:prettier": "prettier --check 'client/**/*.ts' 'server/**/*.ts'",
     "lint": "eslint . --ext .ts",
-    "dev": "parcel public/index.html",
     "build": "parcel build public/index.html",
-    "server": "parcel build public/index.html && NODE_ENV=production ts-node server/index.ts",
-    "server:dev": "nodemon --watch 'server/**' --ext 'ts,json' --ignore 'server/**/*.spec.ts' --exec 'ts-node server/index.ts'"
+    "dev": "parcel build public/index.html && NODE_ENV=production ts-node server/index.ts",
+    "dev:client": "parcel public/index.html",
+    "dev:server": "nodemon --watch 'server/**' --ext 'ts,json' --ignore 'server/**/*.spec.ts' --exec 'ts-node server/index.ts'"
   },
   "repository": {
     "type": "git",
