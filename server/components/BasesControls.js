@@ -1,5 +1,5 @@
-const { Base } = require('./Base');
-const { BASE_PROPS } = require('../../configs/game');
+const { Base } = require("./Base");
+const { BASE_PROPS } = require("../../configs/game");
 
 class BasesControls {
   constructor() {
@@ -20,6 +20,8 @@ class BasesControls {
 
   get data() {
     return this.bases.map((base) => ({
+      width: base.width,
+      height: base.height,
       offsetX: base.offsetX,
       offsetY: base.offsetY,
     }));

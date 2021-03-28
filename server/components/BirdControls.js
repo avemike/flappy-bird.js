@@ -7,6 +7,7 @@ class BirdControls {
       y: 100,
       momentum: 2,
       score: 0,
+      highscore: 0,
       collision: false,
       id,
     };
@@ -18,6 +19,7 @@ class BirdControls {
     this.data.y = STARTING_Y;
     this.data.momentum = MOMENTUM;
     this.data.collision = COLLISION;
+    this.data.score = 0;
   }
 
   checkIfScored(pipesData) {
@@ -32,8 +34,6 @@ class BirdControls {
       this.data.collision === false
     ) {
       console.log("punkt");
-      /* "&& this.data.collision === false"   <-- add this condition when collision detection
-      will be working */
       return true;
     }
     return false;
@@ -43,6 +43,10 @@ class BirdControls {
     if (this.checkIfScored(pipesData) === true) {
       this.data.score += 1;
     }
+  }
+
+  setHighscore() {
+    this.data.highscore = this.data.score;
   }
 
   jump() {

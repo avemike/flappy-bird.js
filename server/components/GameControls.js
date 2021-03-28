@@ -30,7 +30,7 @@ class GameControls {
 
   checkIfOver() {
     if (this.data.state === "over") {
-      console.log("daBaby?");
+      this.bird.setHighscore();
       this.frameControl.reset();
       this.frameControl.addCallback(this.bird.gravity.bind(this.bird));
       this.frameControl.addCallback(() =>

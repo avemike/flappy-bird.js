@@ -1,5 +1,5 @@
 const { Pipe } = require("./Pipe");
-const { DIST_BETW_PIPES } = require("../../configs/game");
+const { DIST_BETW_PIPES, PIPE_PROPS } = require("../../configs/game");
 
 class PipesControls {
   constructor() {
@@ -18,6 +18,8 @@ class PipesControls {
 
   get data() {
     return this.pipes.map((pipe) => ({
+      width: PIPE_PROPS.WIDTH,
+      height: PIPE_PROPS.HEIGHT,
       offsetX: pipe.offsetX,
       offsetY: pipe.offsetY,
     }));
