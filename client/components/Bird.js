@@ -1,9 +1,9 @@
-import { CTX, BIRD_STATES_SPR } from "../../configs/canvas";
+import { bird_spr } from "../../configs/canvas";
 import { BIRD_PROPS } from "../../configs/game";
 
 class Bird {
   constructor() {
-    this.sprites = BIRD_STATES_SPR;
+    // this.sprites = bird_spr;
     this.width = BIRD_PROPS.WIDTH;
     this.height = BIRD_PROPS.HEIGHT;
     this.angle = 0;
@@ -23,22 +23,28 @@ class Bird {
     }
   }
 
-  draw(state) {
-    if (state === "running") {
-      this.render();
-    } else {
-      this.render();
-      this.angleControl();
-    }
+  draw(ctx) {
+    // if (state === "running") {
+    //   this.render(ctx);
+    // } else {
+    //   this.angleControl();
+    // }
+    this.tmp_render(ctx);
   }
 
-  render() {
+  tmp_render(ctx) {
+    ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
+    ctx.fillStyle = "#85facf";
+    ctx.fillRect(this.x, this.y, this.width, this.height);
+  }
+
+  render(CTX) {
     const { sprites, x, y, width, height } = this;
     const renderSelectedState = (state) => {
       CTX.save();
       CTX.translate(x + width / 2, y + height / 2);
       CTX.rotate(this.angle);
-      CTX.drawImage(sprites[state], -width / 2, -height / 2, width, height);
+      CTX.drawImage(sprites, -width / 2, -height / 2, width, height);
       CTX.restore();
     };
 

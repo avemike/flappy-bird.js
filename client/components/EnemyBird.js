@@ -1,4 +1,4 @@
-import Bird from './Bird';
+import Bird from "./Bird";
 
 class EnemyBird extends Bird {
   constructor({ bird }) {

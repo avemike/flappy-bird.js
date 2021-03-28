@@ -2,16 +2,22 @@ import Bird from "./Bird";
 import { BIRD_PROPS } from "../../configs/game";
 
 class PlayerBird extends Bird {
-  constructor({ socket }) {
+  constructor(socket) {
     super();
     this.x = BIRD_PROPS.X;
     this.y = BIRD_PROPS.Y;
     this.momentum = 2;
     this.score = 0;
+    this.highscore = 0;
     this.collision = false;
     this.socket = socket;
     this.controlsAdded = false;
-
+    this.controlTheBird = (event) => {
+      if (event.key === "w") {
+        console.log("jump");
+        this.socket.emit("jump");
+      }
+    };
     // TEMP - DEBUGGING
     /*
     setInterval(() => {
@@ -30,28 +36,34 @@ class PlayerBird extends Bird {
       this.y = data.y;
       this.momentum = data.momentum;
       this.score = data.score;
+      this.highscore = data.highscore;
       this.collision = data.collision;
     });
   }
 
-  manageControls() {
-    const controlTheBird = (event) => {
-      console.log("chuj");
-      if (event.key === "w") {
-        this.socket.emit("jump");
-      }
-
-      if (this.collision) {
-        document.removeEventListener("keypress", controlTheBird);
-        this.added = !this.added;
-        console.log("zabralem");
+  manageControls(state) {
+    const addControls = () => {
+      if (!this.controlsAdded && !this.collision) {
+        document.addEventListener("keypress", this.controlTheBird);
+        this.controlsAdded = !this.controlsAdded;
+        console.log("dodalem");
       }
     };
 
-    if (!this.added && !this.collision) {
-      document.addEventListener("keypress", controlTheBird);
-      this.added = !this.added;
-      console.log("dodalem");
+    const removeControls = () => {
+      if (this.controlsAdded && this.collision) {
+        document.removeEventListener("keypress", this.controlTheBird);
+        this.controlsAdded = !this.controlsAdded;
+        console.log("zabralem");
+        return;
+      }
+    };
+
+    switch (state) {
+      case "started":
+        addControls();
+      case "over":
+        removeControls();
     }
   }
 }
