@@ -2,7 +2,7 @@ html,
 body {
   height: 100%;
   width: 100%;
-  background-color: black;
+  /* background-color: black; */
 }
 
 body {
@@ -17,7 +17,7 @@ body {
   box-sizing: border-box;
 }
 
-#app {
+canvas {
   display: block;
   border: 1px solid black;
   background-color: rgba(135, 206, 250);
