@@ -1,13 +1,13 @@
 module.exports = {
   extends: [
-    // "eslint:recommended",
+    "eslint:recommended",
     "plugin:react/recommended",
-    "plugin:@typescript-eslint/recommended",
-    "prettier/@typescript-eslint",
+    // "plugin:@typescript-eslint/recommended",
+    // "prettier/@typescript-eslint",
     "plugin:prettier/recommended",
     "prettier/react",
   ],
-  parser: "@typescript-eslint/parser",
+  // parser: "@typescript-eslint/parser",
   parserOptions: {
     ecmaVersion: 11,
     sourceType: "module",
@@ -23,7 +23,7 @@ module.exports = {
     es2020: true,
     node: true,
   },
-  plugins: ["react", "import", "jsx-a11y", "react-hooks"],
+  plugins: ["react", "react-hooks"],
   settings: {
     react: {
       version: "detect",
