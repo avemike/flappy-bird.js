@@ -13,8 +13,8 @@ class PlayerBird extends Bird {
     this.socket = socket;
     this.controlsAdded = false;
     this.controlTheBird = (event) => {
-      if (event.key === "w") {
-        console.log("jump");
+      const isCapsOn = event.getModifierState("CapsLock");
+      if (event.key === "w" || (isCapsOn && event.key === "W")) {
         this.socket.emit("jump");
       }
     };
@@ -62,8 +62,10 @@ class PlayerBird extends Bird {
     switch (state) {
       case "started":
         addControls();
+        break;
       case "over":
         removeControls();
+        break;
     }
   }
 }
