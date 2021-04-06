@@ -6,7 +6,7 @@ class PlayerBird extends Bird {
     super();
     this.x = BIRD_PROPS.X;
     this.y = BIRD_PROPS.Y;
-    this.momentum = 2;
+    this.angle = 0;
     this.score = 0;
     this.highscore = 0;
     this.collision = false;
@@ -34,7 +34,8 @@ class PlayerBird extends Bird {
     this.socket.on("bird", (data) => {
       this.x = data.x;
       this.y = data.y;
-      this.momentum = data.momentum;
+      // this.momentum = data.momentum;
+      this.angle = data.angle;
       this.score = data.score;
       this.highscore = data.highscore;
       this.collision = data.collision;

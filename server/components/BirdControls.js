@@ -6,6 +6,7 @@ class BirdControls {
       x: 100,
       y: 100,
       momentum: 2,
+      angle: 0,
       score: 0,
       highscore: 0,
       collision: false,
@@ -18,6 +19,7 @@ class BirdControls {
     this.data.x = X;
     this.data.y = STARTING_Y;
     this.data.momentum = MOMENTUM;
+    this.data.angle = 0;
     this.data.collision = COLLISION;
     this.data.score = 0;
   }
@@ -59,6 +61,21 @@ class BirdControls {
       this.data.momentum += 0.3;
     }
     this.data.y += momentum;
+  }
+
+  angleControl() {
+    if (
+      Math.sign(this.data.momentum) === 1 &&
+      this.data.angle < BIRD_PROPS.MAX_ANGLE
+    ) {
+      this.data.angle += this.data.momentum / 120;
+    } else if (
+      Math.sign(this.data.momentum) === -1 &&
+      this.data.angle > BIRD_PROPS.MIN_ANGLE
+    ) {
+      const missingAngle = (BIRD_PROPS.MIN_ANGLE - this.data.angle) / 3;
+      this.data.angle += missingAngle;
+    }
   }
 }
 
