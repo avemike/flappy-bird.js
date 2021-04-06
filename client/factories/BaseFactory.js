@@ -1,4 +1,5 @@
-import { CANVAS_SIZE } from "../../configs/canvas";
+// import { CANVAS_SIZE } from "../../configs/canvas";
+import BASE_SPR from "url:../../assets/base.png";
 
 class BaseFactory {
   constructor(socket) {
@@ -11,14 +12,16 @@ class BaseFactory {
 
   draw(ctx) {
     this.bases.forEach((base) => {
-      // ctx.drawImage(BASE_SPR, base.offsetX, base.offsetY);
-      ctx.fillStyle = "#9485fa";
-      ctx.fillRect(
-        0,
-        CANVAS_SIZE.HEIGHT - base.height,
-        base.width,
-        base.height
-      );
+      const baseImg = new Image();
+      baseImg.src = BASE_SPR;
+      ctx.drawImage(baseImg, base.offsetX, base.offsetY);
+      // ctx.fillStyle = "#9485fa";
+      // ctx.fillRect(
+      //   0,
+      //   CANVAS_SIZE.HEIGHT - base.height,
+      //   base.width,
+      //   base.height
+      // );
     });
   }
 }

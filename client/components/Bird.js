@@ -1,14 +1,15 @@
-import { bird_spr } from "../../configs/canvas";
+// import { bird_spr } from "../../configs/canvas";
 import { BIRD_PROPS } from "../../configs/game";
+import { bird_spr } from "../utils/getBirdAssets";
 
 class Bird {
   constructor() {
-    // this.sprites = bird_spr;
+    this.sprites = bird_spr;
     this.width = BIRD_PROPS.WIDTH;
     this.height = BIRD_PROPS.HEIGHT;
     this.angle = 0;
     this.state = 0;
-    this.i = 0;
+    this.i = 0; // for selecting proper bird image
   }
 
   angleControl() {
@@ -29,25 +30,25 @@ class Bird {
     // } else {
     //   this.angleControl();
     // }
-    this.tmp_render(ctx);
+    this.render(ctx);
   }
 
   tmp_render(ctx) {
-    ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
     ctx.fillStyle = "#85facf";
     ctx.fillRect(this.x, this.y, this.width, this.height);
   }
 
-  render(CTX) {
+  render(ctx) {
     const { sprites, x, y, width, height } = this;
     const renderSelectedState = (state) => {
-      CTX.save();
-      CTX.translate(x + width / 2, y + height / 2);
-      CTX.rotate(this.angle);
-      CTX.drawImage(sprites, -width / 2, -height / 2, width, height);
-      CTX.restore();
+      ctx.save();
+      ctx.translate(x + width / 2, y + height / 2);
+      ctx.rotate(this.angle);
+      ctx.drawImage(sprites[state], -width / 2, -height / 2, width, height);
+      ctx.restore();
     };
 
+    // every few frames change bird image, used to prevent changing every frame
     this.i += 1;
     if (this.i % 5 === 0) {
       if (this.state < 2) {
