@@ -1,7 +1,7 @@
-import { CANVAS_SIZE } from './canvas';
+import { CANVAS_SIZE } from "./canvas";
 
 const SCORE_PROPS = {
-  FONT: 'Comic Sans MS',
+  FONT: "Comic Sans MS",
   FONT_SIZE: 30,
   get X() {
     return (CANVAS_SIZE.WIDTH - this.FONT_SIZE) / 2;

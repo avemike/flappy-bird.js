@@ -1,4 +1,4 @@
-import { CANVAS, CANVAS_SIZE } from '../../configs/canvas';
+import { CANVAS, CANVAS_SIZE } from "../../configs/canvas";
 
 export default function setCanvasSize() {
   CANVAS.width = CANVAS_SIZE.WIDTH;

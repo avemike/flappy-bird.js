@@ -3,19 +3,20 @@ const { BirdControls } = require("./components/BirdControls");
 const { GameControls } = require("./components/GameControls");
 const { BasesControls } = require("./components/BasesControls");
 const { FrameHandler } = require("./utils/FrameHandler");
-// const BasesControls = require('./components/BasesControls');
 
 const frameControl = new FrameHandler();
 
 module.exports.initGame = (socketio) => {
   // user has connected
   socketio.on("connection", (socket) => {
+    console.log(socket.id, "connected");
     const bird = new BirdControls(socket.id);
     const pipes = new PipesControls();
     const bases = new BasesControls();
     const game = new GameControls(bird, pipes, bases, socket, frameControl);
 
     frameControl.addCallback(bases.run.bind(bases));
+    // frameControl.addCallback(bird.gravity.bind(bird));
 
     socket.emit("bird", bird.data);
     socket.broadcast.emit("otherBird", bird.data);

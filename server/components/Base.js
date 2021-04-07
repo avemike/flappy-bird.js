@@ -1,12 +1,11 @@
 // const { CTX, BASE_SPR, CANVAS_SIZE } = require('../../configs/canvas');
-const { BG_SPEED } = require('../../configs/game');
+const { BG_SPEED } = require("../../configs/game");
 
 class Base {
   constructor(width, height, offsetX, offsetY) {
     this.width = width;
     this.height = height;
     this.offsetX = offsetX;
-    // this.offsetY = CANVAS_SIZE.HEIGHT - this.height;
     this.offsetY = offsetY;
   }
 
