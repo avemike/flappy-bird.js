@@ -1,4 +1,4 @@
-import PIPE_SPR from "url:../../assets/pipes2.png";
+import PIPE_SPR from "url:../../assets/pipes2.jpg";
 
 class PipesFactory {
   constructor(socket) {

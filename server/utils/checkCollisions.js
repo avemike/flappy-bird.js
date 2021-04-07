@@ -1,13 +1,17 @@
 const { BIRD_PROPS, PIPE_PROPS, BASE_PROPS } = require("../../configs/game.js");
 
-module.exports.checkCollisions = (birdData, pipesData, gameData) => {
+// 433 IS +/- CANVAS HEIGHT
+const tmp_canvas_height = 433;
+
+module.exports.checkCollisions = (birdData, pipesData) => {
   // check if birdData is too far away for collision
   if (
     (birdData.x + BIRD_PROPS.WIDTH < pipesData[0].offsetX ||
       birdData.x > pipesData[0].offsetX + PIPE_PROPS.WIDTH) &&
-    birdData.y < 433 - BASE_PROPS.HEIGHT
+    birdData.y < tmp_canvas_height - BASE_PROPS.HEIGHT
   ) {
-    return;
+    // return;
+    return false;
   }
 
   const topBird = birdData.y;
@@ -17,15 +21,22 @@ module.exports.checkCollisions = (birdData, pipesData, gameData) => {
 
   // check if bird is colliding with pipe
   if (!(topBird > topGap && bottomBird < bottomGap)) {
-    birdData.collision = true;
-    gameData.state = "over";
-    // end game for this player
+    // -----------------------------------------------
+    // IMPLEMENT COLLISION WITH PIPES!!!!!!!!!!!!!
+    // -----------------------------------------------
+    //   birdData.collision = true;
+    //   console.log("kolizja z rurka");
+    //   return true;
+    // gameData.state = "over";
   }
 
-  if (bottomBird >= 433 - BASE_PROPS.HEIGHT) {
-    birdData.y = 433 - BASE_PROPS.HEIGHT - BIRD_PROPS.HEIGHT + 10;
-    // console.log('gleba');
+  // console.log("right there");
+  if (bottomBird >= tmp_canvas_height - BASE_PROPS.HEIGHT) {
+    // console.log("bird has hit the ground");
+    birdData.y = tmp_canvas_height - BASE_PROPS.HEIGHT - BIRD_PROPS.HEIGHT + 10;
+    // console.log("trzymam go");
     birdData.collision = true;
-    gameData.state = "over";
+    return true;
+    // gameData.state = "over";
   }
 };

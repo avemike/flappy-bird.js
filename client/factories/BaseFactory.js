@@ -1,5 +1,5 @@
 // import { CANVAS_SIZE } from "../../configs/canvas";
-import BASE_SPR from "url:../../assets/base.png";
+import BASE_SPR from "url:../../assets/base.jpg";
 
 class BaseFactory {
   constructor(socket) {

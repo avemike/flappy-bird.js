@@ -1,16 +1,16 @@
 import React from "react";
-import ReactDOM from "react-dom";
-import { Canvas } from "./components/Canvas";
-import { CANVAS_SIZE } from "../configs/canvas"
+import { render } from "react-dom";
+import { CANVAS_SIZE } from "../configs/canvas";
+import Canvas from "./components/Canvas";
+import Overlay from "./components/overlay/Overlay";
 
 const App = () => {
-  const canvasWidth = CANVAS_SIZE.WIDTH;
-  const canvasHeight = CANVAS_SIZE.HEIGHT;
   return (
     <>
-      <Canvas width={canvasWidth} height={canvasHeight}></Canvas>
+      <Overlay></Overlay>
+      <Canvas width={CANVAS_SIZE.WIDTH} height={CANVAS_SIZE.HEIGHT}></Canvas>
     </>
   );
 };
 
-ReactDOM.render(<App />, document.getElementById("root"));
+render(<App />, document.getElementById("root"));

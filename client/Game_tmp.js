@@ -2,13 +2,14 @@
 import SCORE_PROPS from "../configs/score";
 
 class Game_tmp {
-  constructor(ctx, bird, enemyBirds, bases, pipes, socket) {
+  constructor(ctx, background, bird, enemyBirds, bases, pipes, socket) {
     this.ctx = ctx;
+    this.background = background;
     this.bird = bird;
     this.bases = bases;
     this.pipes = pipes;
     this.enemyBirds = enemyBirds;
-    this.toDraw = [pipes, bases, bird, enemyBirds];
+    this.toDraw = [background, pipes, bases, bird, enemyBirds];
     this.data = {
       state: "running",
     };

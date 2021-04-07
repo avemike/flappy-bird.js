@@ -11,12 +11,10 @@
     "react-dom": "^17.0.1",
     "socket.io": "^2.3.0",
     "socket.io-client": "^2.3.1",
+    "styled-components": "^5.2.1",
     "typescript": "^4.2.3"
   },
   "devDependencies": {
-    "@typescript-eslint/eslint-plugin": "^4.18.0",
-    "@typescript-eslint/parser": "^4.18.0",
-    "babel-eslint": "^10.1.0",
     "cssnano": "^4.1.10",
     "eslint": "^7.11.0",
     "eslint-config-prettier": "^6.12.0",
@@ -28,12 +26,11 @@
     "watch": "^1.0.2"
   },
   "scripts": {
-    "watch": "watch \"npm run build\" ./client",
-    "test": "echo \"Error: no test specified\" && exit 1",
     "eslint": "eslint client/",
     "build": "parcel build public/index.html",
-    "dev": "parcel watch public/index.html",
-    "server": "nodemon server/index.js"
+    "del-cache": "rm -drf .parcel-cache",
+    "dev": "npm run del-cache && parcel watch public/index.html",
+    "server": "nodemon server/index.js" 
   },
   "repository": {
     "type": "git",

@@ -1,4 +1,4 @@
-const { PIPE_PROPS, BIRD_PROPS } = require("../../configs/game");
+const { PIPE_PROPS, BIRD_PROPS, BG_SPEED } = require("../../configs/game");
 
 class BirdControls {
   constructor(id) {
@@ -31,7 +31,7 @@ class BirdControls {
     const distBetweenBirdAndPipe = middleOfBird - middleOfPipe;
     // check if bird is the middle of the closest pipe in X axis
     if (
-      distBetweenBirdAndPipe < 3 &&
+      distBetweenBirdAndPipe < BG_SPEED &&
       distBetweenBirdAndPipe >= 0 &&
       this.data.collision === false
     ) {

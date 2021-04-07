@@ -22,7 +22,7 @@ const BASE_PROPS = {
 };
 
 const DIST_BETW_PIPES = 300;
-const BG_SPEED = 3;
+const BG_SPEED = 2;
 const UPDATE_MILLISECONDS = 16;
 
 module.exports = {
