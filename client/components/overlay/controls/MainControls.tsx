@@ -8,7 +8,7 @@ function MainControls() {
     gameTypeHook: [, setGameType],
   } = useContext(ControlsContext);
 
-  function handleClick(gameType) {
+  function handleClick(gameType: string) {
     startGame();
     setGameType(gameType);
   }

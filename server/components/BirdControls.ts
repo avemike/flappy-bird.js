@@ -1,17 +1,21 @@
-const { PIPE_PROPS, BIRD_PROPS, BG_SPEED } = require("../../configs/game");
+import { Pipe } from "./Pipe";
+import { PIPE_PROPS, BIRD_PROPS, BG_SPEED } from "../../configs/game";
+import { BirdDataType } from "../types";
 
-class BirdControls {
-  constructor(id) {
-    this.data = {
-      x: 100,
-      y: 100,
-      momentum: 2,
-      angle: 0,
-      score: 0,
-      highscore: 0,
-      collision: false,
-      id,
-    };
+export class BirdControls {
+  public data: BirdDataType = {
+    x: 100,
+    y: 100,
+    momentum: 2,
+    angle: 0,
+    score: 0,
+    highscore: 0,
+    collision: false,
+    id: "",
+  };
+
+  constructor(id: string) {
+    this.data = { ...this.data, id: id };
   }
 
   resetState() {
@@ -24,7 +28,7 @@ class BirdControls {
     this.data.score = 0;
   }
 
-  checkIfScored(pipesData) {
+  checkIfScored(pipesData: Pipe[]) {
     const middleOfPipe = pipesData[0].offsetX + PIPE_PROPS.WIDTH / 2;
     const middleOfBird = this.data.x + BIRD_PROPS.WIDTH / 2;
 
@@ -41,7 +45,7 @@ class BirdControls {
     return false;
   }
 
-  updateScore(pipesData) {
+  updateScore(pipesData: Pipe[]) {
     if (this.checkIfScored(pipesData) === true) {
       this.data.score += 1;
     }
@@ -78,5 +82,3 @@ class BirdControls {
     }
   }
 }
-
-module.exports = { BirdControls };

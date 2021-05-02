@@ -1,9 +1,12 @@
-const { BIRD_PROPS, PIPE_PROPS, BASE_PROPS } = require("../../configs/game.js");
+import { BIRD_PROPS, PIPE_PROPS, BASE_PROPS } from "../../configs/game";
+
+import { Pipe } from "../components/Pipe";
+import { BirdDataType } from "../types";
 
 // 433 IS +/- CANVAS HEIGHT
 const tmp_canvas_height = 433;
 
-module.exports.checkCollisions = (birdData, pipesData) => {
+export const checkCollisions = (birdData: BirdDataType, pipesData: Pipe[]) => {
   // check if birdData is too far away for collision
   if (
     (birdData.x + BIRD_PROPS.WIDTH < pipesData[0].offsetX ||
@@ -22,7 +25,7 @@ module.exports.checkCollisions = (birdData, pipesData) => {
   // check if bird is colliding with pipe
   if (!(topBird > topGap && bottomBird < bottomGap)) {
     // -----------------------------------------------
-    // IMPLEMENT COLLISION WITH PIPES!!!!!!!!!!!!!
+    // TODO IMPLEMENT COLLISION WITH PIPES!!!!!!!!!!!!!
     // -----------------------------------------------
     //   birdData.collision = true;
     //   console.log("kolizja z rurka");

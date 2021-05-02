@@ -1,12 +1,14 @@
-const { PipesControls } = require("./components/PipesControls");
-const { BirdControls } = require("./components/BirdControls");
-const { GameControls } = require("./components/GameControls");
-const { BasesControls } = require("./components/BasesControls");
-const { FrameHandler } = require("./utils/FrameHandler");
+import { Server } from "socket.io";
+
+import { PipesControls } from "./components/PipesControls";
+import { BirdControls } from "./components/BirdControls";
+import { FrameHandler } from "./utils/FrameHandler";
+import { GameControls } from "./components/GameControls";
+import { BasesControls } from "./components/BasesControls";
 
 const frameControl = new FrameHandler();
 
-module.exports.initGame = (socketio) => {
+export const initGame = (socketio: Server) => {
   // user has connected
   socketio.on("connection", (socket) => {
     console.log(socket.id, "connected");

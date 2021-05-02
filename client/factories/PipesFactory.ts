@@ -1,15 +1,14 @@
 import PIPE_SPR from "url:../../assets/pipes2.jpg";
 
 class PipesFactory {
-  constructor(socket) {
-    this.pipes = [];
-
-    socket.on("pipes", (pipes) => {
+  private pipes: PipeData[] = [];
+  constructor(socket: SocketIOClient.Socket) {
+    socket.on("pipes", (pipes: PipeData[]) => {
       this.pipes = pipes;
     });
   }
 
-  draw(ctx) {
+  draw(ctx: CanvasRenderingContext2D) {
     this.pipes.forEach((pipe) => {
       const pipeImg = new Image();
       pipeImg.src = PIPE_SPR;

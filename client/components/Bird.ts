@@ -1,16 +1,17 @@
+import bird_spr from "../utils/getBirdAssets";
 import { BIRD_PROPS } from "../../configs/game";
-import { bird_spr } from "../utils/getBirdAssets";
 
 class Bird {
-  constructor() {
-    this.sprites = bird_spr;
-    this.width = BIRD_PROPS.WIDTH;
-    this.height = BIRD_PROPS.HEIGHT;
-    this.state = 0;
-    this.i = 0; // for selecting proper bird image
-  }
+  protected x = BIRD_PROPS.X;
+  protected y = BIRD_PROPS.STARTING_Y;
+  protected angle = 0;
+  private sprites = bird_spr;
+  private width = BIRD_PROPS.WIDTH;
+  private height = BIRD_PROPS.HEIGHT;
+  private state = 0;
+  private i = 0; // for selecting proper bird image
 
-  draw(ctx) {
+  draw(ctx: CanvasRenderingContext2D) {
     // if (state === "running") {
     //   this.render(ctx);
     // } else {
@@ -18,14 +19,14 @@ class Bird {
     this.render(ctx);
   }
 
-  tmp_render(ctx) {
+  tmp_render(ctx: CanvasRenderingContext2D) {
     ctx.fillStyle = "#85facf";
     ctx.fillRect(this.x, this.y, this.width, this.height);
   }
 
-  render(ctx) {
+  render(ctx: CanvasRenderingContext2D) {
     const { sprites, x, y, width, height, angle } = this;
-    const renderSelectedState = (state) => {
+    const renderSelectedState = (state: number) => {
       ctx.save();
       ctx.translate(x + width / 2, y + height / 2);
       ctx.rotate(angle);

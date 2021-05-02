@@ -11,4 +11,8 @@ wingsMid.src = birdWingsMid;
 const wingsUp = new Image();
 wingsUp.src = birdWingsUp;
 
-export const bird_spr = [wingsBot, wingsMid, wingsUp];
+const bird_spr: HTMLImageElement[] = [wingsBot, wingsMid, wingsUp];
+
+export default bird_spr;
+
+// export const bird_spr = [wingsBot, wingsMid, wingsUp];

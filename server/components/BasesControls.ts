@@ -1,7 +1,8 @@
-const { Base } = require("./Base");
-const { BASE_PROPS } = require("../../configs/game");
+import { Base } from "./Base";
+import { BASE_PROPS } from "../../configs/game";
 
-class BasesControls {
+export class BasesControls {
+  private bases: Base[];
   constructor() {
     this.bases = [];
 
@@ -32,4 +33,4 @@ class BasesControls {
   }
 }
 
-module.exports = { BasesControls };
+// module.exports = { BasesControls };

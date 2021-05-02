@@ -1,13 +1,35 @@
-// import { CTX } from "../configs/canvas";
 import SCORE_PROPS from "../configs/score";
+import Backgorund from "./components/Background";
+import EnemyBirdsFactory from "./factories/EnemyBirdsFactory";
+import PlayerBird from "./components/PlayerBird";
+import BaseFactory from "./factories/BaseFactory";
+import PipesFactory from "./factories/PipesFactory";
 
 class Game_tmp {
-  constructor(ctx, background, bird, enemyBirds, bases, pipes, socket) {
+  private ctx: CanvasRenderingContext2D;
+  // private background: Backgorund;
+  private bird: PlayerBird;
+  // private bases: BaseFactory;
+  // private pipes: PipesFactory;
+  private enemyBirds: EnemyBirdsFactory;
+  private toDraw: toDraw;
+  private data: { state: string };
+  private socket: SocketIOClient.Socket;
+
+  constructor(
+    ctx: CanvasRenderingContext2D,
+    background: Backgorund,
+    bird: PlayerBird,
+    enemyBirds: EnemyBirdsFactory,
+    bases: BaseFactory,
+    pipes: PipesFactory,
+    socket: SocketIOClient.Socket
+  ) {
     this.ctx = ctx;
-    this.background = background;
+    // this.background = background;
     this.bird = bird;
-    this.bases = bases;
-    this.pipes = pipes;
+    // this.bases = bases;
+    // this.pipes = pipes;
     this.enemyBirds = enemyBirds;
     this.toDraw = [background, pipes, bases, bird, enemyBirds];
     this.data = {
@@ -15,9 +37,8 @@ class Game_tmp {
     };
     this.socket = socket;
 
-    socket.on("game", (data) => {
+    socket.on("game", (data: { state: string }) => {
       this.data = data;
-      // setGameState(this.data.state);
     });
 
     this.setupControls();
@@ -26,10 +47,10 @@ class Game_tmp {
   renderScore() {
     this.ctx.fillStyle = "black";
     this.ctx.font = `${SCORE_PROPS.FONT_SIZE}px ${SCORE_PROPS.FONT}`;
-    this.ctx.fillText(this.bird.score, SCORE_PROPS.X, SCORE_PROPS.Y);
+    this.ctx.fillText(`${this.bird.score}`, SCORE_PROPS.X, SCORE_PROPS.Y);
     this.ctx.font = `${SCORE_PROPS.FONT_SIZE - 10}px ${SCORE_PROPS.FONT}`;
     this.ctx.fillText(
-      this.bird.highscore,
+      `${this.bird.highscore}`,
       SCORE_PROPS.X + 20,
       SCORE_PROPS.Y + 20
     );
@@ -47,30 +68,9 @@ class Game_tmp {
     });
   }
 
-  // changeComponents() {
-  //   const [cleaner, pipes, bases, bird, enemyBirdsFactory] = this.components;
-  //   switch (this.data.state) {
-  //     case "running":
-  //       this.toDraw = [cleaner, bases, enemyBirdsFactory, bird];
-  //       break;
-
-  //     case "started":
-  //       this.toDraw = this.components;
-  //       break;
-
-  //     case "over":
-  //       this.toDraw = [cleaner, pipes, bases, bird];
-  //       break;
-
-  //     default:
-  //       break;
-  //   }
-  // }
-
   create_tmp() {
     this.bird.manageControls(this.data.state);
 
-    // this.bird.angleControl(this.data.state);
     // execute all draw animations within given objects
     this.toDraw.forEach((object) => {
       object.draw(this.ctx);

@@ -1,9 +1,14 @@
-const { PIPE_PROPS, BG_SPEED } = require("../../configs/game");
+// const { PIPE_PROPS, BG_SPEED } = require("../../configs/game");
+import { PIPE_PROPS, BG_SPEED } from "../../configs/game";
 
-class Pipe {
-  constructor(offsetX) {
+export class Pipe {
+  public offsetX: number;
+  public offsetY: number;
+
+  constructor(offsetX: number) {
     const max = -100;
     const min = -400; // temp, we need to calc this
+
     this.offsetX = offsetX;
     this.offsetY = Math.floor(Math.random() * (max - min)) + min;
   }
@@ -21,4 +26,4 @@ class Pipe {
   }
 }
 
-module.exports = { Pipe };
+// module.exports = { Pipe };

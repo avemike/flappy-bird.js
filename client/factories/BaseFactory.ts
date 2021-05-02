@@ -1,17 +1,15 @@
-// import { CANVAS_SIZE } from "../../configs/canvas";
 import BASE_SPR from "url:../../assets/base.jpg";
 
 class BaseFactory {
-  constructor(socket) {
-    this.bases = [];
-
-    socket.on("bases", (bases) => {
-      this.bases = bases;
+  private basesData: BaseData[] = [];
+  constructor(socket: SocketIOClient.Socket) {
+    socket.on("bases", (basesData: BaseData[]) => {
+      this.basesData = basesData;
     });
   }
 
-  draw(ctx) {
-    this.bases.forEach((base) => {
+  draw(ctx: CanvasRenderingContext2D) {
+    this.basesData.forEach((base) => {
       const baseImg = new Image();
       baseImg.src = BASE_SPR;
       ctx.drawImage(baseImg, base.offsetX, base.offsetY);

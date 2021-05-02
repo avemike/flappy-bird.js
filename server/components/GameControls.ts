@@ -1,8 +1,23 @@
-// const { socket } = require("../../client/utils/socketSetup");
-const { checkCollisions } = require("../utils/checkCollisions");
+import { checkCollisions } from "../utils/checkCollisions";
+import { FrameHandler } from "../utils/FrameHandler";
+import { BasesControls } from "./BasesControls";
+import { BirdControls } from "./BirdControls";
+import { PipesControls } from "./PipesControls";
 
-class GameControls {
-  constructor(bird, pipes, bases, socket, frameControl) {
+export class GameControls {
+  private bird: BirdControls;
+  private pipes: PipesControls;
+  private frameControl: FrameHandler;
+  private socket: SocketIO.Socket;
+  public data = { state: "running" };
+
+  constructor(
+    bird: BirdControls,
+    pipes: PipesControls,
+    bases: BasesControls,
+    socket: SocketIO.Socket,
+    frameControl: FrameHandler
+  ) {
     this.bird = bird;
     this.pipes = pipes;
     this.frameControl = frameControl;
@@ -17,16 +32,6 @@ class GameControls {
       this.frameControl.addCallback(bird.angleControl.bind(bird));
       this.frameControl.addCallback(pipes.run.bind(pipes));
       this.frameControl.addCallback(this.check_over_v2.bind(this));
-      // this.frameControl.addCallback(() =>
-      //   checkCollisions(
-      //     bird.data,
-      //     pipes.data,
-      //     this.data,
-      //     this.socket,
-      //     this.isOverlayActive
-      //   )
-      // );
-      // this.frameControl.addCallback(this.checkIfOver.bind(this));
     });
 
     socket.on("restart", () => {
@@ -53,22 +58,23 @@ class GameControls {
     }
   }
 
-  checkIfOver() {
-    if (this.data.state === "over") {
-      this.bird.setHighscore();
-      this.frameControl.reset();
-      this.frameControl.addCallback(this.bird.gravity.bind(this.bird));
-      this.frameControl.addCallback(() =>
-        checkCollisions(
-          this.bird.data,
-          this.pipes.data,
-          this.data,
-          this.socket,
-          this.isOverlayActive
-        )
-      );
-    }
-  }
+  //  DEPRECATED
+  // checkIfOver() {
+  //   if (this.data.state === "over") {
+  //     this.bird.setHighscore();
+  //     this.frameControl.reset();
+  //     this.frameControl.addCallback(this.bird.gravity.bind(this.bird));
+  //     this.frameControl.addCallback(() =>
+  //       checkCollisions(
+  //         this.bird.data,
+  //         this.pipes.data,
+  //         this.data,
+  //         this.socket,
+  //         this.isOverlayActive
+  //       )
+  //     );
+  //   }
+  // }
 }
 
 module.exports = { GameControls };

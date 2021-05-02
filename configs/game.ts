@@ -25,11 +25,20 @@ const DIST_BETW_PIPES = 300;
 const BG_SPEED = 2;
 const UPDATE_MILLISECONDS = 16;
 
-module.exports = {
-  BG_SPEED,
-  DIST_BETW_PIPES,
+export {
   PIPE_PROPS,
   BIRD_PROPS,
   BASE_PROPS,
+  DIST_BETW_PIPES,
+  BG_SPEED,
   UPDATE_MILLISECONDS,
 };
+
+// module.exports = {
+//   BG_SPEED,
+//   DIST_BETW_PIPES,
+//   PIPE_PROPS,
+//   BIRD_PROPS,
+//   BASE_PROPS,
+//   UPDATE_MILLISECONDS,
+// };

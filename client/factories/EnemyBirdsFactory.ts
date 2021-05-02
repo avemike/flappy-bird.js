@@ -2,22 +2,26 @@ import EnemyBird from "../components/EnemyBird";
 
 // EnemyBirdsFactory creates new EnemyBirds and updates existing ones
 class EnemyBirdsFactory {
-  constructor(socket) {
-    this.storedBirds = {};
+  private storedBirds: {
+    [k: string]: EnemyBird;
+  } = {};
 
-    socket.on("otherBird", (bird) => {
-      this.use(bird);
-    });
-    socket.on("otherBirdDc", (birdId) => {
+  constructor(socket: SocketIOClient.Socket) {
+    socket.on(
+      "otherBird",
+      (bird: { id: string; y: number; momentum: number }) => {
+        this.use(bird);
+      }
+    );
+    socket.on("otherBirdDc", (birdId: string) => {
       delete this.storedBirds[birdId];
     });
   }
 
-  use(bird) {
-    // console.log(bird.id);
+  use(bird: { id: string; y: number; momentum: number }) {
     if (!this.storedBirds[bird.id]) {
       // create new bird
-      const newBird = new EnemyBird({ bird });
+      const newBird = new EnemyBird(bird);
       this.storedBirds[bird.id] = newBird;
       return;
     }
@@ -25,7 +29,7 @@ class EnemyBirdsFactory {
     this.storedBirds[bird.id].update(bird);
   }
 
-  draw(ctx) {
+  draw(ctx: CanvasRenderingContext2D) {
     Object.keys(this.storedBirds).forEach((birdId) => {
       this.storedBirds[birdId].draw(ctx);
     });

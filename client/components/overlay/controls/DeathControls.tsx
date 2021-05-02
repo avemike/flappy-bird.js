@@ -35,6 +35,8 @@ function DeathControls() {
       return <SingleControls></SingleControls>;
     case "multi":
       return <MultiControls></MultiControls>;
+    default:
+      return <></>;
   }
 }
 
