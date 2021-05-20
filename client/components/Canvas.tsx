@@ -1,4 +1,4 @@
-import React, { useLayoutEffect, useRef } from "react";
+import React, { ReactElement, useLayoutEffect, useRef } from "react";
 import PlayerBird from "./PlayerBird";
 import { socket } from "../utils/socketSetup";
 import Game_tmp from "../Game_tmp";
@@ -7,7 +7,7 @@ import PipesFactory from "../factories/PipesFactory";
 import EnemyBirdsFactory from "../factories/EnemyBirdsFactory";
 import Backgorund from "./Background";
 
-const Canvas = (props: CanvasProps) => {
+const Canvas = (props: CanvasProps): ReactElement => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
 
   useLayoutEffect(() => {

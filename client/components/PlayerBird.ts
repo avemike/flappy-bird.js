@@ -29,7 +29,7 @@ class PlayerBird extends Bird {
     this.manageControls();
   }
 
-  setupUpdateSocket() {
+  setupUpdateSocket(): void {
     this.socket.on("bird", (data: PlayerBirdData) => {
       this.x = data.x;
       this.y = data.y;
@@ -41,24 +41,22 @@ class PlayerBird extends Bird {
     });
   }
 
-  addControls() {
+  addControls(): void {
     if (!this.controlsAdded && !this.collision) {
       document.addEventListener("keypress", this.controlTheBird);
       this.controlsAdded = !this.controlsAdded;
-      console.log("dodalem");
     }
   }
 
-  removeControls() {
+  removeControls(): void {
     if (this.controlsAdded && this.collision) {
       document.removeEventListener("keypress", this.controlTheBird);
       this.controlsAdded = !this.controlsAdded;
-      console.log("zabralem");
       return;
     }
   }
 
-  manageControls(state = "started") {
+  manageControls(state = "started"): void {
     switch (state) {
       case "started":
         this.addControls();

@@ -11,7 +11,7 @@ class Bird {
   private state = 0;
   private i = 0; // for selecting proper bird image
 
-  draw(ctx: CanvasRenderingContext2D) {
+  draw(ctx: CanvasRenderingContext2D): void {
     // if (state === "running") {
     //   this.render(ctx);
     // } else {
@@ -19,12 +19,12 @@ class Bird {
     this.render(ctx);
   }
 
-  tmp_render(ctx: CanvasRenderingContext2D) {
+  tmp_render(ctx: CanvasRenderingContext2D): void {
     ctx.fillStyle = "#85facf";
     ctx.fillRect(this.x, this.y, this.width, this.height);
   }
 
-  render(ctx: CanvasRenderingContext2D) {
+  render(ctx: CanvasRenderingContext2D): void {
     const { sprites, x, y, width, height, angle } = this;
     const renderSelectedState = (state: number) => {
       ctx.save();

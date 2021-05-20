@@ -4,7 +4,7 @@ import DeathControls from "./DeathControls";
 import MainControls from "./MainControls";
 import ControlsContext from "../../../utils/ControlsContext";
 
-function Controls() {
+function Controls(): JSX.Element {
   const { isDeathScreenOn } = useContext(ControlsContext);
 
   return !isDeathScreenOn ? (

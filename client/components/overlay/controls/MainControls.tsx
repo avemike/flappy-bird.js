@@ -2,7 +2,7 @@ import React, { useContext } from "react";
 
 import ControlsContext from "../../../utils/ControlsContext";
 
-function MainControls() {
+function MainControls(): JSX.Element {
   const {
     startGame,
     gameTypeHook: [, setGameType],

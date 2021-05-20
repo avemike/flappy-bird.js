@@ -3,7 +3,7 @@ import { socket } from "../../utils/socketSetup";
 
 import Menu from "./Menu";
 
-const Overlay = () => {
+const Overlay: FC = () => {
   const [isActive, setIsActive] = useState(true);
   const [deathScreen, setDeathScreen] = useState(false);
   const gameTypeHook = useState("");

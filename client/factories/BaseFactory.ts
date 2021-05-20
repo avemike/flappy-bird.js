@@ -8,7 +8,7 @@ class BaseFactory {
     });
   }
 
-  draw(ctx: CanvasRenderingContext2D) {
+  draw(ctx: CanvasRenderingContext2D): void {
     this.basesData.forEach((base) => {
       const baseImg = new Image();
       baseImg.src = BASE_SPR;

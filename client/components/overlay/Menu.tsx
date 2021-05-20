@@ -1,4 +1,4 @@
-import React, { FC, useEffect, useState } from "react";
+import React, { FC } from "react";
 import styled from "styled-components";
 
 import { CANVAS_SIZE } from "../../../configs/canvas";
@@ -22,7 +22,7 @@ interface MenuProps {
   controls: ControlsPack;
 }
 
-const Menu: FC<MenuProps> = ({ controls }) => (
+const Menu: FC<MenuProps> = ({ controls }: MenuProps) => (
   <MenuStyled>
     <h1>flappy bird</h1>
     <ControlsContext.Provider value={controls}>

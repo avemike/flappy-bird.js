@@ -1,10 +1,19 @@
 import { createContext } from "react";
 
 const ControlsContext = createContext<ControlsPack>({
-  startGame: () => {},
-  restartGame: () => {},
+  startGame: () => {
+    /* placeholder for TS */
+  },
+  restartGame: () => {
+    /* placeholder for TS */
+  },
   isDeathScreenOn: false,
-  gameTypeHook: ["default", () => {}],
+  gameTypeHook: [
+    "default",
+    () => {
+      /* placeholder for TS */
+    },
+  ],
 });
 
 export default ControlsContext;

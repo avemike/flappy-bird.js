@@ -14,7 +14,7 @@ class EnemyBird extends Bird {
 
   // updates enemy bird position and momentum based on
   // websocket event inside EnemyBirdsFactory.js
-  update(data: { y: number; momentum: number }) {
+  update(data: { y: number; momentum: number }): void {
     this.y = data.y;
     this.momentum = data.momentum;
   }

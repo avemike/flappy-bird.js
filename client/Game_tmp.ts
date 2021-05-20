@@ -44,7 +44,7 @@ class Game_tmp {
     this.setupControls();
   }
 
-  renderScore() {
+  renderScore(): void {
     this.ctx.fillStyle = "black";
     this.ctx.font = `${SCORE_PROPS.FONT_SIZE}px ${SCORE_PROPS.FONT}`;
     this.ctx.fillText(`${this.bird.score}`, SCORE_PROPS.X, SCORE_PROPS.Y);
@@ -56,7 +56,7 @@ class Game_tmp {
     );
   }
 
-  setupControls() {
+  setupControls(): void {
     this.ctx.canvas.addEventListener("click", () => {
       if (this.data.state === "running") {
         this.socket.emit("start game");
@@ -68,7 +68,7 @@ class Game_tmp {
     });
   }
 
-  create_tmp() {
+  create_tmp(): void {
     this.bird.manageControls(this.data.state);
 
     // execute all draw animations within given objects

@@ -8,7 +8,7 @@ class Backgorund {
     this.image.src = theme;
   }
 
-  draw(ctx: CanvasRenderingContext2D) {
+  draw(ctx: CanvasRenderingContext2D): void {
     ctx.drawImage(this.image, 0, -200);
   }
 }

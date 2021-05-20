@@ -2,7 +2,7 @@ import React, { useContext } from "react";
 
 import ControlsContext from "../../../utils/ControlsContext";
 
-function SingleControls() {
+function SingleControls(): JSX.Element {
   const { restartGame } = useContext(ControlsContext);
 
   return (
@@ -13,7 +13,7 @@ function SingleControls() {
   );
 }
 
-function MultiControls() {
+function MultiControls(): JSX.Element {
   const { restartGame } = useContext(ControlsContext);
   return (
     <>
@@ -25,7 +25,7 @@ function MultiControls() {
   );
 }
 
-function DeathControls() {
+function DeathControls(): JSX.Element {
   const {
     gameTypeHook: [gameType],
   } = useContext(ControlsContext);

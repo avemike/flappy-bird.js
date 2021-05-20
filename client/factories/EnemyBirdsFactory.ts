@@ -18,7 +18,7 @@ class EnemyBirdsFactory {
     });
   }
 
-  use(bird: { id: string; y: number; momentum: number }) {
+  use(bird: { id: string; y: number; momentum: number }): void {
     if (!this.storedBirds[bird.id]) {
       // create new bird
       const newBird = new EnemyBird(bird);
@@ -29,7 +29,7 @@ class EnemyBirdsFactory {
     this.storedBirds[bird.id].update(bird);
   }
 
-  draw(ctx: CanvasRenderingContext2D) {
+  draw(ctx: CanvasRenderingContext2D): void {
     Object.keys(this.storedBirds).forEach((birdId) => {
       this.storedBirds[birdId].draw(ctx);
     });
