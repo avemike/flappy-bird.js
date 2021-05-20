@@ -1,11 +1,9 @@
 # flappy-bird.js
 
-2P flappy bird in JS
+Multiplayer flappy bird in TS
 
 ## Running
-- **`npm run server`** - builds up client and starts server on port :3000
+- **`npm run server`** - starts server on port :3000
+- **`npm run dev`** - watches for changes on client
 
-While script above is running server changes will be automatically updated.
-
-Client changes will need rebuilding: 
-- **`npm run build`**
+While script above is running all changes will be automatically updated.
