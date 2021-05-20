@@ -1,0 +1,9 @@
+declare module "getBirdAssets";
+declare module "game";
+declare module "socketSetup";
+declare module "*.jpeg";
+declare module "*.jpg";
+declare module "*.svg";
+declare module "canvas";
+declare module "score";
+declare module "ControlsContext";
