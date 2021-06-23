@@ -1,20 +1,20 @@
 import { Server } from "socket.io";
 
-import { PipesControls } from "./components/PipesControls";
-import { BirdControls } from "./components/BirdControls";
+import { PipesController } from "./components/PipesController";
+import { BirdController } from "./components/BirdController";
 import { FrameHandler } from "./utils/FrameHandler";
 import { GameControls } from "./components/GameControls";
-import { BasesControls } from "./components/BasesControls";
+import { BasesController } from "./components/BasesController";
 
 const frameControl = new FrameHandler();
 
-export const initGame = (socketio: Server) => {
+export const initGame = (socketio: Server): void => {
   // user has connected
   socketio.on("connection", (socket) => {
     console.log(socket.id, "connected");
-    const bird = new BirdControls(socket.id);
-    const pipes = new PipesControls();
-    const bases = new BasesControls();
+    const bird = new BirdController(socket.id);
+    const pipes = new PipesController();
+    const bases = new BasesController();
     const game = new GameControls(bird, pipes, bases, socket, frameControl);
 
     frameControl.addCallback(bases.run.bind(bases));

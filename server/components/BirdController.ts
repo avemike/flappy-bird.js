@@ -1,16 +1,15 @@
-import { Pipe } from "./Pipe";
 import { PIPE_PROPS, BIRD_PROPS, BG_SPEED } from "../../configs/game";
-import { BirdDataType } from "../types";
+import { BirdDataType, PipeDataType } from "../types";
 
-export class BirdControls {
+export class BirdController {
   public data: BirdDataType = {
-    x: 100,
-    y: 100,
-    momentum: 2,
+    x: BIRD_PROPS.X,
+    y: BIRD_PROPS.STARTING_Y,
+    momentum: BIRD_PROPS.MOMENTUM,
     angle: 0,
     score: 0,
     highscore: 0,
-    collision: false,
+    collision: BIRD_PROPS.COLLISION,
     id: "",
   };
 
@@ -18,7 +17,7 @@ export class BirdControls {
     this.data = { ...this.data, id: id };
   }
 
-  resetState() {
+  resetState(): void {
     const { X, STARTING_Y, MOMENTUM, COLLISION } = BIRD_PROPS;
     this.data.x = X;
     this.data.y = STARTING_Y;
@@ -28,7 +27,7 @@ export class BirdControls {
     this.data.score = 0;
   }
 
-  checkIfScored(pipesData: Pipe[]) {
+  checkIfScored(pipesData: PipeDataType[]): boolean {
     const middleOfPipe = pipesData[0].offsetX + PIPE_PROPS.WIDTH / 2;
     const middleOfBird = this.data.x + BIRD_PROPS.WIDTH / 2;
 
@@ -45,21 +44,21 @@ export class BirdControls {
     return false;
   }
 
-  updateScore(pipesData: Pipe[]) {
+  updateScore(pipesData: PipeDataType[]): void {
     if (this.checkIfScored(pipesData) === true) {
       this.data.score += 1;
     }
   }
 
-  setHighscore() {
+  setHighscore(): void {
     this.data.highscore = this.data.score;
   }
 
-  jump() {
+  jump(): void {
     this.data.momentum = -5.8;
   }
 
-  gravity() {
+  gravity(): void {
     const { momentum } = this.data;
     if (momentum < 10) {
       this.data.momentum += 0.3;
@@ -67,7 +66,7 @@ export class BirdControls {
     this.data.y += momentum;
   }
 
-  angleControl() {
+  angleControl(): void {
     if (
       Math.sign(this.data.momentum) === 1 &&
       this.data.angle < BIRD_PROPS.MAX_ANGLE

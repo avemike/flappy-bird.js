@@ -1,20 +1,20 @@
 import { checkCollisions } from "../utils/checkCollisions";
 import { FrameHandler } from "../utils/FrameHandler";
-import { BasesControls } from "./BasesControls";
-import { BirdControls } from "./BirdControls";
-import { PipesControls } from "./PipesControls";
+import { BasesController } from "./BasesController";
+import { BirdController } from "./BirdController";
+import { PipesController } from "./PipesController";
 
 export class GameControls {
-  private bird: BirdControls;
-  private pipes: PipesControls;
+  private bird: BirdController;
+  private pipes: PipesController;
   private frameControl: FrameHandler;
   private socket: SocketIO.Socket;
   public data = { state: "running" };
 
   constructor(
-    bird: BirdControls,
-    pipes: PipesControls,
-    bases: BasesControls,
+    bird: BirdController,
+    pipes: PipesController,
+    bases: BasesController,
     socket: SocketIO.Socket,
     frameControl: FrameHandler
   ) {
@@ -31,7 +31,7 @@ export class GameControls {
       this.frameControl.addCallback(bird.gravity.bind(bird));
       this.frameControl.addCallback(bird.angleControl.bind(bird));
       this.frameControl.addCallback(pipes.run.bind(pipes));
-      this.frameControl.addCallback(this.check_over_v2.bind(this));
+      this.frameControl.addCallback(this.checkOver.bind(this));
     });
 
     socket.on("restart", () => {
@@ -43,7 +43,7 @@ export class GameControls {
     });
   }
 
-  check_over_v2() {
+  checkOver(): void {
     if (checkCollisions(this.bird.data, this.pipes.data)) {
       console.log("koniec");
       this.data.state = "over";
@@ -57,24 +57,6 @@ export class GameControls {
       );
     }
   }
-
-  //  DEPRECATED
-  // checkIfOver() {
-  //   if (this.data.state === "over") {
-  //     this.bird.setHighscore();
-  //     this.frameControl.reset();
-  //     this.frameControl.addCallback(this.bird.gravity.bind(this.bird));
-  //     this.frameControl.addCallback(() =>
-  //       checkCollisions(
-  //         this.bird.data,
-  //         this.pipes.data,
-  //         this.data,
-  //         this.socket,
-  //         this.isOverlayActive
-  //       )
-  //     );
-  //   }
-  // }
 }
 
 module.exports = { GameControls };

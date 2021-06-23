@@ -1,7 +1,8 @@
 import { Base } from "./Base";
 import { BASE_PROPS } from "../../configs/game";
+import { BaseDataType } from "../types";
 
-export class BasesControls {
+export class BasesController {
   private bases: Base[];
   constructor() {
     this.bases = [];
@@ -12,14 +13,13 @@ export class BasesControls {
           BASE_PROPS.WIDTH,
           BASE_PROPS.HEIGHT,
           BASE_PROPS.WIDTH * i,
-          // BASE_PROPS.HEIGHT
           433 - BASE_PROPS.HEIGHT
         )
       );
     }
   }
 
-  get data() {
+  get data(): BaseDataType[] {
     return this.bases.map((base) => ({
       width: base.width,
       height: base.height,
@@ -28,9 +28,7 @@ export class BasesControls {
     }));
   }
 
-  run() {
+  run(): void {
     this.bases.forEach((base) => base.run());
   }
 }
-
-// module.exports = { BasesControls };

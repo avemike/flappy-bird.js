@@ -1,19 +1,19 @@
 import { BIRD_PROPS, PIPE_PROPS, BASE_PROPS } from "../../configs/game";
-
-import { Pipe } from "../components/Pipe";
-import { BirdDataType } from "../types";
+import { BirdDataType, PipeDataType } from "../types";
 
 // 433 IS +/- CANVAS HEIGHT
 const tmp_canvas_height = 433;
 
-export const checkCollisions = (birdData: BirdDataType, pipesData: Pipe[]) => {
+export const checkCollisions = (
+  birdData: BirdDataType,
+  pipesData: PipeDataType[]
+): boolean => {
   // check if birdData is too far away for collision
   if (
     (birdData.x + BIRD_PROPS.WIDTH < pipesData[0].offsetX ||
       birdData.x > pipesData[0].offsetX + PIPE_PROPS.WIDTH) &&
     birdData.y < tmp_canvas_height - BASE_PROPS.HEIGHT
   ) {
-    // return;
     return false;
   }
 
@@ -33,13 +33,11 @@ export const checkCollisions = (birdData: BirdDataType, pipesData: Pipe[]) => {
     // gameData.state = "over";
   }
 
-  // console.log("right there");
   if (bottomBird >= tmp_canvas_height - BASE_PROPS.HEIGHT) {
-    // console.log("bird has hit the ground");
     birdData.y = tmp_canvas_height - BASE_PROPS.HEIGHT - BIRD_PROPS.HEIGHT + 10;
-    // console.log("trzymam go");
     birdData.collision = true;
     return true;
-    // gameData.state = "over";
   }
+
+  return false;
 };

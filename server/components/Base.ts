@@ -1,5 +1,3 @@
-// const { CTX, BASE_SPR, CANVAS_SIZE } = require('../../configs/canvas');
-// const { BG_SPEED } = require("../../configs/game");
 import { BG_SPEED } from "../../configs/game";
 
 export class Base {
@@ -15,17 +13,17 @@ export class Base {
     this.offsetY = offsetY;
   }
 
-  changeOffset() {
+  changeOffset(): void {
     this.offsetX -= BG_SPEED;
   }
 
-  isOverScreen() {
+  isOverScreen(): void {
     if (this.offsetX < -this.width) {
       this.offsetX += 20 * 336;
     }
   }
 
-  run() {
+  run(): void {
     this.changeOffset();
     this.isOverScreen();
   }

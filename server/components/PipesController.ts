@@ -1,7 +1,8 @@
 import { Pipe } from "./Pipe";
+import { PipeDataType } from "../types";
 import { DIST_BETW_PIPES } from "../../configs/game";
 
-export class PipesControls {
+export class PipesController {
   private pipes: Pipe[];
   constructor() {
     this.pipes = [];
@@ -10,24 +11,27 @@ export class PipesControls {
     }
   }
 
-  get data() {
-    return this.pipes;
+  get data(): PipeDataType[] {
+    return this.pipes.map((pipe) => ({
+      offsetX: pipe.offsetX,
+      offsetY: pipe.offsetY,
+    }));
   }
 
-  resetState() {
+  resetState(): void {
     this.pipes = [];
     for (let i = 0; i < 7; i += 1) {
       this.pipes.push(new Pipe(1000 + DIST_BETW_PIPES * i));
     }
   }
 
-  create() {
+  create(): void {
     const lastPipeOffsetX = this.pipes[this.pipes.length - 1].offsetX;
     this.pipes.push(new Pipe(lastPipeOffsetX + DIST_BETW_PIPES));
   }
 
   // run every frame
-  run() {
+  run(): void {
     if (this.pipes[0].isOverScreen()) {
       this.pipes.shift();
       this.create();

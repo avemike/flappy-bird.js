@@ -8,3 +8,15 @@ export interface BirdDataType {
   collision: boolean;
   id: string;
 }
+
+export interface BaseDataType {
+  width: number;
+  height: number;
+  offsetX: number;
+  offsetY: number;
+}
+
+export interface PipeDataType {
+  offsetX: number;
+  offsetY: number;
+}
