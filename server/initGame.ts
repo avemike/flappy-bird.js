@@ -6,13 +6,14 @@ import { BirdController } from "./components/BirdController";
 import { FrameHandler } from "./utils/FrameHandler";
 import { GameControls } from "./components/GameControls";
 import { BasesController } from "./components/BasesController";
+import { logger } from "./utils/logger";
 
 const frameControl = new FrameHandler();
 
 export const initGame = (socketio: Server): void => {
   // user has connected
   socketio.on("connection", (socket) => {
-    console.log(socket.id, "connected");
+    logger.info(`Player "${socket.id}" has connected`);
     const bird = new BirdController(socket.id);
     const pipes = new PipesController();
     const bases = new BasesController();

@@ -4,6 +4,7 @@
   "description": "2P flappy bird in JS",
   "dependencies": {
     "express": "^4.17.1",
+    "pino": "^6.11.3",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
     "socket.io": "^2.3.0",
@@ -22,6 +23,7 @@
     "@parcel/transformer-react-refresh-wrap": "*",
     "@types/express": "^4.17.11",
     "@types/node": "^14.14.41",
+    "@types/pino": "^6.3.8",
     "@types/react": "^17.0.3",
     "@types/react-dom": "^17.0.3",
     "@types/socket.io": "^2.1.13",
@@ -37,6 +39,7 @@
     "eslint-plugin-react": "^7.22.0",
     "eslint-plugin-react-hooks": "^4.2.0",
     "parcel": "^2.0.0-beta.3.1",
+    "pino-pretty": "^5.1.0",
     "prettier": "^2.2.1",
     "ts-node": "^9.1.1",
     "watch": "^1.0.2"
@@ -47,7 +50,7 @@
     "del-cache": "rm -drf .parcel-cache",
     "dev": "npm run del-cache && parcel watch public/index.html",
     "dev2": "parcel watch public/index.html",
-    "server": "nodemon --exec 'ts-node server/index.ts'"
+    "server": "nodemon --exec 'ts-node server/index.ts' | pino-pretty"
   },
   "repository": {
     "type": "git",
