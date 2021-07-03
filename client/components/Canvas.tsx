@@ -1,7 +1,7 @@
-import React, { ReactElement, useLayoutEffect, useRef } from "react";
+import React, { ReactElement, useEffect, useRef } from "react";
 import PlayerBird from "./PlayerBird";
 import { socket } from "../utils/socketSetup";
-import Game_tmp from "../Game_tmp";
+import Game from "../Game";
 import BaseFactory from "../factories/BaseFactory";
 import PipesFactory from "../factories/PipesFactory";
 import EnemyBirdsFactory from "../factories/EnemyBirdsFactory";
@@ -10,7 +10,7 @@ import Backgorund from "./Background";
 const Canvas = (props: CanvasProps): ReactElement => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
 
-  useLayoutEffect(() => {
+  useEffect(() => {
     if (canvasRef.current !== null) {
       const ctx = canvasRef.current.getContext(
         "2d"
@@ -20,7 +20,7 @@ const Canvas = (props: CanvasProps): ReactElement => {
       const bases = new BaseFactory(socket);
       const enemyBirds = new EnemyBirdsFactory(socket);
       const pipes = new PipesFactory(socket);
-      const game = new Game_tmp(
+      const game = new Game(
         ctx,
         background,
         bird,
@@ -46,7 +46,7 @@ const Canvas = (props: CanvasProps): ReactElement => {
         window.cancelAnimationFrame(animationFrameID);
       };
     }
-  });
+  }, []);
 
   return <canvas ref={canvasRef} {...props}></canvas>;
 };

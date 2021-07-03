@@ -1,10 +1,15 @@
-import React, { FC } from "react";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 
-import { CANVAS_SIZE } from "../../../configs/canvas";
+import MainControls from "./controls/MainControls";
+import MultiDetails from "./controls/MultiDetails";
+import DeathControls from "./controls/DeathControls";
 
-import Controls from "./controls/Controls";
-import ControlsContext from "../../utils/ControlsContext";
+import MenuContext from "../../utils/MenuContext";
+import { MenuState, GameMode } from "../../../configs/game";
+
+import { socket } from "../../utils/socketSetup";
+import { CANVAS_SIZE } from "../../../configs/canvas";
 
 const MenuStyled = styled.div`
   position: absolute;
@@ -18,17 +23,69 @@ const MenuStyled = styled.div`
   z-index: 999;
 `;
 
-interface MenuProps {
-  controls: ControlsPack;
-}
+const Title = styled.h1`
+  position: fixed;
+`;
 
-const Menu: FC<MenuProps> = ({ controls }: MenuProps) => (
-  <MenuStyled>
-    <h1>flappy bird</h1>
-    <ControlsContext.Provider value={controls}>
-      <Controls></Controls>
-    </ControlsContext.Provider>
-  </MenuStyled>
-);
+const Menu = (): JSX.Element => {
+  const gameModeHook = useState(GameMode.NOT_SET);
+  const menuStateHook = useState(MenuState.MAIN);
+  const [menuState, setMenuState] = menuStateHook;
+
+  useEffect(() => {
+    socket.on("game over", () => {
+      setMenuState(MenuState.DEATH);
+    });
+
+    return () => {
+      socket.off("game over");
+    };
+  }, []);
+
+  function startGame() {
+    setMenuState(MenuState.DISABLED);
+    socket.emit("start game");
+  }
+
+  function restartGame() {
+    setMenuState(MenuState.MAIN);
+    socket.emit("restart");
+  }
+
+  const {
+    MAIN: MAIN,
+    MULTI_DETAILS: MULTI_DETAILS,
+    DEATH: DEATH,
+    DISABLED: DISABLED,
+  } = MenuState;
+
+  function switchRender(menuState: MenuState): JSX.Element {
+    switch (menuState) {
+      case MAIN:
+        return <MainControls />;
+      case MULTI_DETAILS:
+        return <MultiDetails />;
+      case DEATH:
+        return <DeathControls />;
+      case DISABLED:
+        return <></>;
+    }
+  }
+
+  return (
+    <>
+      {menuState !== MenuState.DISABLED && (
+        <MenuStyled>
+          <Title>Flappy Bird</Title>
+          <MenuContext.Provider
+            value={{ startGame, restartGame, menuStateHook, gameModeHook }}
+          >
+            {switchRender(menuStateHook[0])}
+          </MenuContext.Provider>
+        </MenuStyled>
+      )}
+    </>
+  );
+};
 
 export default Menu;

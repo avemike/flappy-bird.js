@@ -1,3 +1,4 @@
+import { v4 as uuidv4 } from "uuid";
 import { Server } from "socket.io";
 
 import { PipesController } from "./components/PipesController";
@@ -18,8 +19,12 @@ export const initGame = (socketio: Server): void => {
     const game = new GameControls(bird, pipes, bases, socket, frameControl);
 
     frameControl.addCallback(bases.run.bind(bases));
-    // frameControl.addCallback(bird.gravity.bind(bird));
-
+    /*
+    socket.on("multiplayer", () => {
+      const roomID = uuidv4(); TODO
+      socket.join(roomID);
+    });
+    */
     socket.emit("bird", bird.data);
     socket.broadcast.emit("otherBird", bird.data);
 

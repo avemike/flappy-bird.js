@@ -26,7 +26,8 @@ export class GameControls {
       state: "running",
     };
 
-    socket.on("start game", () => {
+    this.socket.on("start game", () => {
+      // socket.broadcast.emit("start game"); // TODO
       this.data.state = "started";
       this.frameControl.addCallback(bird.gravity.bind(bird));
       this.frameControl.addCallback(bird.angleControl.bind(bird));
@@ -34,7 +35,7 @@ export class GameControls {
       this.frameControl.addCallback(this.checkOver.bind(this));
     });
 
-    socket.on("restart", () => {
+    this.socket.on("restart", () => {
       this.data.state = "running";
       this.bird.resetState();
       this.pipes.resetState();
@@ -45,7 +46,6 @@ export class GameControls {
 
   checkOver(): void {
     if (checkCollisions(this.bird.data, this.pipes.data)) {
-      console.log("koniec");
       this.data.state = "over";
       this.socket.emit("game over");
       this.bird.setHighscore();
@@ -59,4 +59,4 @@ export class GameControls {
   }
 }
 
-module.exports = { GameControls };
+// module.exports = { GameControls };

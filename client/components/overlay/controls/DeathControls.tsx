@@ -1,43 +1,75 @@
 import React, { useContext } from "react";
+import styled from "styled-components";
 
-import ControlsContext from "../../../utils/ControlsContext";
+import ButtonStyled from "./ButtonStyled";
+
+import MenuContext from "../../../utils/MenuContext";
+import { GameMode } from "../../../../configs/game";
+import { CANVAS_SIZE } from "../../../../configs/canvas";
 
 function SingleControls(): JSX.Element {
-  const { restartGame } = useContext(ControlsContext);
+  const { restartGame } = useContext(MenuContext);
 
   return (
     <>
-      <button onClick={restartGame}>restart</button>
-      <button>multi</button>
+      <ButtonStyled onClick={restartGame}>restart</ButtonStyled>
+      <ButtonStyled>multi</ButtonStyled>
     </>
   );
 }
 
 function MultiControls(): JSX.Element {
-  const { restartGame } = useContext(ControlsContext);
+  const { restartGame } = useContext(MenuContext);
   return (
     <>
-      <button>find another room</button>
-      <button>leaderboard</button>
-      <button onClick={restartGame}>main menu</button>
-      <button>...</button>
+      <ButtonStyled>go to single</ButtonStyled>
+      <ButtonStyled>create new link</ButtonStyled>
+      <ButtonStyled onClick={restartGame}>main menu</ButtonStyled>
     </>
   );
 }
 
-function DeathControls(): JSX.Element {
-  const {
-    gameTypeHook: [gameType],
-  } = useContext(ControlsContext);
-
-  switch (gameType) {
-    case "single":
+function switchRender(gameMode: GameMode): JSX.Element {
+  switch (gameMode) {
+    case GameMode.SINGLE:
       return <SingleControls></SingleControls>;
-    case "multi":
+    case GameMode.MULTI:
       return <MultiControls></MultiControls>;
     default:
       return <></>;
   }
+}
+
+const Wrapper = styled.div`
+  /* position: absolute; */
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: ${CANVAS_SIZE.WIDTH}px;
+  /* height: ${CANVAS_SIZE.HEIGHT}px; */
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+  height: inherit;
+`;
+
+function DeathControls(): JSX.Element {
+  const {
+    gameModeHook: [gameMode],
+  } = useContext(MenuContext);
+
+  return <Wrapper>{switchRender(gameMode)}</Wrapper>;
+
+  // switch (gameMode) {
+  //   case GameMode.SINGLE:
+  //     return <SingleControls></SingleControls>;
+  //   case GameMode.MULTI:
+  //     return <MultiControls></MultiControls>;
+  //   default:
+  //     return <></>;
+  // }
 }
 
 export default DeathControls;

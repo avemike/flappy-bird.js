@@ -1,43 +1,44 @@
-import React, { FC, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { socket } from "../../utils/socketSetup";
 
 import Menu from "./Menu";
 
-const Overlay: FC = () => {
-  const [isActive, setIsActive] = useState(true);
-  const [deathScreen, setDeathScreen] = useState(false);
-  const gameTypeHook = useState("");
+const Overlay = (): JSX.Element => {
+  const [isActive, setActive] = useState(true);
+  // const [deathScreen, setDeathScreen] = useState(false);
+  // const gameTypeHook = useState("");
 
-  useEffect(() => {
-    socket.on("game over", () => {
-      setIsActive(true);
-      setDeathScreen(true);
-    });
+  // useEffect(() => {
+  //   socket.on("game over", () => {
+  //     setActive(true);
+  //     // setDeathScreen(true);
+  //   });
 
-    return () => {
-      socket.off("game over");
-    };
-  }, []);
+  //   return () => {
+  //     socket.off("game over");
+  //   };
+  // }, []);
 
   function startGame() {
-    setIsActive(false);
+    setActive(false);
     socket.emit("start game");
   }
 
   function restartGame() {
-    setDeathScreen(false);
-    setIsActive(true);
+    // setDeathScreen(false);
+    setActive(true);
     socket.emit("restart");
   }
 
   const controlsPack = {
     startGame,
     restartGame,
-    isDeathScreenOn: deathScreen,
-    gameTypeHook,
+    // isDeathScreenOn: deathScreen,
+    // gameTypeHook,
   };
 
-  return isActive ? <Menu controls={controlsPack}></Menu> : null;
+  // return isActive ? <Menu controls={controlsPack} /> : <></>;
+  return isActive ? <Menu /> : <></>;
 };
 
 export default Overlay;
