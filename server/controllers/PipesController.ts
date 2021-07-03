@@ -1,21 +1,13 @@
-import { Pipe } from "./Pipe";
-import { PipeDataType } from "../types";
+import { Pipe } from "../components/Pipe";
+import { PipeAttributes } from "../types";
 import { DIST_BETW_PIPES } from "../../configs/game";
 
 export class PipesController {
-  private pipes: Pipe[];
+  private pipes: Pipe[] = [];
   constructor() {
-    this.pipes = [];
     for (let i = 0; i < 7; i += 1) {
       this.pipes.push(new Pipe(1000 + DIST_BETW_PIPES * i));
     }
-  }
-
-  get data(): PipeDataType[] {
-    return this.pipes.map((pipe) => ({
-      offsetX: pipe.offsetX,
-      offsetY: pipe.offsetY,
-    }));
   }
 
   resetState(): void {
@@ -26,7 +18,8 @@ export class PipesController {
   }
 
   create(): void {
-    const lastPipeOffsetX = this.pipes[this.pipes.length - 1].offsetX;
+    const lastPipeOffsetX = this.pipes[this.pipes.length - 1].attributes
+      .offsetX;
     this.pipes.push(new Pipe(lastPipeOffsetX + DIST_BETW_PIPES));
   }
 
@@ -40,5 +33,9 @@ export class PipesController {
     this.pipes.forEach((pipe) => {
       pipe.run();
     });
+  }
+
+  get attributes(): PipeAttributes[] {
+    return this.pipes.map((pipe) => pipe.attributes);
   }
 }

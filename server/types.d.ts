@@ -1,4 +1,4 @@
-export interface BirdDataType {
+export interface BirdAttributes {
   x: number;
   y: number;
   momentum: number;
@@ -9,14 +9,14 @@ export interface BirdDataType {
   id: string;
 }
 
-export interface BaseDataType {
+export interface BaseAttributes {
   width: number;
   height: number;
   offsetX: number;
   offsetY: number;
 }
 
-export interface PipeDataType {
+export interface PipeAttributes {
   offsetX: number;
   offsetY: number;
 }

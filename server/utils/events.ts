@@ -1,0 +1,15 @@
+export const EVENTS = {
+  CONNECTION: "connection",
+  DISCONNECT: "disconnect",
+  OTHER_BIRD_DC: "otherBirdDc",
+  BIRD: "bird",
+  OTHER_BIRD: "otherBird",
+  PIPES: "pipes",
+  BASES: "bases",
+  GAME: "game",
+  FRAME: "frame",
+  JUMP: "jump",
+  START_GAME: "start game",
+  GAME_OVER: "game over",
+  RESTART: "restart",
+};
