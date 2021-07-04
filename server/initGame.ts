@@ -1,27 +1,19 @@
 import { v4 as uuidv4 } from "uuid";
-import { Server, Socket } from "socket.io";
+import { Socket } from "socket.io";
 
-import { PipesController } from "./controllers/PipesController";
-import { Bird } from "./components/Bird";
-import { FrameHandler } from "./utils/FrameHandler";
-import { GameControls } from "./components/GameControls";
-import { BasesController } from "./controllers/BasesController";
 import { logger } from "./utils/logger";
-import { EVENTS } from "./utils/events";
+import { EVENTS } from "./events/events";
+import { io as socketio } from "./index";
+import { InstanceContainer } from "./InstanceContainer";
 
-const frameControl = new FrameHandler();
-
-export const initGame = (socketio: Server): void => {
+export const initGame = (): void => {
   // user has connected
   socketio.on(EVENTS.CONNECTION, (socket: Socket) => {
     logger.info(`Player "${socket.id}" has connected`);
 
-    const bird = new Bird(socket.id);
-    const pipes = new PipesController();
-    const bases = new BasesController();
-    const game = new GameControls({ bird, pipes, bases, socket, frameControl });
+    const instanceContainer = InstanceContainer.initialize(socket);
 
-    frameControl.addCallback(bases.run.bind(bases));
+    const { bird, pipes, bases, game } = instanceContainer.attributes;
     /*
     socket.on("multiplayer", () => {
       const roomID = uuidv4(); TODO

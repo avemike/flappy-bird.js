@@ -1,4 +1,4 @@
-import { EVENTS } from "../utils/events";
+import { EVENTS } from "../events/events";
 import { checkCollisions } from "../utils/checkCollisions";
 import { FrameHandler } from "../utils/FrameHandler";
 import { BasesController } from "../controllers/BasesController";
