@@ -1,70 +1,49 @@
-import { EVENTS } from "../handlers";
+import { EVENTS, onRestart, onStartGame } from "../handlers";
 import { checkCollisions } from "../utils/checkCollisions";
-import { FrameHandler } from "../utils/FrameHandler";
-import { BasesController } from "../controllers/BasesController";
-import { Bird } from "./Bird";
-import { PipesController } from "../controllers/PipesController";
+import { InstanceContainer } from "./InstanceContainer";
+import { Socket } from "socket.io";
+import { Attributes } from "./InstanceContainer";
+import { gameOver } from "../scripts/gameOver";
 
-interface Props {
-  bird: Bird;
-  pipes: PipesController;
-  bases: BasesController;
-  socket: SocketIO.Socket;
-  frameControl: FrameHandler;
-}
-
-const STATES = {
+export const STATES = {
   running: "running",
   started: "started",
   over: "over",
 } as const;
 
-export class GameControls {
-  private bird: Bird;
-  private pipes: PipesController;
-  private frameControl: FrameHandler;
-  private socket: SocketIO.Socket;
+export class GameControls extends InstanceContainer {
+  protected static instances: { [key: string]: GameControls } = {};
+
   public state: keyof typeof STATES = STATES.running;
 
-  constructor({ bird, pipes, bases, socket, frameControl }: Props) {
-    this.bird = bird;
-    this.pipes = pipes;
-    this.frameControl = frameControl;
-    this.socket = socket;
+  constructor(socket: Socket) {
+    super(socket);
+    socket.on(EVENTS.START_GAME, onStartGame(this.id));
 
-    this.socket.on(EVENTS.START_GAME, () => {
-      // socket.broadcast.emit("start game"); // TODO
-      this.state = STATES.started;
-      this.frameControl.addCallback(bird.gravity.bind(bird));
-      this.frameControl.addCallback(bird.angleControl.bind(bird));
-      this.frameControl.addCallback(pipes.run.bind(pipes));
-      this.frameControl.addCallback(this.checkOver.bind(this));
-    });
-
-    this.socket.on(EVENTS.RESTART, () => {
-      this.state = STATES.running;
-      this.bird.resetState();
-      this.pipes.resetState();
-      this.frameControl.reset();
-      this.frameControl.addCallback(bases.run.bind(bases));
-    });
+    socket.on(EVENTS.RESTART, onRestart(this.id));
   }
 
-  checkOver(): void {
-    if (checkCollisions(this.bird.attributes, this.pipes.attributes)) {
-      this.state = STATES.over;
-      this.socket.emit(EVENTS.GAME_OVER);
-      this.bird.setHighscore();
-      this.frameControl.reset();
-      this.frameControl.addCallback(this.bird.gravity.bind(this.bird));
-      this.frameControl.addCallback(this.bird.angleControl.bind(this.bird));
-      this.frameControl.addCallback(() =>
-        checkCollisions(this.bird.attributes, this.pipes.attributes)
-      );
-    }
+  public static initialize(socket: Socket): GameControls {
+    const instance = new GameControls(socket);
+
+    GameControls.instances[socket.id] = instance;
+
+    return instance;
   }
 
-  get attributes(): keyof typeof STATES {
-    return this.state;
+  public static getInstance(id: Attributes["id"]): GameControls {
+    return this.instances[id];
+  }
+
+  public checkOver(): void {
+    if (checkCollisions(this.bird.attributes, this.pipes.attributes))
+      gameOver(this.id);
+  }
+
+  get attributes(): Attributes & { state: keyof typeof STATES } {
+    return {
+      ...super.attributes,
+      state: this.state,
+    };
   }
 }

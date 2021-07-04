@@ -21,5 +21,3 @@ export class FrameHandler {
     this.callbacks = [];
   }
 }
-
-export const frameControl = new FrameHandler();

@@ -1,18 +1,17 @@
-import { Socket } from "socket.io";
+import { Server, Socket } from "socket.io";
 
 import { logger } from "./utils/logger";
 import { EVENTS, onDisconnect, onFrame, onJump } from "./handlers";
-import { io as socketio } from "./index";
-import { InstanceContainer } from "./InstanceContainer";
+import { GameControls } from "./components/GameControls";
 
-export const initGame = (): void => {
+export const initGame = (socketio: Server): void => {
   // user has connected
   socketio.on(EVENTS.CONNECTION, (socket: Socket) => {
     logger.info(`Player "${socket.id}" has connected`);
 
-    const instanceContainer = InstanceContainer.initialize(socket);
+    const game = GameControls.initialize(socket);
 
-    const { bird } = instanceContainer.attributes;
+    const { bird } = game.attributes;
 
     // inform client and other clients about newly connected bird
     socket.emit(EVENTS.BIRD, bird.attributes);

@@ -10,13 +10,13 @@ const app = express();
 
 const server = new http.Server(app);
 
-export const io = socketio(server);
+const io = socketio(server);
 
 http.createServer(app);
 
 app.use(express.static("dist"));
 
-initGame();
+initGame(io);
 
 server.listen(PORT, () => {
   logger.info(`listening on *:${PORT}`);
