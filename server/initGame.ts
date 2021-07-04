@@ -1,8 +1,7 @@
-import { v4 as uuidv4 } from "uuid";
 import { Socket } from "socket.io";
 
 import { logger } from "./utils/logger";
-import { EVENTS } from "./events/events";
+import { EVENTS, onDisconnect, onFrame, onJump } from "./handlers";
 import { io as socketio } from "./index";
 import { InstanceContainer } from "./InstanceContainer";
 
@@ -13,36 +12,16 @@ export const initGame = (): void => {
 
     const instanceContainer = InstanceContainer.initialize(socket);
 
-    const { bird, pipes, bases, game } = instanceContainer.attributes;
-    /*
-    socket.on("multiplayer", () => {
-      const roomID = uuidv4(); TODO
-      socket.join(roomID);
-    });
-    */
+    const { bird } = instanceContainer.attributes;
+
+    // inform client and other clients about newly connected bird
     socket.emit(EVENTS.BIRD, bird.attributes);
     socket.broadcast.emit(EVENTS.OTHER_BIRD, bird.attributes);
 
-    // every frame sends needed data to client
-    socket.on(EVENTS.FRAME, () => {
-      bird.updateScore(pipes.attributes);
-      socket.emit(EVENTS.PIPES, pipes.attributes);
-      socket.emit(EVENTS.BASES, bases.attributes);
-      socket.emit(EVENTS.BIRD, bird.attributes);
-      socket.emit(EVENTS.GAME, game.attributes);
-      socket.broadcast.emit(EVENTS.OTHER_BIRD, bird.attributes);
-    });
+    socket.on(EVENTS.FRAME, onFrame(socket.id));
 
-    // player disconnection event
-    socket.on(EVENTS.DISCONNECT, () => {
-      socket.broadcast.emit(EVENTS.OTHER_BIRD_DC, bird.attributes.id);
-    });
+    socket.on(EVENTS.DISCONNECT, onDisconnect(socket.id));
 
-    // bird's jump event
-    socket.on(EVENTS.JUMP, () => {
-      bird.jump();
-      socket.emit(EVENTS.BIRD, bird.attributes);
-      socket.broadcast.emit(EVENTS.OTHER_BIRD, bird.attributes);
-    });
+    socket.on(EVENTS.JUMP, onJump(socket.id));
   });
 };

@@ -6,7 +6,9 @@ import { PipesController } from "./controllers/PipesController";
 import { frameControl } from "./utils/FrameHandler";
 
 interface Attributes {
-  id: string;
+  id: Socket["id"];
+  socket: Socket;
+
   bird: Bird;
   pipes: PipesController;
   bases: BasesController;
@@ -17,6 +19,8 @@ export class InstanceContainer {
   static instanceContainers: { [key: string]: InstanceContainer } = {};
 
   private id = "";
+  private socket: Attributes["socket"];
+
   private bird: Attributes["bird"];
   private pipes: Attributes["pipes"];
   private bases: Attributes["bases"];
@@ -26,6 +30,7 @@ export class InstanceContainer {
     this.id = socket.id;
 
     this.bird = new Bird(socket.id);
+    this.socket = socket;
     this.pipes = new PipesController();
     this.bases = new BasesController();
     this.game = new GameControls({
@@ -47,9 +52,14 @@ export class InstanceContainer {
     return instance;
   }
 
+  public static getInstance(id: Attributes["id"]): InstanceContainer {
+    return this.instanceContainers[id];
+  }
+
   get attributes(): Attributes {
     return {
       id: this.id,
+      socket: this.socket,
       bird: this.bird,
       pipes: this.pipes,
       bases: this.bases,

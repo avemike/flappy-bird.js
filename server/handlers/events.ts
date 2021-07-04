@@ -12,4 +12,4 @@ export const EVENTS = {
   START_GAME: "start game",
   GAME_OVER: "game over",
   RESTART: "restart",
-};
+} as const;
