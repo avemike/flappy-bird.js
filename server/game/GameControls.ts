@@ -18,8 +18,8 @@ export class GameControls extends InstanceContainer {
 
   constructor(socket: Socket) {
     super(socket);
-    socket.on(EVENTS.START_GAME, onStartGame(this.id));
 
+    socket.on(EVENTS.START_GAME, onStartGame(this.id));
     socket.on(EVENTS.RESTART, onRestart(this.id));
   }
 
@@ -29,6 +29,10 @@ export class GameControls extends InstanceContainer {
     GameControls.instances[socket.id] = instance;
 
     return instance;
+  }
+
+  public static removeInstance(id: Attributes["id"]): void {
+    delete this.instances[id];
   }
 
   public static getInstance(id: Attributes["id"]): GameControls {

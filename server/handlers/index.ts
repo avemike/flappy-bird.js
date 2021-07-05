@@ -1,7 +1,7 @@
 // import { v4 as uuidv4 } from "uuid";
 
 import { Socket } from "socket.io";
-import { GameControls, STATES } from "../components/GameControls";
+import { GameControls, STATES } from "../game/GameControls";
 import { logger } from "../utils/logger";
 import { EVENTS } from "./events";
 
@@ -17,12 +17,12 @@ export const onFrame = (id: Socket["id"]): Callback => () => {
   socket.emit(EVENTS.PIPES, pipes.attributes);
   socket.emit(EVENTS.BASES, bases.attributes);
   socket.emit(EVENTS.BIRD, bird.attributes);
-  socket.emit(EVENTS.GAME, game.state);
+  socket.emit(EVENTS.GAME, { state: game.state });
   socket.broadcast.emit(EVENTS.OTHER_BIRD, bird.attributes);
 };
 
 export const onDisconnect = (id: Socket["id"]): Callback => () => {
-  logger.debug(`${id}: disconnect`);
+  logger.info(`${id}: disconnect`);
   const { socket } = GameControls.getInstance(id).attributes;
 
   socket.broadcast.emit(EVENTS.OTHER_BIRD_DC, id);
@@ -45,7 +45,7 @@ export const onStartGame = (id: Socket["id"]): Callback => () => {
   frameHandler.addCallback(bird.gravity.bind(bird));
   frameHandler.addCallback(bird.angleControl.bind(bird));
   frameHandler.addCallback(pipes.run.bind(pipes));
-  frameHandler.addCallback(game.checkOver.bind(this));
+  frameHandler.addCallback(() => game.checkOver());
 };
 
 export const onRestart = (id: Socket["id"]): Callback => () => {
