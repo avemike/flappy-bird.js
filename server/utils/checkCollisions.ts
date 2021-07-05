@@ -1,13 +1,10 @@
-import { BIRD_PROPS, PIPE_PROPS, BASE_PROPS } from "../../configs/game";
+import { BASE_PROPS, BIRD_PROPS, PIPE_PROPS } from "../../configs/game";
 import { BirdAttributes, PipeAttributes } from "../types";
 
 // 433 IS +/- CANVAS HEIGHT
 const tmp_canvas_height = 433;
 
-export const checkCollisions = (
-  birdAttribs: BirdAttributes,
-  pipesAttribs: PipeAttributes[]
-): boolean => {
+export const checkCollisions = (birdAttribs: BirdAttributes, pipesAttribs: PipeAttributes[]): boolean => {
   // check if birdAttribs is too far away for collision
   if (
     (birdAttribs.x + BIRD_PROPS.WIDTH < pipesAttribs[0].offsetX ||
@@ -33,8 +30,7 @@ export const checkCollisions = (
   }
 
   if (bottomBird >= tmp_canvas_height - BASE_PROPS.HEIGHT) {
-    birdAttribs.y =
-      tmp_canvas_height - BASE_PROPS.HEIGHT - BIRD_PROPS.HEIGHT + 10;
+    birdAttribs.y = tmp_canvas_height - BASE_PROPS.HEIGHT - BIRD_PROPS.HEIGHT + 10;
     birdAttribs.collision = true;
 
     return true;

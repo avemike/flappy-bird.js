@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
-import { socket } from "../../utils/socketSetup";
 
+import { socket } from "../../utils/socketSetup";
 import Menu from "./Menu";
 
 const Overlay = (): JSX.Element => {

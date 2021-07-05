@@ -1,12 +1,11 @@
 import React, { useContext } from "react";
 import styled from "styled-components";
-import InputMenu from "./InputMenu";
-import ButtonStyled from "./ButtonStyled";
-
-import MenuContext from "../../../utils/MenuContext";
-import { MenuState } from "../../../../configs/game";
 
 import { CANVAS_SIZE } from "../../../../configs/canvas";
+import { MenuState } from "../../../../configs/game";
+import MenuContext from "../../../utils/MenuContext";
+import ButtonStyled from "./ButtonStyled";
+import InputMenu from "./InputMenu";
 
 const Wrapper = styled.div`
   /* position: absolute; */

@@ -1,16 +1,14 @@
-import React, { useState, useContext, useLayoutEffect } from "react";
-import ButtonStyled from "./ButtonStyled";
-
-// import ControlsContext from "../../../utils/ControlsContext";
-import MenuContext from "../../../utils/MenuContext";
+import React, { useContext, useLayoutEffect, useState } from "react";
 import styled from "styled-components";
 
-import { GameMode, MenuState } from "../../../../configs/game";
 import { CANVAS_SIZE } from "../../../../configs/canvas";
+import { GameMode, MenuState } from "../../../../configs/game";
+// import ControlsContext from "../../../utils/ControlsContext";
+import MenuContext from "../../../utils/MenuContext";
+import ButtonStyled from "./ButtonStyled";
 
 const Wrapper = styled.div<{ isActive: boolean }>`
-  transform: ${({ isActive }) =>
-    isActive ? "translateX(0)" : "translateX(-100%)"};
+  transform: ${({ isActive }) => (isActive ? "translateX(0)" : "translateX(-100%)")};
   position: relative;
   /* width: ${CANVAS_SIZE.WIDTH}px; */
   height: ${CANVAS_SIZE.HEIGHT}px;
@@ -46,13 +44,9 @@ function MainControls(): JSX.Element {
     setMenu(MenuState.MULTI_DETAILS);
   }
 
-  const SingleControls = () => (
-    <ButtonStyled onClick={handleSingle}>single</ButtonStyled>
-  );
+  const SingleControls = () => <ButtonStyled onClick={handleSingle}>single</ButtonStyled>;
 
-  const MultiControls = () => (
-    <ButtonStyled onClick={handleMulti}>multi</ButtonStyled>
-  );
+  const MultiControls = () => <ButtonStyled onClick={handleMulti}>multi</ButtonStyled>;
 
   return (
     <Wrapper isActive={active}>

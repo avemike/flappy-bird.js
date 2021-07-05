@@ -1,4 +1,4 @@
-import { PIPE_PROPS, BIRD_PROPS, BG_SPEED } from "../../configs/game";
+import { BG_SPEED, BIRD_PROPS, PIPE_PROPS } from "../../configs/game";
 import { BirdAttributes, PipeAttributes } from "../types";
 
 export class Bird {
@@ -32,11 +32,7 @@ export class Bird {
     const distBetweenBirdAndPipe = middleOfBird - middleOfPipe;
     // check if bird is the middle of the closest pipe in X axis
 
-    return (
-      distBetweenBirdAndPipe < BG_SPEED &&
-      distBetweenBirdAndPipe >= 0 &&
-      this.collision === false
-    );
+    return distBetweenBirdAndPipe < BG_SPEED && distBetweenBirdAndPipe >= 0 && this.collision === false;
   }
 
   updateScore(pipesData: PipeAttributes[]): void {
@@ -58,8 +54,7 @@ export class Bird {
   }
 
   angleControl(): void {
-    if (this.momentum > 0 && this.angle < BIRD_PROPS.MAX_ANGLE)
-      this.angle += this.momentum / 120;
+    if (this.momentum > 0 && this.angle < BIRD_PROPS.MAX_ANGLE) this.angle += this.momentum / 120;
     else if (this.momentum < 0 && this.angle > BIRD_PROPS.MIN_ANGLE) {
       const missingAngle = (BIRD_PROPS.MIN_ANGLE - this.angle) / 3;
 

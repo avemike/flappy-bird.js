@@ -1,4 +1,5 @@
 import { Socket } from "socket.io";
+
 import { GameControls, STATES } from "../game/GameControls";
 import { EVENTS } from "../handlers";
 import { checkCollisions } from "../utils/checkCollisions";
@@ -17,7 +18,5 @@ export const gameOver = (id: Socket["id"]): void => {
   frameHandler.reset();
   frameHandler.addCallback(() => bird.gravity());
   frameHandler.addCallback(() => bird.angleControl());
-  frameHandler.addCallback(() =>
-    checkCollisions(bird.attributes, pipes.attributes)
-  );
+  frameHandler.addCallback(() => checkCollisions(bird.attributes, pipes.attributes));
 };

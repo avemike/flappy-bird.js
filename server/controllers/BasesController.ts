@@ -1,5 +1,5 @@
-import { Base } from "../components/Base";
 import { BASE_PROPS } from "../../configs/game";
+import { Base } from "../components/Base";
 import { BaseAttributes } from "../types";
 
 export class BasesController {
@@ -11,7 +11,7 @@ export class BasesController {
         new Base({
           offsetX: BASE_PROPS.WIDTH * i,
           offsetY: 433 - BASE_PROPS.HEIGHT,
-        })
+        }),
       );
     }
   }

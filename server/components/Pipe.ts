@@ -1,4 +1,4 @@
-import { PIPE_PROPS, BG_SPEED } from "../../configs/game";
+import { BG_SPEED, PIPE_PROPS } from "../../configs/game";
 import { PipeAttributes } from "../types";
 
 export class Pipe {

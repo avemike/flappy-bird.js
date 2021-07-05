@@ -1,5 +1,5 @@
-import bird_spr from "../utils/getBirdAssets";
 import { BIRD_PROPS } from "../../configs/game";
+import bird_spr from "../utils/getBirdAssets";
 
 class Bird {
   protected x = BIRD_PROPS.X;

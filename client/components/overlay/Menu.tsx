@@ -1,15 +1,13 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 
+import { CANVAS_SIZE } from "../../../configs/canvas";
+import { GameMode, MenuState } from "../../../configs/game";
+import MenuContext from "../../utils/MenuContext";
+import { socket } from "../../utils/socketSetup";
+import DeathControls from "./controls/DeathControls";
 import MainControls from "./controls/MainControls";
 import MultiDetails from "./controls/MultiDetails";
-import DeathControls from "./controls/DeathControls";
-
-import MenuContext from "../../utils/MenuContext";
-import { MenuState, GameMode } from "../../../configs/game";
-
-import { socket } from "../../utils/socketSetup";
-import { CANVAS_SIZE } from "../../../configs/canvas";
 
 const MenuStyled = styled.div`
   position: absolute;
@@ -52,12 +50,7 @@ const Menu = (): JSX.Element => {
     socket.emit("restart");
   }
 
-  const {
-    MAIN: MAIN,
-    MULTI_DETAILS: MULTI_DETAILS,
-    DEATH: DEATH,
-    DISABLED: DISABLED,
-  } = MenuState;
+  const { MAIN: MAIN, MULTI_DETAILS: MULTI_DETAILS, DEATH: DEATH, DISABLED: DISABLED } = MenuState;
 
   function switchRender(menuState: MenuState): JSX.Element {
     switch (menuState) {
@@ -77,9 +70,7 @@ const Menu = (): JSX.Element => {
       {menuState !== MenuState.DISABLED && (
         <MenuStyled>
           <Title>Flappy Bird</Title>
-          <MenuContext.Provider
-            value={{ startGame, restartGame, menuStateHook, gameModeHook }}
-          >
+          <MenuContext.Provider value={{ startGame, restartGame, menuStateHook, gameModeHook }}>
             {switchRender(menuStateHook[0])}
           </MenuContext.Provider>
         </MenuStyled>

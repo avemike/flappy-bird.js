@@ -35,12 +35,16 @@
     "cssnano": "^4.1.10",
     "eslint": "^7.11.0",
     "eslint-config-prettier": "^6.12.0",
+    "eslint-import-resolver-typescript": "^2.4.0",
+    "eslint-plugin-import": "^2.23.4",
     "eslint-plugin-prettier": "^3.1.4",
     "eslint-plugin-react": "^7.22.0",
     "eslint-plugin-react-hooks": "^4.2.0",
+    "import-sort-style-module": "^6.0.0",
     "parcel": "^2.0.0-beta.3.1",
     "pino-pretty": "^5.1.0",
     "prettier": "^2.2.1",
+    "prettier-plugin-import-sort": "^0.0.7",
     "ts-node": "^9.1.1",
     "watch": "^1.0.2"
   },
@@ -50,11 +54,26 @@
     "del-cache": "rm -drf .parcel-cache",
     "dev": "npm run del-cache && parcel watch public/index.html",
     "dev2": "parcel watch public/index.html",
-    "server": "nodemon --exec 'ts-node server/index.ts' | pino-pretty"
+    "server": "nodemon --exec 'ts-node server/index.ts' | pino-pretty",
+    "prettier:fix": "prettier --write server/**/*.ts client/**/*.{ts,tsx}",
+    "prettier:check": "prettier --check server/**/*.ts client/**/*.{ts,tsx}"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/avemike/flappy-bird.js.git"
+  },
+  "prettier": {
+    "singleQuote": false,
+    "semi": true,
+    "trailingComma": "all",
+    "printWidth": 120,
+    "tabWidth": 2
+  },
+  "importSort": {
+    ".js, .jsx, .ts, .tsx": {
+      "style": "module",
+      "parser": "typescript"
+    }
   },
   "author": "",
   "license": "ISC",

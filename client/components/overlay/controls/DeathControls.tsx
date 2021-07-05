@@ -1,11 +1,10 @@
 import React, { useContext } from "react";
 import styled from "styled-components";
 
-import ButtonStyled from "./ButtonStyled";
-
-import MenuContext from "../../../utils/MenuContext";
-import { GameMode } from "../../../../configs/game";
 import { CANVAS_SIZE } from "../../../../configs/canvas";
+import { GameMode } from "../../../../configs/game";
+import MenuContext from "../../../utils/MenuContext";
+import ButtonStyled from "./ButtonStyled";
 
 function SingleControls(): JSX.Element {
   const { restartGame } = useContext(MenuContext);

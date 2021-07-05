@@ -1,6 +1,6 @@
+import { DIST_BETW_PIPES } from "../../configs/game";
 import { Pipe } from "../components/Pipe";
 import { PipeAttributes } from "../types";
-import { DIST_BETW_PIPES } from "../../configs/game";
 
 export class PipesController {
   private pipes: Pipe[] = [];
@@ -18,8 +18,7 @@ export class PipesController {
   }
 
   create(): void {
-    const lastPipeOffsetX = this.pipes[this.pipes.length - 1].attributes
-      .offsetX;
+    const lastPipeOffsetX = this.pipes[this.pipes.length - 1].attributes.offsetX;
     this.pipes.push(new Pipe(lastPipeOffsetX + DIST_BETW_PIPES));
   }
 

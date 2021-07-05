@@ -1,9 +1,9 @@
 import React, { useContext } from "react";
 import styled from "styled-components";
 
+import ControlsContext from "../../../utils/ControlsContext";
 import DeathControls from "./DeathControls";
 import MainControls from "./MainControls";
-import ControlsContext from "../../../utils/ControlsContext";
 
 const Wrapper = styled.div`
   position: relative;
@@ -20,11 +20,7 @@ function Controls(): JSX.Element {
   return (
     <>
       {/* <Wrapper> */}
-      {isDeathScreenOn ? (
-        <DeathControls></DeathControls>
-      ) : (
-        <MainControls></MainControls>
-      )}
+      {isDeathScreenOn ? <DeathControls></DeathControls> : <MainControls></MainControls>}
       {/* </Wrapper> */}
     </>
   );

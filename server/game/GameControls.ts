@@ -1,9 +1,10 @@
+import { Socket } from "socket.io";
+
 import { EVENTS, onRestart, onStartGame } from "../handlers";
+import { gameOver } from "../scripts/gameOver";
 import { checkCollisions } from "../utils/checkCollisions";
 import { InstanceContainer } from "./InstanceContainer";
-import { Socket } from "socket.io";
 import { Attributes } from "./InstanceContainer";
-import { gameOver } from "../scripts/gameOver";
 
 export const STATES = {
   running: "running",
@@ -40,8 +41,7 @@ export class GameControls extends InstanceContainer {
   }
 
   public checkOver(): void {
-    if (checkCollisions(this.bird.attributes, this.pipes.attributes))
-      gameOver(this.id);
+    if (checkCollisions(this.bird.attributes, this.pipes.attributes)) gameOver(this.id);
   }
 
   get attributes(): Attributes & { state: keyof typeof STATES } {

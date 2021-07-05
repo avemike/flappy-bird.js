@@ -2,7 +2,6 @@ import React from "react";
 import { render } from "react-dom";
 
 import { CANVAS_SIZE } from "../configs/canvas";
-
 import Canvas from "./components/Canvas";
 // import Overlay from "./components/overlay/Overlay";
 import Menu from "./components/overlay/Menu";
