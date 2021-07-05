@@ -11,7 +11,8 @@ export const gameOver = (id: Socket["id"]): void => {
 
   socket.emit(EVENTS.GAME_OVER);
 
-  bird.setHighscore();
+  const { score, highscore } = bird.attributes;
+  if (score > highscore) bird.setHighscore();
 
   frameHandler.reset();
   frameHandler.addCallback(() => bird.gravity());
