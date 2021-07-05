@@ -14,8 +14,8 @@ export const gameOver = (id: Socket["id"]): void => {
   bird.setHighscore();
 
   frameHandler.reset();
-  frameHandler.addCallback(bird.gravity.bind(bird));
-  frameHandler.addCallback(bird.angleControl.bind(bird));
+  frameHandler.addCallback(() => bird.gravity());
+  frameHandler.addCallback(() => bird.angleControl());
   frameHandler.addCallback(() =>
     checkCollisions(bird.attributes, pipes.attributes)
   );

@@ -42,9 +42,9 @@ export const onStartGame = (id: Socket["id"]): Callback => () => {
 
   // socket.broadcast.emit("start game"); // TODO
   game.state = STATES.started;
-  frameHandler.addCallback(bird.gravity.bind(bird));
-  frameHandler.addCallback(bird.angleControl.bind(bird));
-  frameHandler.addCallback(pipes.run.bind(pipes));
+  frameHandler.addCallback(() => bird.gravity());
+  frameHandler.addCallback(() => bird.angleControl());
+  frameHandler.addCallback(() => pipes.run());
   frameHandler.addCallback(() => game.checkOver());
 };
 
@@ -56,7 +56,7 @@ export const onRestart = (id: Socket["id"]): Callback => () => {
   bird.resetState();
   pipes.resetState();
   frameHandler.reset();
-  frameHandler.addCallback(bases.run.bind(bases));
+  frameHandler.addCallback(() => bases.run());
 };
 /*
     socket.on("multiplayer", () => {

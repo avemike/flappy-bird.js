@@ -32,7 +32,7 @@ export abstract class InstanceContainer {
     this.bases = new BasesController();
     this.frameHandler = new FrameHandler();
 
-    this.frameHandler.addCallback(this.bases.run.bind(this.bases));
+    this.frameHandler.addCallback(() => this.bases.run());
   }
 
   get attributes(): Attributes {
