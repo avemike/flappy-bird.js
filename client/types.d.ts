@@ -22,20 +22,7 @@ interface CanvasProps {
   height: number;
 }
 
-interface ControlsPack {
-  startGame: () => void;
-  restartGame: () => void;
-  isDeathScreenOn: boolean;
-  gameTypeHook: [string, React.Dispatch<React.SetStateAction<string>>];
-}
-
-type toDraw = [
-  Backgorund,
-  PipesFactory,
-  BaseFactory,
-  PlayerBird,
-  EnemyBirdsFactory
-];
+type toDraw = [Backgorund, PipesFactory, BaseFactory, PlayerBird, EnemyBirdsFactory];
 
 interface BaseData {
   width: number;

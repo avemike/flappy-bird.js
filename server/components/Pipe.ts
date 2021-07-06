@@ -1,9 +1,9 @@
-// const { PIPE_PROPS, BG_SPEED } = require("../../configs/game");
-import { PIPE_PROPS, BG_SPEED } from "../../configs/game";
+import { BG_SPEED, PIPE_PROPS } from "../../configs/game";
+import { PipeAttributes } from "../types";
 
 export class Pipe {
-  public offsetX: number;
-  public offsetY: number;
+  private offsetX: number;
+  private offsetY: number;
 
   constructor(offsetX: number) {
     const max = -100;
@@ -13,17 +13,22 @@ export class Pipe {
     this.offsetY = Math.floor(Math.random() * (max - min)) + min;
   }
 
-  isOverScreen() {
+  isOverScreen(): boolean {
     return this.offsetX <= -PIPE_PROPS.WIDTH;
   }
 
-  changeOffset() {
+  changeOffset(): void {
     this.offsetX -= BG_SPEED;
   }
 
-  run() {
+  run(): void {
     this.changeOffset();
   }
-}
 
-// module.exports = { Pipe };
+  get attributes(): PipeAttributes {
+    return {
+      offsetX: this.offsetX,
+      offsetY: this.offsetY,
+    };
+  }
+}

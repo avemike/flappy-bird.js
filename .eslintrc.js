@@ -17,6 +17,7 @@ module.exports = {
   },
   rules: {
     "no-console": 1,
+    "react/prop-types": 0,
   },
   env: {
     browser: true,

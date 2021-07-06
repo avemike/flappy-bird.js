@@ -6,17 +6,18 @@ interface CallbackType {
 
 export class FrameHandler {
   private callbacks: CallbackType[] = [];
+
   constructor() {
     setInterval(() => {
       this.callbacks.forEach((callback) => callback());
     }, UPDATE_MILLISECONDS);
   }
 
-  addCallback(callback: CallbackType) {
+  addCallback(callback: CallbackType): void {
     this.callbacks.push(callback);
   }
 
-  reset() {
+  reset(): void {
     this.callbacks = [];
   }
 }

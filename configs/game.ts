@@ -25,6 +25,19 @@ const DIST_BETW_PIPES = 300;
 const BG_SPEED = 2;
 const UPDATE_MILLISECONDS = 16;
 
+enum MenuState {
+  MAIN,
+  MULTI_DETAILS,
+  DEATH,
+  DISABLED,
+}
+
+enum GameMode {
+  SINGLE,
+  MULTI,
+  NOT_SET,
+}
+
 export {
   PIPE_PROPS,
   BIRD_PROPS,
@@ -32,6 +45,8 @@ export {
   DIST_BETW_PIPES,
   BG_SPEED,
   UPDATE_MILLISECONDS,
+  MenuState,
+  GameMode,
 };
 
 // module.exports = {

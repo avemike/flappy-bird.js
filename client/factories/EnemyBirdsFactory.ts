@@ -7,12 +7,9 @@ class EnemyBirdsFactory {
   } = {};
 
   constructor(socket: SocketIOClient.Socket) {
-    socket.on(
-      "otherBird",
-      (bird: { id: string; y: number; momentum: number }) => {
-        this.use(bird);
-      }
-    );
+    socket.on("otherBird", (bird: { id: string; y: number; momentum: number }) => {
+      this.use(bird);
+    });
     socket.on("otherBirdDc", (birdId: string) => {
       delete this.storedBirds[birdId];
     });
