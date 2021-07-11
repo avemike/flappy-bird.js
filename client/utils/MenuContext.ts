@@ -1,5 +1,10 @@
 import React, { createContext } from "react";
+<<<<<<< HEAD
 import { GameMode, MenuState, MenuStateType } from "../../configs/game";
+=======
+
+import { GameMode, MenuState } from "../../configs/game";
+>>>>>>> a7bec960accca1ad67e11e906406749e24d1d7aa
 
 interface MenuContextType {
   startGame: () => void;

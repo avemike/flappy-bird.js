@@ -4,8 +4,8 @@ import ButtonStyled from "../../shared/ButtonStyled";
 import MenuContext from "../../../utils/MenuContext";
 import styled from "styled-components";
 
-import { GameMode, MenuState } from "../../../../configs/game";
 import { CANVAS_SIZE } from "../../../../configs/canvas";
+import { GameMode, MenuState } from "../../../../configs/game";
 
 const Wrapper = styled.div<{ isActive: boolean }>`
   transform: ${({ isActive }) => (isActive ? "translateX(0)" : "translateX(-100%)")};

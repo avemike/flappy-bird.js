@@ -1,8 +1,9 @@
-import { PIPE_PROPS, BG_SPEED } from "../../configs/game";
+import { BG_SPEED, PIPE_PROPS } from "../../configs/game";
+import { PipeAttributes } from "../types";
 
 export class Pipe {
-  public offsetX: number;
-  public offsetY: number;
+  private offsetX: number;
+  private offsetY: number;
 
   constructor(offsetX: number) {
     const max = -100;
@@ -22,5 +23,12 @@ export class Pipe {
 
   run(): void {
     this.changeOffset();
+  }
+
+  get attributes(): PipeAttributes {
+    return {
+      offsetX: this.offsetX,
+      offsetY: this.offsetY,
+    };
   }
 }

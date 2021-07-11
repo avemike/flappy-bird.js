@@ -3,8 +3,8 @@ import PlayerBird from "./birds/PlayerBird";
 import { socket } from "../utils/socketSetup";
 import Game from "../Game";
 import BaseFactory from "../factories/BaseFactory";
-import PipesFactory from "../factories/PipesFactory";
 import EnemyBirdsFactory from "../factories/EnemyBirdsFactory";
+import PipesFactory from "../factories/PipesFactory";
 import Backgorund from "./Background";
 
 const Canvas = (props: CanvasProps): ReactElement => {
@@ -12,23 +12,13 @@ const Canvas = (props: CanvasProps): ReactElement => {
 
   useEffect(() => {
     if (canvasRef.current !== null) {
-      const ctx = canvasRef.current.getContext(
-        "2d"
-      ) as CanvasRenderingContext2D;
+      const ctx = canvasRef.current.getContext("2d") as CanvasRenderingContext2D;
       const background = new Backgorund();
       const bird = new PlayerBird(socket);
       const bases = new BaseFactory(socket);
       const enemyBirds = new EnemyBirdsFactory(socket);
       const pipes = new PipesFactory(socket);
-      const game = new Game(
-        ctx,
-        background,
-        bird,
-        enemyBirds,
-        bases,
-        pipes,
-        socket
-      );
+      const game = new Game(ctx, background, bird, enemyBirds, bases, pipes, socket);
 
       let animationFrameID: number;
 

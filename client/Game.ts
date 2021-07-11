@@ -23,7 +23,7 @@ export default class Game {
     enemyBirds: EnemyBirdsFactory,
     bases: BaseFactory,
     pipes: PipesFactory,
-    socket: SocketIOClient.Socket
+    socket: SocketIOClient.Socket,
   ) {
     this.ctx = ctx;
     // this.background = background;
@@ -49,11 +49,7 @@ export default class Game {
     this.ctx.font = `${SCORE_PROPS.FONT_SIZE}px ${SCORE_PROPS.FONT}`;
     this.ctx.fillText(`${this.bird.score}`, SCORE_PROPS.X, SCORE_PROPS.Y);
     this.ctx.font = `${SCORE_PROPS.FONT_SIZE - 10}px ${SCORE_PROPS.FONT}`;
-    this.ctx.fillText(
-      `${this.bird.highscore}`,
-      SCORE_PROPS.X + 20,
-      SCORE_PROPS.Y + 20
-    );
+    this.ctx.fillText(`${this.bird.highscore}`, SCORE_PROPS.X + 20, SCORE_PROPS.Y + 20);
   }
 
   setupControls(): void {

@@ -1,14 +1,19 @@
-import { BG_SPEED } from "../../configs/game";
+import { BASE_PROPS, BG_SPEED } from "../../configs/game";
+import { BaseAttributes } from "../types";
 
+interface Props {
+  offsetX: number;
+  offsetY: number;
+}
 export class Base {
-  public width: number;
-  public height: number;
-  public offsetX: number;
-  public offsetY: number;
+  private width: number;
+  private height: number;
+  private offsetX: number;
+  private offsetY: number;
 
-  constructor(width: number, height: number, offsetX: number, offsetY: number) {
-    this.width = width;
-    this.height = height;
+  constructor({ offsetX, offsetY }: Props) {
+    this.width = BASE_PROPS.WIDTH;
+    this.height = BASE_PROPS.HEIGHT;
     this.offsetX = offsetX;
     this.offsetY = offsetY;
   }
@@ -27,6 +32,13 @@ export class Base {
     this.changeOffset();
     this.isOverScreen();
   }
-}
 
-// module.exports = { Base };
+  get attributes(): BaseAttributes {
+    return {
+      width: this.width,
+      height: this.height,
+      offsetX: this.offsetX,
+      offsetY: this.offsetY,
+    };
+  }
+}

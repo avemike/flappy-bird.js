@@ -1,53 +1,26 @@
-import { v4 as uuidv4 } from "uuid";
-import { Server } from "socket.io";
+import { Server, Socket } from "socket.io";
 
-import { PipesController } from "./components/PipesController";
-import { BirdController } from "./components/BirdController";
-import { FrameHandler } from "./utils/FrameHandler";
-import { GameControls } from "./components/GameControls";
-import { BasesController } from "./components/BasesController";
-
-const frameControl = new FrameHandler();
+import { logger } from "./utils/logger";
+import { EVENTS, onDisconnect, onFrame, onJump } from "./handlers";
+import { GameControls } from "./game/GameControls";
 
 export const initGame = (socketio: Server): void => {
   // user has connected
-  socketio.on("connection", (socket) => {
-    console.log(socket.id, "connected");
-    const bird = new BirdController(socket.id);
-    const pipes = new PipesController();
-    const bases = new BasesController();
-    const game = new GameControls(bird, pipes, bases, socket, frameControl);
+  socketio.on(EVENTS.CONNECTION, (socket: Socket) => {
+    logger.info(`Player "${socket.id}" has connected`);
 
-    frameControl.addCallback(bases.run.bind(bases));
-    /*
-    socket.on("multiplayer", () => {
-      const roomID = uuidv4(); TODO
-      socket.join(roomID);
-    });
-    */
-    socket.emit("bird", bird.data);
-    socket.broadcast.emit("otherBird", bird.data);
+    const game = GameControls.initialize(socket);
 
-    // every frame sends needed data to client
-    socket.on("frame", () => {
-      bird.updateScore(pipes.data);
-      socket.emit("pipes", pipes.data);
-      socket.emit("bases", bases.data);
-      socket.emit("bird", bird.data);
-      socket.emit("game", game.data);
-      socket.broadcast.emit("otherBird", bird.data);
-    });
+    const { bird } = game.attributes;
 
-    // player disconnection event
-    socket.on("disconnect", () => {
-      socket.broadcast.emit("otherBirdDc", bird.data.id);
-    });
+    // inform client and other clients about newly connected bird
+    socket.emit(EVENTS.BIRD, bird.attributes);
+    socket.broadcast.emit(EVENTS.OTHER_BIRD, bird.attributes);
 
-    // bird's jump event
-    socket.on("jump", () => {
-      bird.jump();
-      socket.emit("bird", bird.data);
-      socket.broadcast.emit("otherBird", bird.data);
-    });
+    socket.on(EVENTS.FRAME, onFrame(socket.id));
+
+    socket.on(EVENTS.DISCONNECT, onDisconnect(socket.id));
+
+    socket.on(EVENTS.JUMP, onJump(socket.id));
   });
 };
