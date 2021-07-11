@@ -1,14 +1,16 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import styled from "styled-components";
 
 import MainControls from "./controls/MainControls";
 import MultiDetails from "./controls/MultiDetails";
 import DeathControls from "./controls/DeathControls";
+import Lobby from "./controls/Lobby";
 
 import MenuContext from "../../utils/MenuContext";
-import { MenuState, GameMode } from "../../../configs/game";
-
+import LobbyContext from "../../utils/LobbyContext";
 import { socket } from "../../utils/socketSetup";
+
+import { MenuState, GameMode, LobbyMode } from "../../../configs/game";
 import { CANVAS_SIZE } from "../../../configs/canvas";
 
 const MenuStyled = styled.div`
@@ -20,7 +22,7 @@ const MenuStyled = styled.div`
   height: ${CANVAS_SIZE.HEIGHT}px;
   background: tomato;
   opacity: 0.5;
-  z-index: 999;
+  z-index: 1;
 `;
 
 const Title = styled.h1`
@@ -28,6 +30,7 @@ const Title = styled.h1`
 `;
 
 const Menu = (): JSX.Element => {
+  const lobbyModeRef = useRef(LobbyMode.NORMAL);
   const gameModeHook = useState(GameMode.NOT_SET);
   const menuStateHook = useState(MenuState.MAIN);
   const [menuState, setMenuState] = menuStateHook;
@@ -49,25 +52,26 @@ const Menu = (): JSX.Element => {
 
   function restartGame() {
     setMenuState(MenuState.MAIN);
+    const [, setGameMode] = gameModeHook;
+    setGameMode(GameMode.NOT_SET);
     socket.emit("restart");
   }
 
-  const {
-    MAIN: MAIN,
-    MULTI_DETAILS: MULTI_DETAILS,
-    DEATH: DEATH,
-    DISABLED: DISABLED,
-  } = MenuState;
-
   function switchRender(menuState: MenuState): JSX.Element {
     switch (menuState) {
-      case MAIN:
+      case MenuState.MAIN:
         return <MainControls />;
-      case MULTI_DETAILS:
-        return <MultiDetails />;
-      case DEATH:
+      case MenuState.MULTI_DETAILS:
+        return (
+          <LobbyContext.Provider value={{ lobbyModeRef }}>
+            <MultiDetails />
+          </LobbyContext.Provider>
+        );
+      case MenuState.DEATH:
         return <DeathControls />;
-      case DISABLED:
+      case MenuState.LOBBY:
+        return <Lobby type={lobbyModeRef.current} />;
+      case MenuState.DISABLED:
         return <></>;
     }
   }
@@ -78,9 +82,14 @@ const Menu = (): JSX.Element => {
         <MenuStyled>
           <Title>Flappy Bird</Title>
           <MenuContext.Provider
-            value={{ startGame, restartGame, menuStateHook, gameModeHook }}
+            value={{
+              startGame,
+              restartGame,
+              menuStateHook,
+              gameModeHook,
+            }}
           >
-            {switchRender(menuStateHook[0])}
+            {switchRender(menuState)}
           </MenuContext.Provider>
         </MenuStyled>
       )}

@@ -1,14 +1,18 @@
 import React, { createContext } from "react";
-import { GameMode, MenuState } from "../../configs/game";
+import { GameMode, MenuState, MenuStateType } from "../../configs/game";
 
-interface MenuStateType {
+interface MenuContextType {
   startGame: () => void;
   restartGame: () => void;
-  menuStateHook: [MenuState, React.Dispatch<React.SetStateAction<MenuState>>];
+  // menuStateHook: [MenuState, React.Dispatch<React.SetStateAction<MenuState>>];
+  menuStateHook: [
+    MenuStateType,
+    React.Dispatch<React.SetStateAction<MenuStateType>>
+  ];
   gameModeHook: [GameMode, React.Dispatch<React.SetStateAction<GameMode>>];
 }
 
-const MenuContext = createContext<MenuStateType>({
+const MenuContext = createContext<MenuContextType>({
   startGame: () => {
     // placeholder
   },
@@ -16,7 +20,10 @@ const MenuContext = createContext<MenuStateType>({
     // placeholder
   },
   menuStateHook: [
-    MenuState.MAIN,
+    {
+      current: MenuState.MAIN,
+      prev: null,
+    },
     () => {
       // placeholder
     },

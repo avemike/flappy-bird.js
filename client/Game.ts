@@ -1,7 +1,7 @@
 import SCORE_PROPS from "../configs/score";
 import Backgorund from "./components/Background";
 import EnemyBirdsFactory from "./factories/EnemyBirdsFactory";
-import PlayerBird from "./components/PlayerBird";
+import PlayerBird from "./components/birds/PlayerBird";
 import BaseFactory from "./factories/BaseFactory";
 import PipesFactory from "./factories/PipesFactory";
 

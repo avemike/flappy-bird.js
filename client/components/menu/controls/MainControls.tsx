@@ -1,7 +1,6 @@
 import React, { useState, useContext, useLayoutEffect } from "react";
-import ButtonStyled from "./ButtonStyled";
+import ButtonStyled from "../../shared/ButtonStyled";
 
-// import ControlsContext from "../../../utils/ControlsContext";
 import MenuContext from "../../../utils/MenuContext";
 import styled from "styled-components";
 
@@ -9,10 +8,8 @@ import { GameMode, MenuState } from "../../../../configs/game";
 import { CANVAS_SIZE } from "../../../../configs/canvas";
 
 const Wrapper = styled.div<{ isActive: boolean }>`
-  transform: ${({ isActive }) =>
-    isActive ? "translateX(0)" : "translateX(-100%)"};
+  transform: ${({ isActive }) => (isActive ? "translateX(0)" : "translateX(-100%)")};
   position: relative;
-  /* width: ${CANVAS_SIZE.WIDTH}px; */
   height: ${CANVAS_SIZE.HEIGHT}px;
   display: flex;
   flex-direction: column;
@@ -25,13 +22,12 @@ function MainControls(): JSX.Element {
   const [active, setActive] = useState(true);
   const {
     startGame,
-    menuStateHook: [menuState, setMenu],
+    menuStateHook: [, setMenuState],
     gameModeHook: [, setGameMode],
   } = useContext(MenuContext);
 
   useLayoutEffect(() => {
     return () => {
-      console.log("running");
       setActive((active) => !active);
     };
   });
@@ -43,16 +39,12 @@ function MainControls(): JSX.Element {
 
   function handleMulti() {
     setGameMode(GameMode.MULTI);
-    setMenu(MenuState.MULTI_DETAILS);
+    setMenuState(MenuState.MULTI_DETAILS);
   }
 
-  const SingleControls = () => (
-    <ButtonStyled onClick={handleSingle}>single</ButtonStyled>
-  );
+  const SingleControls = () => <ButtonStyled onClick={handleSingle}>single</ButtonStyled>;
 
-  const MultiControls = () => (
-    <ButtonStyled onClick={handleMulti}>multi</ButtonStyled>
-  );
+  const MultiControls = () => <ButtonStyled onClick={handleMulti}>multi</ButtonStyled>;
 
   return (
     <Wrapper isActive={active}>

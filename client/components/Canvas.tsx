@@ -1,5 +1,5 @@
 import React, { ReactElement, useEffect, useRef } from "react";
-import PlayerBird from "./PlayerBird";
+import PlayerBird from "./birds/PlayerBird";
 import { socket } from "../utils/socketSetup";
 import Game from "../Game";
 import BaseFactory from "../factories/BaseFactory";

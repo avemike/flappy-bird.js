@@ -1,5 +1,5 @@
-import bird_spr from "../utils/getBirdAssets";
-import { BIRD_PROPS } from "../../configs/game";
+import bird_spr from "../../utils/getBirdAssets";
+import { BIRD_PROPS } from "../../../configs/game";
 
 class Bird {
   protected x = BIRD_PROPS.X;
@@ -12,10 +12,6 @@ class Bird {
   private i = 0; // for selecting proper bird image
 
   draw(ctx: CanvasRenderingContext2D): void {
-    // if (state === "running") {
-    //   this.render(ctx);
-    // } else {
-    // }
     this.render(ctx);
   }
 

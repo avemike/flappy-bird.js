@@ -1,19 +1,29 @@
 import React, { useContext } from "react";
-import styled from "styled-components";
 
-import ButtonStyled from "./ButtonStyled";
+import ButtonStyled from "../../shared/ButtonStyled";
+import { FlexWrapper } from "../../shared/Wrapper";
 
 import MenuContext from "../../../utils/MenuContext";
-import { GameMode } from "../../../../configs/game";
-import { CANVAS_SIZE } from "../../../../configs/canvas";
+import { GameMode, MenuState } from "../../../../configs/game";
 
 function SingleControls(): JSX.Element {
-  const { restartGame } = useContext(MenuContext);
+  const {
+    restartGame,
+    menuStateHook: [, setMenuState],
+    gameModeHook: [, setGameMode],
+  } = useContext(MenuContext);
 
   return (
     <>
       <ButtonStyled onClick={restartGame}>restart</ButtonStyled>
-      <ButtonStyled>multi</ButtonStyled>
+      <ButtonStyled
+        onClick={() => {
+          setGameMode(GameMode.MULTI);
+          setMenuState(MenuState.MULTI_DETAILS);
+        }}
+      >
+        multi
+      </ButtonStyled>
     </>
   );
 }
@@ -40,36 +50,12 @@ function switchRender(gameMode: GameMode): JSX.Element {
   }
 }
 
-const Wrapper = styled.div`
-  /* position: absolute; */
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: ${CANVAS_SIZE.WIDTH}px;
-  /* height: ${CANVAS_SIZE.HEIGHT}px; */
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-around;
-  align-items: center;
-  height: inherit;
-`;
-
 function DeathControls(): JSX.Element {
   const {
     gameModeHook: [gameMode],
   } = useContext(MenuContext);
 
-  return <Wrapper>{switchRender(gameMode)}</Wrapper>;
-
-  // switch (gameMode) {
-  //   case GameMode.SINGLE:
-  //     return <SingleControls></SingleControls>;
-  //   case GameMode.MULTI:
-  //     return <MultiControls></MultiControls>;
-  //   default:
-  //     return <></>;
-  // }
+  return <FlexWrapper dir={"column"}>{switchRender(gameMode)}</FlexWrapper>;
 }
 
 export default DeathControls;

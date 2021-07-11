@@ -29,6 +29,7 @@ enum MenuState {
   MAIN,
   MULTI_DETAILS,
   DEATH,
+  LOBBY,
   DISABLED,
 }
 
@@ -37,6 +38,16 @@ enum GameMode {
   MULTI,
   NOT_SET,
 }
+
+enum LobbyMode {
+  HOST,
+  NORMAL,
+}
+
+// interface MenuStateType {
+// current: MenuState;
+// prev: MenuState;
+// }
 
 export {
   PIPE_PROPS,
@@ -47,6 +58,7 @@ export {
   UPDATE_MILLISECONDS,
   MenuState,
   GameMode,
+  LobbyMode,
 };
 
 // module.exports = {
