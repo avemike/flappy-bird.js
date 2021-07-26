@@ -18,6 +18,8 @@ module.exports = {
   rules: {
     "no-console": 1,
     "react/prop-types": 0,
+    "react-hooks/rules-of-hooks": "error", // Checks rules of Hooks
+    "react-hooks/exhaustive-deps": "warn", // Checks effect dependencies
   },
   env: {
     browser: true,
