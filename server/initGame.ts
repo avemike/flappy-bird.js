@@ -1,8 +1,8 @@
 import { Server, Socket } from "socket.io";
 
-import { logger } from "./utils/logger";
-import { EVENTS, onDisconnect, onFrame, onJump } from "./handlers";
 import { GameControls } from "./game/GameControls";
+import { EVENTS, onDisconnect, onFrame, onJump } from "./handlers";
+import { logger } from "./utils/logger";
 
 export const initGame = (socketio: Server): void => {
   // user has connected

@@ -1,4 +1,4 @@
-import { BASE_PROPS } from "../../configs/game";
+import { BASE_PROPS, tmp_canvas_size } from "../../configs/game";
 import { Base } from "../components/Base";
 import { BaseAttributes } from "../types";
 
@@ -10,7 +10,7 @@ export class BasesController {
       this.bases.push(
         new Base({
           offsetX: BASE_PROPS.WIDTH * i,
-          offsetY: 433 - BASE_PROPS.HEIGHT,
+          offsetY: tmp_canvas_size - BASE_PROPS.HEIGHT,
         }),
       );
     }

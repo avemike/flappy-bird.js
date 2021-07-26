@@ -10,7 +10,8 @@ export class Pipe {
     const min = -400; // temp, we need to calc this
 
     this.offsetX = offsetX;
-    this.offsetY = Math.floor(Math.random() * (max - min)) + min;
+    this.offsetY = -350; // DEBUG
+    // this.offsetY = Math.floor(Math.random() * (max - min)) + min;
   }
 
   isOverScreen(): boolean {
