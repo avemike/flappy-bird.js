@@ -1,5 +1,5 @@
-import bird_spr from "../../utils/getBirdAssets";
 import { BIRD_PROPS } from "../../../configs/game";
+import bird_spr from "../../utils/getBirdAssets";
 
 class Bird {
   protected x = BIRD_PROPS.X;
@@ -17,7 +17,13 @@ class Bird {
 
   tmp_render(ctx: CanvasRenderingContext2D): void {
     ctx.fillStyle = "#85facf";
-    ctx.fillRect(this.x, this.y, this.width, this.height);
+    // ctx.fillRect(this.x, this.y, this.width, this.height);
+
+    ctx.save();
+    ctx.translate(this.x + this.width / 2, this.y + this.height / 2);
+    ctx.rotate(this.angle);
+    ctx.fillRect(-this.width / 2, -this.height / 2, this.width, this.height);
+    ctx.restore();
   }
 
   render(ctx: CanvasRenderingContext2D): void {

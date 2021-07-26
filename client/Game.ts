@@ -1,16 +1,13 @@
 import SCORE_PROPS from "../configs/score";
 import Backgorund from "./components/Background";
-import EnemyBirdsFactory from "./factories/EnemyBirdsFactory";
 import PlayerBird from "./components/birds/PlayerBird";
 import BaseFactory from "./factories/BaseFactory";
+import EnemyBirdsFactory from "./factories/EnemyBirdsFactory";
 import PipesFactory from "./factories/PipesFactory";
 
 export default class Game {
   private ctx: CanvasRenderingContext2D;
-  // private background: Backgorund;
   private bird: PlayerBird;
-  // private bases: BaseFactory;
-  // private pipes: PipesFactory;
   private enemyBirds: EnemyBirdsFactory;
   private toDraw: toDraw;
   private data: { state: string };
@@ -26,10 +23,7 @@ export default class Game {
     socket: SocketIOClient.Socket,
   ) {
     this.ctx = ctx;
-    // this.background = background;
     this.bird = bird;
-    // this.bases = bases;
-    // this.pipes = pipes;
     this.enemyBirds = enemyBirds;
     this.toDraw = [background, pipes, bases, bird, enemyBirds];
     this.data = {

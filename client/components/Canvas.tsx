@@ -1,11 +1,12 @@
 import React, { ReactElement, useEffect, useRef } from "react";
-import PlayerBird from "./birds/PlayerBird";
-import { socket } from "../utils/socketSetup";
-import Game from "../Game";
+
 import BaseFactory from "../factories/BaseFactory";
 import EnemyBirdsFactory from "../factories/EnemyBirdsFactory";
 import PipesFactory from "../factories/PipesFactory";
+import Game from "../Game";
+import { socket } from "../utils/socketSetup";
 import Backgorund from "./Background";
+import PlayerBird from "./birds/PlayerBird";
 
 const Canvas = (props: CanvasProps): ReactElement => {
   const canvasRef = useRef<HTMLCanvasElement>(null);

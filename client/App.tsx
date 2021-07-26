@@ -3,12 +3,12 @@ import { render } from "react-dom";
 
 import { CANVAS_SIZE } from "../configs/canvas";
 import Canvas from "./components/Canvas";
-import Menu from "./components/menu/Menu";
+import MenuController from "./components/menu/MenuController";
 
 const App = () => {
   return (
     <>
-      <Menu></Menu>
+      <MenuController></MenuController>
       <Canvas width={CANVAS_SIZE.WIDTH} height={CANVAS_SIZE.HEIGHT}></Canvas>
     </>
   );

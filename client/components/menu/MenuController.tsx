@@ -1,17 +1,15 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import styled from "styled-components";
 
-import MainControls from "./controls/MainControls";
-import MultiDetails from "./controls/MultiDetails";
-import DeathControls from "./controls/DeathControls";
-import Lobby from "./controls/Lobby";
-
-import MenuContext from "../../utils/MenuContext";
-import LobbyContext from "../../utils/LobbyContext";
-import { socket } from "../../utils/socketSetup";
-
-import { MenuState, GameMode, LobbyMode } from "../../../configs/game";
 import { CANVAS_SIZE } from "../../../configs/canvas";
+import { GameMode, LobbyMode, MenuState } from "../../../configs/game";
+import LobbyContext from "../../utils/LobbyContext";
+import MenuContext from "../../utils/MenuContext";
+import { socket } from "../../utils/socketSetup";
+import DeathControls from "./DeathControls";
+import Lobby from "./lobby/Lobby";
+import MainMenu from "./MainMenu";
+import MultiDetails from "./multi_details/MultiDetails";
 
 const MenuStyled = styled.div`
   position: absolute;
@@ -23,13 +21,17 @@ const MenuStyled = styled.div`
   background: tomato;
   opacity: 0.5;
   z-index: 1;
+  overflow: hidden;
 `;
 
 const Title = styled.h1`
   position: fixed;
+  font-size: 2em;
+  left: 50%;
+  transform: translateX(-50%);
 `;
 
-const Menu = (): JSX.Element => {
+const MenuController = (): JSX.Element => {
   const lobbyModeRef = useRef(LobbyMode.NORMAL);
   const gameModeHook = useState(GameMode.NOT_SET);
   const menuStateHook = useState(MenuState.MAIN);
@@ -43,7 +45,7 @@ const Menu = (): JSX.Element => {
     return () => {
       socket.off("game over");
     };
-  }, []);
+  }, [setMenuState]);
 
   function startGame() {
     setMenuState(MenuState.DISABLED);
@@ -60,7 +62,7 @@ const Menu = (): JSX.Element => {
   function switchRender(menuState: MenuState): JSX.Element {
     switch (menuState) {
       case MenuState.MAIN:
-        return <MainControls />;
+        return <MainMenu />;
       case MenuState.MULTI_DETAILS:
         return (
           <LobbyContext.Provider value={{ lobbyModeRef }}>
@@ -80,7 +82,7 @@ const Menu = (): JSX.Element => {
     <>
       {menuState !== MenuState.DISABLED && (
         <MenuStyled>
-          <Title>Flappy Bird</Title>
+          <Title>{menuState}</Title>
           <MenuContext.Provider
             value={{
               startGame,
@@ -97,4 +99,4 @@ const Menu = (): JSX.Element => {
   );
 };
 
-export default Menu;
+export default MenuController;
