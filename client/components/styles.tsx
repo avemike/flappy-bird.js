@@ -1,7 +1,6 @@
 import styled from "styled-components";
 
 import { CANVAS_SIZE } from "../../configs/canvas";
-import { ANIMATION_DURATION } from "../../configs/game";
 
 export const Button = styled.button`
   width: ${CANVAS_SIZE.WIDTH * 0.4}px;
@@ -9,26 +8,42 @@ export const Button = styled.button`
 `;
 
 export const FlexWrapper = styled.div<{ dir: string; state?: string }>`
-  transform: translateX(${({ state }) => (state === "entering" || state === "entered" ? 0 : 400)}px);
-  transition: transform ${ANIMATION_DURATION.seconds}s ease-in-out;
   position: relative;
   display: flex;
   flex-direction: ${({ dir }) => dir};
   justify-content: space-around;
   align-items: center;
   height: inherit;
-`;
+  width: inherit;
 
-// const Wrapper = styled.div<{ state: string }>`
-//   transform: translateX(${({ state }) => (state === "entering" || state === "entered" ? 0 : -400)}px);
-//   transition: transform ${duration.seconds}s ease-in-out;
-//   position: relative;
-//   display: flex;
-//   flex-direction: column;
-//   justify-content: space-around;
-//   align-items: center;
-//   height: ${CANVAS_SIZE.HEIGHT}px;
-// `;
+  .fade-appear &,
+  .fade-enter & {
+    opacity: 0;
+    transform: translateX(-100%);
+  }
+
+  .fade-appear-active &,
+  .fade-enter-active & {
+    opacity: 1;
+    transform: translateX(0%);
+  }
+
+  .fade-exit & {
+    opacity: 1;
+    transform: translateX(0%);
+  }
+
+  .fade-exit-active & {
+    opacity: 0;
+    transform: translateX(100%);
+  }
+
+  .fade-appear-active &,
+  .fade-enter-active &,
+  .fade-exit-active & {
+    transition: opacity 500ms, transform 500ms;
+  }
+`;
 
 export const TopButton = styled.button<{ position: "left" | "right" }>`
   margin: ${({ position }) => (position === "left" && `5px 0 5px 5px`) || (position === "right" && `5px 5px 5px 0`)};
@@ -44,3 +59,14 @@ export const Nav = styled.nav`
   top: 0%;
   width: 100%;
 `;
+
+export const Container = styled.div`
+  height: inherit;
+  width: inherit;
+`;
+
+export const ButtonSuper = styled(Button)<{ ready: boolean }>`
+  background-color: ${({ ready }) => ready && "green"};
+`;
+
+export const ReadyCounter = styled.span``;

@@ -1,4 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
+import { CSSTransition, SwitchTransition } from "react-transition-group";
 import styled from "styled-components";
 
 import { CANVAS_SIZE } from "../../../configs/canvas";
@@ -6,6 +7,7 @@ import { GameMode, LobbyMode, MenuState } from "../../../configs/game";
 import LobbyContext from "../../utils/LobbyContext";
 import MenuContext from "../../utils/MenuContext";
 import { socket } from "../../utils/socketSetup";
+import * as S from "../styles";
 import DeathControls from "./DeathControls";
 import Lobby from "./lobby/Lobby";
 import MainMenu from "./MainMenu";
@@ -91,7 +93,18 @@ const MenuController = (): JSX.Element => {
               gameModeHook,
             }}
           >
-            {switchRender(menuState)}
+            <SwitchTransition mode="out-in">
+              <CSSTransition
+                key={menuState}
+                appear={true}
+                addEndListener={(node, done) => {
+                  node.addEventListener("transitionend", done, false);
+                }}
+                classNames="fade"
+              >
+                <S.Container>{switchRender(menuState)}</S.Container>
+              </CSSTransition>
+            </SwitchTransition>
           </MenuContext.Provider>
         </MenuStyled>
       )}

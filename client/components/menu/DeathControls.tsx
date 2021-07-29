@@ -1,7 +1,6 @@
 import React, { useContext, useState } from "react";
-import { Transition } from "react-transition-group";
 
-import { GameMode, MenuState, ANIMATION_DURATION as duration } from "../../../configs/game";
+import { GameMode, MenuState } from "../../../configs/game";
 import MenuContext from "../../utils/MenuContext";
 import * as S from "../styles";
 
@@ -39,7 +38,6 @@ function Multi(): JSX.Element {
 }
 
 function switchRender(gameMode: GameMode): JSX.Element {
-  console.log(gameMode);
   switch (gameMode) {
     case GameMode.SINGLE:
       return <Single></Single>;
@@ -51,20 +49,13 @@ function switchRender(gameMode: GameMode): JSX.Element {
 }
 
 function DeathControls(): JSX.Element {
-  const [inProp, setInProp] = useState(true);
   const {
     gameModeHook: [gameMode],
   } = useContext(MenuContext);
 
-  return (
-    <Transition in={inProp} appear={true} timeout={duration.miliseconds}>
-      {(state) => (
-        <S.FlexWrapper dir={"column"} state={state}>
-          {switchRender(gameMode)}
-        </S.FlexWrapper>
-      )}
-    </Transition>
-  );
+  const [lastGameMode] = useState(gameMode);
+
+  return <S.FlexWrapper dir={"column"}>{switchRender(lastGameMode)}</S.FlexWrapper>;
 }
 
 export default DeathControls;
