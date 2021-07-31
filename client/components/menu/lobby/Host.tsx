@@ -5,7 +5,7 @@ import MenuContext from "../../../utils/MenuContext";
 import { socket } from "../../../utils/socketSetup";
 import * as S from "../../styles";
 import Back from "../nav/Back";
-import Invite from "./Invite";
+import Share from "./Share";
 
 function Host(): JSX.Element {
   const [ready, setReady] = useState(false);
@@ -38,10 +38,10 @@ function Host(): JSX.Element {
   }
 
   return (
-    <S.FlexWrapper dir={"column"}>
+    <S.FlexWrapper dir={"column"} animated>
       <S.Nav>
         <Back onClick={handleLeave}></Back>
-        <Invite></Invite>
+        <Share></Share>
       </S.Nav>
       <div>you are host</div>
       <S.ReadyCounter>

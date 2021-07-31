@@ -82,7 +82,7 @@ const MenuController = (): JSX.Element => {
 
   return (
     <>
-      {menuState !== MenuState.DISABLED && (
+      {menuState !== MenuState.DISABLED && ( // TODO add disabling menu animation, it doesnt work bcs when menu is disabled nothing shows up even SwitchTranstion & CSSTranstion components 😎
         <MenuStyled>
           <Title>{menuState}</Title>
           <MenuContext.Provider
@@ -101,6 +101,7 @@ const MenuController = (): JSX.Element => {
                   node.addEventListener("transitionend", done, false);
                 }}
                 classNames="fade"
+                onExited={() => console.log("exited")}
               >
                 <S.Container>{switchRender(menuState)}</S.Container>
               </CSSTransition>

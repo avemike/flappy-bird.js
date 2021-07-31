@@ -55,7 +55,11 @@ function DeathControls(): JSX.Element {
 
   const [lastGameMode] = useState(gameMode);
 
-  return <S.FlexWrapper dir={"column"}>{switchRender(lastGameMode)}</S.FlexWrapper>;
+  return (
+    <S.FlexWrapper dir={"column"} animated>
+      {switchRender(lastGameMode)}
+    </S.FlexWrapper>
+  );
 }
 
 export default DeathControls;

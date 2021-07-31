@@ -26,7 +26,7 @@ function MainMenu(): JSX.Element {
   const MultiControls = () => <S.Button onClick={handleMulti}>multi</S.Button>;
 
   return (
-    <S.FlexWrapper dir={"column"}>
+    <S.FlexWrapper dir={"column"} animated>
       <SingleControls></SingleControls>
       <MultiControls></MultiControls>
     </S.FlexWrapper>

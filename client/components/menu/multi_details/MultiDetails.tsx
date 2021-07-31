@@ -21,7 +21,7 @@ function MultiDetails(): JSX.Element {
   }
 
   return (
-    <S.FlexWrapper dir={"column"}>
+    <S.FlexWrapper dir={"column"} animated>
       <S.Nav>
         <Leave onClick={handleBackToMenu}></Leave>
       </S.Nav>

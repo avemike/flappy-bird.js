@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 
 import { CANVAS_SIZE } from "../../configs/canvas";
 
@@ -7,15 +7,7 @@ export const Button = styled.button`
   height: ${CANVAS_SIZE.HEIGHT * 0.1}px;
 `;
 
-export const FlexWrapper = styled.div<{ dir: string; state?: string }>`
-  position: relative;
-  display: flex;
-  flex-direction: ${({ dir }) => dir};
-  justify-content: space-around;
-  align-items: center;
-  height: inherit;
-  width: inherit;
-
+const menuAnimation = css`
   .fade-appear &,
   .fade-enter & {
     opacity: 0;
@@ -43,6 +35,61 @@ export const FlexWrapper = styled.div<{ dir: string; state?: string }>`
   .fade-exit-active & {
     transition: opacity 500ms, transform 500ms;
   }
+`;
+
+const shareAnimation = css`
+  .share-dropdown-appear &,
+  .share-dropdown-enter & {
+    opacity: 0;
+    transform: translateX(-50%);
+  }
+
+  .share-dropdown-appear-active &,
+  .share-dropdown-enter-active & {
+    opacity: 1;
+    transform: translateX(0%);
+  }
+
+  .share-dropdown-exit & {
+    opacity: 1;
+    transform: translateX(0%);
+  }
+
+  .share-dropdown-exit-active & {
+    opacity: 0;
+    transform: translateX(50%);
+  }
+
+  .share-dropdown-appear-active &,
+  .share-dropdown-enter-active &,
+  .share-dropdown-exit-active & {
+    transition: opacity 200ms, transform 200ms;
+  }
+`;
+
+export const FlexWrapper = styled.div<{ dir: string; animated?: boolean }>`
+  position: relative;
+  display: flex;
+  flex-direction: ${({ dir }) => dir};
+  justify-content: space-around;
+  align-items: center;
+  height: inherit;
+  width: inherit;
+
+  ${({ animated }) => animated && `${menuAnimation}`}
+`;
+
+export const ShareDropdown = styled.span`
+  display: inline-block;
+  height: 4.5em;
+  width: 10em;
+  background-color: khaki;
+  border-radius: 10px;
+  position: absolute;
+  top: 100%;
+  right: 1%;
+
+  ${shareAnimation}
 `;
 
 export const TopButton = styled.button<{ position: "left" | "right" }>`

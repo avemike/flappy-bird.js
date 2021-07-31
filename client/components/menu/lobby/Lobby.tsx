@@ -17,11 +17,9 @@ function Lobby({ type }: Props): JSX.Element {
   function render(type: LobbyMode): JSX.Element {
     switch (type) {
       case LobbyMode.HOST:
-        // return <Host readyClick={handleReadyClick} />;
         return <Host />;
       default:
         return <Normal readyClick={handleReadyClick} />;
-      // return <Normal />;
     }
   }
 

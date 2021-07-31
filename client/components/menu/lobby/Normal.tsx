@@ -19,7 +19,7 @@ function Normal({ readyClick: handleReadyClick }: Props): JSX.Element {
   }
 
   return (
-    <S.FlexWrapper dir={"column"}>
+    <S.FlexWrapper dir={"column"} animated>
       <S.Nav>
         <Back onClick={handleLeave}></Back>
       </S.Nav>
