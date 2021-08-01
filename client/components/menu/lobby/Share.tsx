@@ -20,7 +20,7 @@ function Share(): JSX.Element {
       </TopButton>
       <SwitchTransition>
         <CSSTransition
-          key={open}
+          key={`${open}`}
           timeout={200}
           addEndListener={(node, done) => {
             node.addEventListener("transitionend", done, false);

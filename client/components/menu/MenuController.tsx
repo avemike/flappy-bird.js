@@ -20,7 +20,7 @@ const MenuStyled = styled.div`
   transform: translate(-50%, -50%) scale(1.5);
   width: ${CANVAS_SIZE.WIDTH}px;
   height: ${CANVAS_SIZE.HEIGHT}px;
-  background: tomato;
+  /* background: tomato; */
   opacity: 0.5;
   z-index: 1;
   overflow: hidden;
@@ -82,33 +82,30 @@ const MenuController = (): JSX.Element => {
 
   return (
     <>
-      {menuState !== MenuState.DISABLED && ( // TODO add disabling menu animation, it doesnt work bcs when menu is disabled nothing shows up even SwitchTranstion & CSSTranstion components 😎
-        <MenuStyled>
-          <Title>{menuState}</Title>
-          <MenuContext.Provider
-            value={{
-              startGame,
-              restartGame,
-              menuStateHook,
-              gameModeHook,
-            }}
-          >
-            <SwitchTransition mode="out-in">
-              <CSSTransition
-                key={menuState}
-                appear={true}
-                addEndListener={(node, done) => {
-                  node.addEventListener("transitionend", done, false);
-                }}
-                classNames="fade"
-                onExited={() => console.log("exited")}
-              >
-                <S.Container>{switchRender(menuState)}</S.Container>
-              </CSSTransition>
-            </SwitchTransition>
-          </MenuContext.Provider>
-        </MenuStyled>
-      )}
+      <MenuStyled>
+        <Title>{menuState}</Title>
+        <MenuContext.Provider
+          value={{
+            startGame,
+            restartGame,
+            menuStateHook,
+            gameModeHook,
+          }}
+        >
+          <SwitchTransition>
+            <CSSTransition
+              key={menuState}
+              appear={true}
+              addEndListener={(node, done) => {
+                node.addEventListener("transitionend", done, false);
+              }}
+              classNames="fade"
+            >
+              {menuState !== MenuState.DISABLED ? <S.Container>{switchRender(menuState)}</S.Container> : <></>}
+            </CSSTransition>
+          </SwitchTransition>
+        </MenuContext.Provider>
+      </MenuStyled>
     </>
   );
 };
