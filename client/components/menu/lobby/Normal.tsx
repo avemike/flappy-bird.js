@@ -1,6 +1,6 @@
 import React, { useContext, useState } from "react";
 
-import { MenuState } from "../../../../configs/game";
+import { MENU_STATE } from "../../../../configs/game";
 import MenuContext from "../../../utils/MenuContext";
 import * as S from "../../styles";
 import Back from "../nav/Back";
@@ -15,7 +15,7 @@ function Normal({ readyClick: handleReadyClick }: Props): JSX.Element {
   } = useContext(MenuContext);
 
   function handleLeave() {
-    setMenu(MenuState.MULTI_DETAILS);
+    setMenu(MENU_STATE.MULTI_DETAILS);
   }
 
   return (
@@ -24,7 +24,7 @@ function Normal({ readyClick: handleReadyClick }: Props): JSX.Element {
         <Back onClick={handleLeave}></Back>
       </S.Nav>
       <S.Button onClick={handleReadyClick}>set ready</S.Button>
-      <S.Button onClick={() => setMenu(MenuState.MULTI_DETAILS)}>leave</S.Button>
+      <S.Button onClick={() => setMenu(MENU_STATE.MULTI_DETAILS)}>leave</S.Button>
     </S.FlexWrapper>
   );
 }

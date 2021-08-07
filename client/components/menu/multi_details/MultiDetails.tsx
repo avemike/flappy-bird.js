@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
 
-import { GameMode, MenuState } from "../../../../configs/game";
+import { GAME_MODE, MENU_STATE } from "../../../../configs/game";
 import MenuContext from "../../../utils/MenuContext";
 import * as S from "../../styles";
 import Leave from "../nav/Back";
@@ -15,9 +15,9 @@ function MultiDetails(): JSX.Element {
   } = useContext(MenuContext);
 
   function handleBackToMenu() {
-    setGameMode(GameMode.NOT_SET);
+    setGameMode(GAME_MODE.NOT_SET);
     restartGame();
-    setMenuState(MenuState.MAIN);
+    setMenuState(MENU_STATE.MAIN);
   }
 
   return (

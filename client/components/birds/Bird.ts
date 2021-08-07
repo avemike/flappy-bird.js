@@ -1,11 +1,11 @@
 import { BIRD_PROPS } from "../../../configs/game";
-import bird_spr from "../../utils/getBirdAssets";
+import { getBirdAssets } from "../../utils/getBirdAssets";
 
 class Bird {
   protected x = BIRD_PROPS.X;
   protected y = BIRD_PROPS.STARTING_Y;
   protected angle = 0;
-  private sprites = bird_spr;
+  private sprites: HTMLImageElement[] = getBirdAssets("green");
   private width = BIRD_PROPS.WIDTH;
   private height = BIRD_PROPS.HEIGHT;
   private state = 0;
@@ -45,7 +45,7 @@ class Bird {
         this.state = 0;
       }
     }
-
+    // console.log(sprites);
     renderSelectedState(this.state);
   }
 }

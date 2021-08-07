@@ -1,12 +1,12 @@
 import React from "react";
 
-import { LobbyMode } from "../../../../configs/game";
+import { LOBBY_MODE } from "../../../../configs/game";
 import { socket } from "../../../utils/socketSetup";
 import Host from "./Host";
 import Normal from "./Normal";
 
 interface Props {
-  type: LobbyMode;
+  type: LOBBY_MODE;
 }
 
 function Lobby({ type }: Props): JSX.Element {
@@ -14,9 +14,9 @@ function Lobby({ type }: Props): JSX.Element {
     socket.emit("ready");
   }
 
-  function render(type: LobbyMode): JSX.Element {
+  function render(type: LOBBY_MODE): JSX.Element {
     switch (type) {
-      case LobbyMode.HOST:
+      case LOBBY_MODE.HOST:
         return <Host />;
       default:
         return <Normal readyClick={handleReadyClick} />;

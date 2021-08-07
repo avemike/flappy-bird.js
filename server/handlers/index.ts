@@ -2,7 +2,8 @@
 
 import { Socket } from "socket.io";
 
-import { GameControls, STATES } from "../game/GameControls";
+import { GAME_STATES as STATES } from "../../configs/game";
+import { GameControls } from "../game/GameControls";
 import { logger } from "../utils/logger";
 import { EVENTS } from "./events";
 
@@ -42,7 +43,7 @@ export const onStartGame = (id: Socket["id"]): Callback => () => {
   const { pipes, bird, frameHandler } = game.attributes;
 
   // socket.broadcast.emit("start game"); // TODO
-  game.state = STATES.started;
+  game.state = STATES.STARTED;
   frameHandler.addCallback(() => bird.gravity());
   frameHandler.addCallback(() => bird.angleControl());
   frameHandler.addCallback(() => pipes.run());
@@ -53,7 +54,7 @@ export const onRestart = (id: Socket["id"]): Callback => () => {
   const game = GameControls.getInstance(id);
   const { pipes, bird, frameHandler, bases } = game.attributes;
 
-  game.state = STATES.running;
+  game.state = STATES.RUNNING;
   bird.resetState();
   pipes.resetState();
   frameHandler.reset();

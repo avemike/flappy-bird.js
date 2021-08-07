@@ -1,6 +1,6 @@
 import React, { useContext, useState } from "react";
 
-import { LobbyMode, MenuState } from "../../../../configs/game";
+import { LOBBY_MODE, MENU_STATE } from "../../../../configs/game";
 import LobbyContext from "../../../utils/LobbyContext";
 import MenuContext from "../../../utils/MenuContext";
 import { Button } from "../../styles";
@@ -14,8 +14,8 @@ const CreateLobby = (): JSX.Element => {
 
   function handleClick() {
     setUrl("url");
-    setMenu(MenuState.LOBBY);
-    lobbyModeRef.current = LobbyMode.HOST;
+    setMenu(MENU_STATE.LOBBY);
+    lobbyModeRef.current = LOBBY_MODE.HOST;
     // TODO generate link
   }
 

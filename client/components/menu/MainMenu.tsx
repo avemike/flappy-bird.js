@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
 
-import { GameMode, MenuState } from "../../../configs/game";
+import { GAME_MODE, MENU_STATE } from "../../../configs/game";
 import MenuContext from "../../utils/MenuContext";
 import * as S from "../styles";
 
@@ -12,13 +12,13 @@ function MainMenu(): JSX.Element {
   } = useContext(MenuContext);
 
   function handleSingle() {
-    setGameMode(GameMode.SINGLE);
+    setGameMode(GAME_MODE.SINGLE);
     startGame();
   }
 
   function handleMulti() {
-    setGameMode(GameMode.MULTI);
-    setMenuState(MenuState.MULTI_DETAILS);
+    setGameMode(GAME_MODE.MULTI);
+    setMenuState(MENU_STATE.MULTI_DETAILS);
   }
 
   const SingleControls = () => <S.Button onClick={handleSingle}>single</S.Button>;

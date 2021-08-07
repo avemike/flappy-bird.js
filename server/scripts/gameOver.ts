@@ -1,6 +1,7 @@
 import { Socket } from "socket.io";
 
-import { GameControls, STATES } from "../game/GameControls";
+import { GAME_STATES as STATES } from "../../configs/game";
+import { GameControls } from "../game/GameControls";
 import { EVENTS } from "../handlers";
 
 // import { checkCollisions } from "../utils/checkPipeCollision";
@@ -9,7 +10,7 @@ export const gameOver = (id: Socket["id"]): void => {
   const game = GameControls.getInstance(id);
   const { socket, bird, frameHandler, pipes } = game.attributes;
 
-  game.state = STATES.over;
+  game.state = STATES.OVER;
 
   if (!bird.getCollision()) socket.emit(EVENTS.GAME_OVER);
 

@@ -1,6 +1,7 @@
 import React, { FormEvent, useContext, useRef, useState } from "react";
 
-import { MenuState } from "../../../../configs/game";
+import { MENU_STATE } from "../../../../configs/game";
+import { EVENTS } from "../../../../server/handlers";
 import MenuContext from "../../../utils/MenuContext";
 import { socket } from "../../../utils/socketSetup";
 import * as S from "../../styles";
@@ -26,15 +27,15 @@ function Host(): JSX.Element {
     setReady((ready) => !ready);
     if (!ready) {
       setActivePlayers((activePlayers) => activePlayers + 1);
-      socket.emit("ready");
+      socket.emit(EVENTS.READY);
     } else {
       setActivePlayers((activePlayers) => activePlayers - 1);
-      socket.emit("not ready");
+      socket.emit(EVENTS.NOT_READY);
     }
   }
 
   function handleLeave() {
-    setMenu(MenuState.MULTI_DETAILS);
+    setMenu(MENU_STATE.MULTI_DETAILS);
   }
 
   return (

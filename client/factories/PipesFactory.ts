@@ -1,4 +1,4 @@
-import PIPE_SPR from "url:../../assets/pipes2.jpg";
+import PIPE_SPR from "url:../../assets/pipes.jpg";
 
 class PipesFactory {
   private pipes: PipeData[] = [];

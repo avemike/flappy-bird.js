@@ -18,7 +18,7 @@ class EnemyBirdsFactory {
   use(bird: { id: string; y: number; momentum: number }): void {
     if (!this.storedBirds[bird.id]) {
       // create new bird
-      const newBird = new EnemyBird(bird);
+      const newBird = new EnemyBird(bird, "pink");
       this.storedBirds[bird.id] = newBird;
       return;
     }

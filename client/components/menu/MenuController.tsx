@@ -3,7 +3,8 @@ import { CSSTransition, SwitchTransition } from "react-transition-group";
 import styled from "styled-components";
 
 import { CANVAS_SIZE } from "../../../configs/canvas";
-import { GameMode, LobbyMode, MenuState } from "../../../configs/game";
+import { GAME_MODE, LOBBY_MODE, MENU_STATE } from "../../../configs/game";
+import { EVENTS } from "../../../server/handlers";
 import LobbyContext from "../../utils/LobbyContext";
 import MenuContext from "../../utils/MenuContext";
 import { socket } from "../../utils/socketSetup";
@@ -34,48 +35,48 @@ const Title = styled.h1`
 `;
 
 const MenuController = (): JSX.Element => {
-  const lobbyModeRef = useRef(LobbyMode.NORMAL);
-  const gameModeHook = useState(GameMode.NOT_SET);
-  const menuStateHook = useState(MenuState.MAIN);
+  const lobbyModeRef = useRef(LOBBY_MODE.NORMAL);
+  const gameModeHook = useState(GAME_MODE.NOT_SET);
+  const menuStateHook = useState(MENU_STATE.MAIN);
   const [menuState, setMenuState] = menuStateHook;
 
   useEffect(() => {
-    socket.on("game over", () => {
-      setMenuState(MenuState.DEATH);
+    socket.on(EVENTS.GAME_OVER, () => {
+      setMenuState(MENU_STATE.DEATH);
     });
 
     return () => {
-      socket.off("game over");
+      socket.off(EVENTS.GAME_OVER);
     };
   }, [setMenuState]);
 
   function startGame() {
-    setMenuState(MenuState.DISABLED);
-    socket.emit("start game");
+    setMenuState(MENU_STATE.DISABLED);
+    socket.emit(EVENTS.START_GAME);
   }
 
   function restartGame() {
-    setMenuState(MenuState.MAIN);
+    setMenuState(MENU_STATE.MAIN);
     const [, setGameMode] = gameModeHook;
-    setGameMode(GameMode.NOT_SET);
-    socket.emit("restart");
+    setGameMode(GAME_MODE.NOT_SET);
+    socket.emit(EVENTS.RESTART);
   }
 
-  function switchRender(menuState: MenuState): JSX.Element {
+  function switchRender(menuState: MENU_STATE): JSX.Element {
     switch (menuState) {
-      case MenuState.MAIN:
+      case MENU_STATE.MAIN:
         return <MainMenu />;
-      case MenuState.MULTI_DETAILS:
+      case MENU_STATE.MULTI_DETAILS:
         return (
           <LobbyContext.Provider value={{ lobbyModeRef }}>
             <MultiDetails />
           </LobbyContext.Provider>
         );
-      case MenuState.DEATH:
+      case MENU_STATE.DEATH:
         return <DeathControls />;
-      case MenuState.LOBBY:
+      case MENU_STATE.LOBBY:
         return <Lobby type={lobbyModeRef.current} />;
-      case MenuState.DISABLED:
+      case MENU_STATE.DISABLED:
         return <></>;
     }
   }
@@ -101,7 +102,7 @@ const MenuController = (): JSX.Element => {
               }}
               classNames="fade"
             >
-              {menuState !== MenuState.DISABLED ? <S.Container>{switchRender(menuState)}</S.Container> : <></>}
+              {menuState !== MENU_STATE.DISABLED ? <S.Container>{switchRender(menuState)}</S.Container> : <></>}
             </CSSTransition>
           </SwitchTransition>
         </MenuContext.Provider>

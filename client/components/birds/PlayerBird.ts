@@ -1,3 +1,5 @@
+import { GAME_STATES } from "../../../configs/game";
+import { EVENTS } from "../../../server/handlers";
 import Bird from "./Bird";
 
 class PlayerBird extends Bird {
@@ -9,7 +11,7 @@ class PlayerBird extends Bird {
   private controlTheBird = (event: KeyboardEvent) => {
     const isCapsOn = event.getModifierState("CapsLock");
     if (event.key === "w" || (isCapsOn && event.key === "W")) {
-      this.socket.emit("jump");
+      this.socket.emit(EVENTS.JUMP);
     }
   };
 
@@ -26,18 +28,18 @@ class PlayerBird extends Bird {
     // TEMP
 
     this.setupUpdateSocket();
-    this.manageControls();
   }
 
   setupUpdateSocket(): void {
-    this.socket.on("bird", (data: PlayerBirdData) => {
-      this.x = data.x;
-      this.y = data.y;
-      // this.momentum = data.momentum;
-      this.angle = data.angle;
-      this.score = data.score;
-      this.highscore = data.highscore;
-      this.collision = data.collision;
+    this.socket.on(EVENTS.BIRD, (data: PlayerBirdData) => {
+      const { x, y, angle, score, highscore, collision } = data;
+      this.x = x;
+      this.y = y;
+      // this.momentum = momentum;
+      this.angle = angle;
+      this.score = score;
+      this.highscore = highscore;
+      this.collision = collision;
     });
   }
 
@@ -56,12 +58,12 @@ class PlayerBird extends Bird {
     }
   }
 
-  manageControls(state = "started"): void {
+  manageControls(state: keyof typeof GAME_STATES): void {
     switch (state) {
-      case "started":
+      case GAME_STATES.STARTED:
         this.addControls();
         break;
-      case "over":
+      case GAME_STATES.OVER:
         this.removeControls();
         break;
     }

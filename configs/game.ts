@@ -9,9 +9,7 @@ const PIPE_PROPS = {
 
 const BIRD_PROPS = {
   WIDTH: 25,
-  // WIDTH: 17,
   HEIGHT: 12 * (25 / 17), // 25/17 is scale
-  // HEIGHT: 12, // 25/17 is scale
   X: 100,
   STARTING_Y: 100,
   MAX_ANGLE: Math.PI / 2,
@@ -34,7 +32,7 @@ const ANIMATION_DURATION = {
   miliseconds: 1000,
 };
 
-enum MenuState {
+enum MENU_STATE {
   MAIN = "main",
   MULTI_DETAILS = "multi",
   DEATH = "death",
@@ -42,16 +40,22 @@ enum MenuState {
   DISABLED = "",
 }
 
-enum GameMode {
+enum GAME_MODE {
   SINGLE,
   MULTI,
   NOT_SET,
 }
 
-enum LobbyMode {
+enum LOBBY_MODE {
   HOST,
   NORMAL,
 }
+
+const GAME_STATES = {
+  RUNNING: "RUNNING",
+  STARTED: "STARTED",
+  OVER: "OVER",
+} as const;
 
 export {
   PIPE_PROPS,
@@ -60,9 +64,10 @@ export {
   DIST_BETW_PIPES,
   BG_SPEED,
   UPDATE_MILLISECONDS,
-  MenuState,
-  GameMode,
-  LobbyMode,
-  tmp_canvas_size,
+  MENU_STATE,
+  GAME_MODE,
+  GAME_STATES,
+  LOBBY_MODE,
   ANIMATION_DURATION,
+  tmp_canvas_size,
 };

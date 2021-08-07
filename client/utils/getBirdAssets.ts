@@ -1,18 +1,19 @@
-import birdWingsBot from "url:../../assets/birdWingsBottom.svg";
-import birdWingsMid from "url:../../assets/birdWingsMid.svg";
-import birdWingsUp from "url:../../assets/birdWingsUp.svg";
+import sprites from "url:../../assets/birds/**/*.svg";
 
-const wingsBot = new Image();
-wingsBot.src = birdWingsBot;
+type BirdColors = "yellow" | "pink" | "blue" | "green";
 
-const wingsMid = new Image();
-wingsMid.src = birdWingsMid;
+function getBirdAssets(color: BirdColors): HTMLImageElement[] {
+  const wingsBot = new Image();
+  wingsBot.src = sprites[color].bottom;
 
-const wingsUp = new Image();
-wingsUp.src = birdWingsUp;
+  const wingsMid = new Image();
+  wingsMid.src = sprites[color].mid;
 
-const bird_spr: HTMLImageElement[] = [wingsBot, wingsMid, wingsUp];
+  const wingsUp = new Image();
+  wingsUp.src = sprites[color].top;
 
-export default bird_spr;
+  const bird_spr: HTMLImageElement[] = [wingsBot, wingsMid, wingsUp];
+  return bird_spr;
+}
 
-// export const bird_spr = [wingsBot, wingsMid, wingsUp];
+export { getBirdAssets };

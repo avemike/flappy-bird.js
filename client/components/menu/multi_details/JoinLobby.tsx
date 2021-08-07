@@ -1,7 +1,7 @@
 import React, { FormEvent, useContext, useState } from "react";
 import styled from "styled-components";
 
-import { LobbyMode, MenuState } from "../../../../configs/game";
+import { LOBBY_MODE, MENU_STATE } from "../../../../configs/game";
 import LobbyContext from "../../../utils/LobbyContext";
 import MenuContext from "../../../utils/MenuContext";
 import { Button } from "../../styles";
@@ -21,13 +21,13 @@ const JoinLobby = (): JSX.Element => {
 
   function handleFormSubmit(event: FormEvent) {
     event.preventDefault();
-    setMenu(MenuState.LOBBY);
+    setMenu(MENU_STATE.LOBBY);
   }
 
   function handleClick() {
     setOpen((open) => !open);
     setUrl("url");
-    lobbyModeRef.current = LobbyMode.NORMAL;
+    lobbyModeRef.current = LOBBY_MODE.NORMAL;
     // TODO generate link
   }
 

@@ -1,12 +1,13 @@
-import { createContext, MutableRefObject } from "react";
-import { LobbyMode } from "../../configs/game";
+import { MutableRefObject, createContext } from "react";
+
+import { LOBBY_MODE } from "../../configs/game";
 
 interface LobbyModeType {
-  lobbyModeRef: MutableRefObject<LobbyMode>;
+  lobbyModeRef: MutableRefObject<LOBBY_MODE>;
 }
 
 const LobbyContext = createContext<LobbyModeType>({
-  lobbyModeRef: { current: LobbyMode.NORMAL },
+  lobbyModeRef: { current: LOBBY_MODE.NORMAL },
 });
 
 export default LobbyContext;

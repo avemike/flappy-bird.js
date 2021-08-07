@@ -22,7 +22,7 @@ interface CanvasProps {
   height: number;
 }
 
-type toDraw = [Backgorund, PipesFactory, BaseFactory, PlayerBird, EnemyBirdsFactory];
+type ToDraw = [Backgorund, PipesFactory, BaseFactory, PlayerBird, EnemyBirdsFactory];
 
 interface BaseData {
   width: number;

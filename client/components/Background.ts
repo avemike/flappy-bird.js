@@ -1,11 +1,11 @@
-import theme from "url:../../assets/background-day-fix2-min.jpeg";
+import BACKGROUND_SPR from "url:../../assets/background.jpeg";
 
 class Backgorund {
   private image: HTMLImageElement;
 
   constructor() {
     this.image = new Image();
-    this.image.src = theme;
+    this.image.src = BACKGROUND_SPR;
   }
 
   draw(ctx: CanvasRenderingContext2D): void {

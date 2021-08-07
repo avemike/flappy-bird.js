@@ -1,6 +1,6 @@
 import React, { useContext, useState } from "react";
 
-import { GameMode, MenuState } from "../../../configs/game";
+import { GAME_MODE, MENU_STATE } from "../../../configs/game";
 import MenuContext from "../../utils/MenuContext";
 import * as S from "../styles";
 
@@ -16,8 +16,8 @@ function Single(): JSX.Element {
       <S.Button onClick={restartGame}>restart</S.Button>
       <S.Button
         onClick={() => {
-          setGameMode(GameMode.MULTI);
-          setMenuState(MenuState.MULTI_DETAILS);
+          setGameMode(GAME_MODE.MULTI);
+          setMenuState(MENU_STATE.MULTI_DETAILS);
         }}
       >
         multi
@@ -37,11 +37,11 @@ function Multi(): JSX.Element {
   );
 }
 
-function switchRender(gameMode: GameMode): JSX.Element {
+function switchRender(gameMode: GAME_MODE): JSX.Element {
   switch (gameMode) {
-    case GameMode.SINGLE:
+    case GAME_MODE.SINGLE:
       return <Single></Single>;
-    case GameMode.MULTI:
+    case GAME_MODE.MULTI:
       return <Multi></Multi>;
     default:
       return <></>;
