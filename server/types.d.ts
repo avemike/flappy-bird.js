@@ -1,5 +1,6 @@
 export interface BirdAttributes {
   x: number;
+  multiplayerX: number;
   y: number;
   momentum: number;
   angle: number;

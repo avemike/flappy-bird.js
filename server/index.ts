@@ -7,11 +7,8 @@ import { initGame } from "./initGame";
 import { logger } from "./utils/logger";
 
 const PORT = 3000;
-
 const app = express();
-
 const server = new http.Server(app);
-
 const io = socketio(server);
 
 http.createServer(app);

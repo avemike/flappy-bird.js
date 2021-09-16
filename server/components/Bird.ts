@@ -4,7 +4,8 @@ import { BirdAttributes, PipeAttributes } from "../types";
 export class Bird {
   public id = "";
   private x = BIRD_PROPS.X;
-  private y = BIRD_PROPS.STARTING_Y;
+  private multiplayerX = BIRD_PROPS.X;
+  private y = BIRD_PROPS.Y;
   private momentum = BIRD_PROPS.MOMENTUM;
   private angle = 0;
   private score = 0;
@@ -16,9 +17,10 @@ export class Bird {
   }
 
   resetState(): void {
-    const { X, STARTING_Y, MOMENTUM, COLLISION } = BIRD_PROPS;
+    const { X, Y, MOMENTUM, COLLISION } = BIRD_PROPS;
     this.x = X;
-    this.y = STARTING_Y;
+    this.multiplayerX = X;
+    this.y = Y;
     this.momentum = MOMENTUM;
     this.angle = 0;
     this.collision = COLLISION;
@@ -53,6 +55,10 @@ export class Bird {
     this.y += this.momentum;
   }
 
+  deathSlide(): void {
+    if (this.multiplayerX > -BIRD_PROPS.WIDTH) this.multiplayerX -= BG_SPEED;
+  }
+
   angleControl(): void {
     if (this.momentum > 0 && this.angle < BIRD_PROPS.MAX_ANGLE) this.angle += this.momentum / 120;
     else if (this.momentum < 0 && this.angle > BIRD_PROPS.MIN_ANGLE) {
@@ -66,6 +72,7 @@ export class Bird {
     return {
       id: this.id,
       x: this.x,
+      multiplayerX: this.multiplayerX,
       y: this.y,
       momentum: this.momentum,
       angle: this.angle,
@@ -98,6 +105,7 @@ export class Bird {
   }
 
   resolvePipeCollision(pipesAttribs: PipeAttributes[]): void {
+    this.collision = true;
     const rightBird = this.x + BIRD_PROPS.WIDTH;
     const topBird = this.y;
 
@@ -111,16 +119,8 @@ export class Bird {
       dy = Math.abs(pipesAttribs[0].offsetY + PIPE_PROPS.ONE_PIPE_HEIGHT - topBird);
       if (dy < dx) this.y += dy;
     }
-    /*
-     else {
-    falling
-    dy = pipesAttribs[0].offsetY + PIPE_PROPS.ONE_PIPE_HEIGHT + PIPE_PROPS.GAP - bottomBird;
-    if (dy < dx) this.y -= Math.abs(dy);
-    }
-    */
 
     if (dx < dy) this.x -= Math.abs(dx);
-    this.collision = true;
   }
 
   checkGroundCollsion(): boolean {

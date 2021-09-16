@@ -7,4 +7,3 @@ declare module "*.svg";
 declare module "canvas";
 declare module "score";
 declare module "MenuContext";
-declare module "test";

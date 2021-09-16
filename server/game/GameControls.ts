@@ -1,7 +1,8 @@
 import { Socket } from "socket.io";
 
+import { EVENTS } from "../../configs/events";
 import { GAME_STATES as STATES } from "../../configs/game";
-import { EVENTS, onRestart, onStartGame } from "../handlers";
+import { onRestart, onStartGame } from "../handlers";
 import { gameOver } from "../scripts/gameOver";
 import { InstanceContainer } from "./InstanceContainer";
 import { Attributes } from "./InstanceContainer";
@@ -14,8 +15,9 @@ export class GameControls extends InstanceContainer {
   constructor(socket: Socket) {
     super(socket);
 
-    socket.on(EVENTS.START_GAME, onStartGame(this.id));
-    socket.on(EVENTS.RESTART, onRestart(this.id));
+    socket.on(EVENTS.GAME_START, onStartGame);
+
+    socket.on(EVENTS.GAME_RESTART, onRestart);
   }
 
   public static initialize(socket: Socket): GameControls {
@@ -42,6 +44,12 @@ export class GameControls extends InstanceContainer {
 
     pipeCollision && this.bird.resolvePipeCollision(this.pipes.attributes);
     groundCollision && this.bird.resolveGroundCollision();
+  }
+
+  public determineNeeds(): string[] {
+    const ret = [EVENTS.BIRD, EVENTS.BASES, EVENTS.GAME];
+
+    return ret;
   }
 
   get attributes(): Attributes & { state: keyof typeof STATES } {

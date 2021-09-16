@@ -17,7 +17,7 @@ export class FrameHandler {
     this.callbacks.push(callback);
   }
 
-  reset(): void {
+  clear(): void {
     this.callbacks = [];
   }
 }

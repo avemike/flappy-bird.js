@@ -1,4 +1,4 @@
-interface BirdData {
+export interface BirdData {
   x: number;
   y: number;
   angle: number;
@@ -9,7 +9,7 @@ interface BirdData {
   i?: number;
 }
 
-interface PlayerBirdData extends BirdData {
+export interface PlayerBirdData extends BirdData {
   score: number;
   highscore: number;
   collision: boolean;
@@ -17,21 +17,21 @@ interface PlayerBirdData extends BirdData {
   controlsAdded: boolean;
 }
 
-interface CanvasProps {
+export interface CanvasProps {
   width: number;
   height: number;
 }
 
-type ToDraw = [Backgorund, PipesFactory, BaseFactory, PlayerBird, EnemyBirdsFactory];
+export type ToDraw = [Backgorund, PipesFactory, BaseFactory, PlayerBird, EnemyBirdsFactory];
 
-interface BaseData {
+export interface BaseData {
   width: number;
   height: number;
   offsetX: number;
   offsetY: number;
 }
 
-interface PipeData {
+export interface PipeData {
   width: number;
   width: number;
   height: number;

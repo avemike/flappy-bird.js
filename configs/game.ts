@@ -11,7 +11,7 @@ const BIRD_PROPS = {
   WIDTH: 25,
   HEIGHT: 12 * (25 / 17), // 25/17 is scale
   X: 100,
-  STARTING_Y: 100,
+  Y: 100,
   MAX_ANGLE: Math.PI / 2,
   MIN_ANGLE: -Math.PI / 7,
   MOMENTUM: 2,
