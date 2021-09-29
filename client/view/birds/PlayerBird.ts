@@ -17,7 +17,7 @@ class PlayerBird extends Bird {
   };
 
   constructor(socket: SocketIOClient.Socket) {
-    super();
+    super(socket);
     this.socket = socket;
 
     // TEMP - DEBUGGING
@@ -33,24 +33,25 @@ class PlayerBird extends Bird {
 
   setupUpdateSocket(): void {
     this.socket.on(EVENTS.BIRD, (data: PlayerBirdData) => {
-      const { x, y, angle, score, highscore, collision } = data;
+      const { x, y, angle, score, highscore, collision, color } = data;
       this.x = x;
       this.y = y;
       this.angle = angle;
       this.score = score;
       this.highscore = highscore;
       this.collision = collision;
+      this.color = color;
     });
   }
 
-  addControls(): void {
+  private addControls(): void {
     if (!this.controlsAdded && !this.collision) {
       document.addEventListener("keypress", this.controlTheBird);
       this.controlsAdded = !this.controlsAdded;
     }
   }
 
-  removeControls(): void {
+  private removeControls(): void {
     if (this.controlsAdded && this.collision) {
       document.removeEventListener("keypress", this.controlTheBird);
       this.controlsAdded = !this.controlsAdded;

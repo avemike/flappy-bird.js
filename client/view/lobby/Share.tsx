@@ -2,7 +2,7 @@ import React, { ReactNode, useState } from "react";
 import { CSSTransition, SwitchTransition } from "react-transition-group";
 import styled from "styled-components";
 
-import * as S from "../../styles";
+import * as S from "../../styled";
 import { socket } from "../../utils/socketSetup";
 
 const LabelStyled = styled.label``;

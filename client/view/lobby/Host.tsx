@@ -4,7 +4,7 @@ import { AiOutlineShareAlt } from "react-icons/ai";
 import { EVENTS } from "../../../configs/events";
 import { GAME_MODE, MENU_STATE } from "../../../configs/game";
 import { Back } from "../../components/Back";
-import * as S from "../../styles";
+import * as S from "../../styled";
 import MenuContext from "../../utils/context/MenuContext";
 import { socket } from "../../utils/socketSetup";
 import { Share } from "./";
@@ -53,7 +53,7 @@ function Host(): JSX.Element {
   return (
     <S.FlexWrapper dir={"column"} animated>
       <S.Nav>
-        <Back onClick={handleLeave}></Back>
+        <Back onClick={handleLeave} />
         <Share>
           <AiOutlineShareAlt />
         </Share>

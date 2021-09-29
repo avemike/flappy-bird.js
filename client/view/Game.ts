@@ -1,11 +1,12 @@
 import { EVENTS } from "../../configs/events";
 import { GAME_STATES } from "../../configs/game";
 import SCORE_PROPS from "../../configs/score";
-import BaseFactory from "../controllers/BaseController";
-import EnemyBirdsFactory from "../controllers/EnemyBirdsController";
-import PipesFactory from "../controllers/PipesController";
+import BackgroundController from "../controllers/BackgroundController";
+import BaseController from "../controllers/BaseController";
+import EnemyBirdsController from "../controllers/EnemyBirdsController";
+import PipesController from "../controllers/PipesController";
 import { ToDraw } from "../types";
-import Backgorund from "./Background";
+import { socket } from "../utils/socketSetup";
 import PlayerBird from "./birds/PlayerBird";
 
 interface GameInfo {
@@ -15,30 +16,27 @@ interface GameInfo {
 export default class Game {
   private ctx: CanvasRenderingContext2D;
   private bird: PlayerBird;
-  private enemyBirds: EnemyBirdsFactory;
+  private enemyBirds: EnemyBirdsController;
   private toDraw: ToDraw;
   private data: GameInfo;
-  private socket: SocketIOClient.Socket;
 
-  constructor(
-    ctx: CanvasRenderingContext2D,
-    background: Backgorund,
-    bird: PlayerBird,
-    enemyBirds: EnemyBirdsFactory,
-    bases: BaseFactory,
-    pipes: PipesFactory,
-    socket: SocketIOClient.Socket,
-  ) {
+  constructor(ctx: CanvasRenderingContext2D) {
     this.ctx = ctx;
-    this.bird = bird;
-    this.enemyBirds = enemyBirds;
-    this.toDraw = [background, pipes, bases, bird, enemyBirds];
+    this.bird = new PlayerBird(socket);
+    this.enemyBirds = new EnemyBirdsController(socket);
+    this.toDraw = [
+      new BackgroundController(),
+      new PipesController(socket),
+      new BaseController(socket),
+      this.bird,
+      this.enemyBirds,
+    ];
+
     this.data = {
       state: GAME_STATES.RUNNING,
     };
-    this.socket = socket;
 
-    this.socket.on(EVENTS.GAME, (info: GameInfo) => {
+    socket.on(EVENTS.GAME, (info: GameInfo) => {
       this.data = info;
     });
   }

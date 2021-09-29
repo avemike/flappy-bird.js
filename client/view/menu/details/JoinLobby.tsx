@@ -3,7 +3,7 @@ import styled from "styled-components";
 
 import { EVENTS } from "../../../../configs/events";
 import { LOBBY_MODE, MENU_STATE } from "../../../../configs/game";
-import { Button } from "../../../styles";
+import { Button } from "../../../styled";
 import LobbyContext from "../../../utils/context/LobbyContext";
 import MenuContext from "../../../utils/context/MenuContext";
 import { socket } from "../../../utils/socketSetup";

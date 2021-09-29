@@ -1,12 +1,11 @@
+import { BIRD_COLORS } from "../configs/game";
+
 export interface BirdData {
   x: number;
   y: number;
   angle: number;
+  color: BIRD_COLORS;
   sprites?: HTMLImageElement[];
-  width?: number;
-  height?: number;
-  state?: number;
-  i?: number;
 }
 
 export interface PlayerBirdData extends BirdData {
@@ -15,11 +14,6 @@ export interface PlayerBirdData extends BirdData {
   collision: boolean;
   socket: SocketIOClient.Socket;
   controlsAdded: boolean;
-}
-
-export interface CanvasProps {
-  width: number;
-  height: number;
 }
 
 export type ToDraw = [Backgorund, PipesFactory, BaseFactory, PlayerBird, EnemyBirdsFactory];
@@ -32,7 +26,6 @@ export interface BaseData {
 }
 
 export interface PipeData {
-  width: number;
   width: number;
   height: number;
   offsetX: number;

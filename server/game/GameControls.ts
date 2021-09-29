@@ -2,7 +2,7 @@ import { Socket } from "socket.io";
 
 import { EVENTS } from "../../configs/events";
 import { GAME_STATES as STATES } from "../../configs/game";
-import { onRestart, onStartGame } from "../handlers";
+import { onRestart, onStartGame } from "../handlers/general";
 import { gameOver } from "../scripts/gameOver";
 import { InstanceContainer } from "./InstanceContainer";
 import { Attributes } from "./InstanceContainer";
@@ -44,12 +44,6 @@ export class GameControls extends InstanceContainer {
 
     pipeCollision && this.bird.resolvePipeCollision(this.pipes.attributes);
     groundCollision && this.bird.resolveGroundCollision();
-  }
-
-  public determineNeeds(): string[] {
-    const ret = [EVENTS.BIRD, EVENTS.BASES, EVENTS.GAME];
-
-    return ret;
   }
 
   get attributes(): Attributes & { state: keyof typeof STATES } {

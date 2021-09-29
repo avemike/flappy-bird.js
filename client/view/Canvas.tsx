@@ -1,39 +1,47 @@
 import React, { useEffect, useRef } from "react";
 
 import { EVENTS } from "../../configs/events";
-import BaseFactory from "../controllers/BaseController";
-import EnemyBirdsFactory from "../controllers/EnemyBirdsController";
-import PipesFactory from "../controllers/PipesController";
-import { CanvasProps } from "../types";
 import { socket } from "../utils/socketSetup";
-import Backgorund from "./Background";
-import PlayerBird from "./birds/PlayerBird";
 import Game from "./Game";
 
-const Canvas = (props: CanvasProps): JSX.Element => {
+interface Props {
+  width: number;
+  height: number;
+}
+
+const Canvas = (props: Props): JSX.Element => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
 
   useEffect(() => {
     if (canvasRef.current !== null) {
       const ctx = canvasRef.current.getContext("2d") as CanvasRenderingContext2D;
-      const background = new Backgorund();
-      const bird = new PlayerBird(socket);
-      const bases = new BaseFactory(socket);
-      const enemyBirds = new EnemyBirdsFactory(socket);
-      const pipes = new PipesFactory(socket);
-      const game = new Game(ctx, background, bird, enemyBirds, bases, pipes, socket);
+      const game = new Game(ctx);
 
       let animationFrameID: number;
+      let fpsInterval: number, now: number, then: number, elapsed: number;
 
-      const render = () => {
-        socket.emit(EVENTS.FRAME);
-        ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
-        game.create_tmp();
+      function startAnimation(fps: number) {
+        fpsInterval = 1000 / fps;
+        then = window.performance.now();
+        animationFrameID = requestAnimationFrame(animate);
+      }
 
-        animationFrameID = window.requestAnimationFrame(render);
-      };
+      function animate(timestamp: DOMHighResTimeStamp) {
+        requestAnimationFrame(animate);
 
-      render();
+        now = timestamp;
+        elapsed = now - then;
+
+        if (elapsed > fpsInterval) {
+          socket.emit(EVENTS.FRAME);
+          ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
+          game.create_tmp();
+
+          then = now - (elapsed % fpsInterval);
+        }
+      }
+
+      startAnimation(60);
 
       return () => {
         window.cancelAnimationFrame(animationFrameID);

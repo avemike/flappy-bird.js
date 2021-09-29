@@ -1,27 +1,31 @@
 import { EVENTS } from "../../configs/events";
-import EnemyBird from "../view/birds/EnemyBird";
+import EnemyBird, { EnemyBirdAttributes } from "../view/birds/EnemyBird";
 
 // EnemyBirdsFactory creates new EnemyBirds and updates existing ones
 class EnemyBirdsController {
+  private socket: SocketIOClient.Socket;
+
   private storedBirds: {
     [k: string]: EnemyBird;
   } = {};
 
   constructor(socket: SocketIOClient.Socket) {
-    // socket.on(EVENTS.OTHER_BIRD, (bird: { id: string; y: number; momentum: number }) => {
-    socket.on(EVENTS.OTHER_BIRD, (bird: { id: string; multiplayerX: number; y: number; angle: number }) => {
+    this.socket = socket;
+
+    this.socket.on(EVENTS.OTHER_BIRD, (bird: EnemyBirdAttributes) => {
       this.use(bird);
     });
-    socket.on(EVENTS.OTHER_BIRD_DC, (birdId: string) => {
+
+    this.socket.on(EVENTS.OTHER_BIRD_DC, (birdId: string) => {
       delete this.storedBirds[birdId];
     });
   }
 
   // use(bird: { id: string; y: number; momentum: number }): void {
-  use(bird: { id: string; multiplayerX: number; y: number; angle: number }): void {
+  use(bird: EnemyBirdAttributes): void {
     if (!this.storedBirds[bird.id]) {
       // create new bird
-      const newBird = new EnemyBird();
+      const newBird = new EnemyBird(this.socket);
       this.storedBirds[bird.id] = newBird;
       return;
     }

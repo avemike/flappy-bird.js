@@ -1,6 +1,7 @@
-import { BASE_PROPS, tmp_canvas_size } from "../../configs/game";
+import { BASE_PROPS } from "../../configs/game";
 import { Base } from "../components/Base";
 import { BaseAttributes } from "../types";
+import { getCanvasSize } from "../utils/canvasSize";
 
 export class BasesController {
   private bases: Base[] = [];
@@ -10,7 +11,7 @@ export class BasesController {
       this.bases.push(
         new Base({
           offsetX: BASE_PROPS.WIDTH * i,
-          offsetY: tmp_canvas_size - BASE_PROPS.HEIGHT,
+          offsetY: getCanvasSize().HEIGHT - BASE_PROPS.HEIGHT,
         }),
       );
     }

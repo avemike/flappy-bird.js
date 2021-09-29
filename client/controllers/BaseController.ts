@@ -3,7 +3,7 @@ import BASE_SPR from "url:../../assets/base.jpg";
 import { EVENTS } from "../../configs/events";
 import { BaseData } from "../types";
 
-class BaseFactory {
+class BaseController {
   private basesData: BaseData[] = [];
   constructor(socket: SocketIOClient.Socket) {
     socket.on(EVENTS.BASES, (basesData: BaseData[]) => {
@@ -27,4 +27,4 @@ class BaseFactory {
   }
 }
 
-export default BaseFactory;
+export default BaseController;

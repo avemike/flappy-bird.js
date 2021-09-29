@@ -1,7 +1,7 @@
 import React from "react";
 import { AiOutlineArrowLeft } from "react-icons/ai";
 
-import { TopButton } from "../styles";
+import { TopButton } from "../styled";
 
 interface Props {
   onClick: () => void;

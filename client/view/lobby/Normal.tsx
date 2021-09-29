@@ -3,7 +3,7 @@ import React, { useCallback, useContext, useEffect, useState } from "react";
 import { EVENTS } from "../../../configs/events";
 import { MENU_STATE } from "../../../configs/game";
 import { Back } from "../../components/Back";
-import * as S from "../../styles";
+import * as S from "../../styled";
 import MenuContext from "../../utils/context/MenuContext";
 import { socket } from "../../utils/socketSetup";
 
@@ -37,7 +37,7 @@ function Normal(): JSX.Element {
   return (
     <S.FlexWrapper dir={"column"} animated>
       <S.Nav>
-        <Back onClick={handleLeave}></Back>
+        <Back onClick={handleLeave} />
       </S.Nav>
       <S.Button onClick={toggleReady}>{ready ? "turn off" : "set ready"}</S.Button>
       <S.Button onClick={() => setMenu(MENU_STATE.MULTI_DETAILS)}>leave</S.Button>

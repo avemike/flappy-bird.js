@@ -1,7 +1,8 @@
 import { Socket } from "socket.io";
 
 import { EVENTS } from "../../configs/events";
-import { onAbortLobby, onJoinLobby, onLeaveLobby, onLeaveMulti, onReadyAction, onStartGameMulti } from "../handlers";
+import { onBirdColorChange } from "../handlers/general";
+import * as M from "../handlers/mutli";
 import { logger } from "../utils/logger";
 import { GameControls } from "./GameControls";
 import { MultiProfile } from "./MultiProfile";
@@ -36,14 +37,15 @@ export class MultiController {
   public deletePlayer(id: Socket["id"]): void {
     const { socket } = GameControls.getInstance(id).attributes;
 
-    socket.removeListener(EVENTS.READY_ACTION, onReadyAction);
+    socket.removeListener(EVENTS.BIRD_COLOR_CHANGE, onBirdColorChange);
+    socket.removeListener(EVENTS.READY_ACTION, M.onReadyAction);
 
-    socket.removeListener(EVENTS.LOBBY_JOIN, onJoinLobby);
-    socket.removeListener(EVENTS.LOBBY_ABORT, onAbortLobby);
-    socket.removeListener(EVENTS.LBOBY_LEAVE, onLeaveLobby);
+    socket.removeListener(EVENTS.LOBBY_JOIN, M.onJoinLobby);
+    socket.removeListener(EVENTS.LOBBY_ABORT, M.onAbortLobby);
+    socket.removeListener(EVENTS.LBOBY_LEAVE, M.onLeaveLobby);
 
-    socket.removeListener(EVENTS.MULTI_START_GAME, onStartGameMulti);
-    socket.removeListener(EVENTS.MULTI_LEAVE, onLeaveMulti);
+    socket.removeListener(EVENTS.MULTI_START_GAME, M.onStartGameMulti);
+    socket.removeListener(EVENTS.MULTI_LEAVE, M.onLeaveMulti);
 
     logger.info(`removed: ${id}\n listerers reamining: ${socket.eventNames()}`);
 
@@ -54,14 +56,14 @@ export class MultiController {
     this.players[id] = new MultiProfile(id);
 
     const { socket } = GameControls.getInstance(id).attributes;
-    socket.on(EVENTS.READY_ACTION, onReadyAction);
+    socket.on(EVENTS.READY_ACTION, M.onReadyAction);
 
-    socket.on(EVENTS.LOBBY_JOIN, onJoinLobby);
-    socket.on(EVENTS.LOBBY_ABORT, onAbortLobby);
-    socket.on(EVENTS.LBOBY_LEAVE, onLeaveLobby);
+    socket.on(EVENTS.LOBBY_JOIN, M.onJoinLobby);
+    socket.on(EVENTS.LOBBY_ABORT, M.onAbortLobby);
+    socket.on(EVENTS.LBOBY_LEAVE, M.onLeaveLobby);
 
-    socket.on(EVENTS.MULTI_START_GAME, onStartGameMulti);
-    socket.on(EVENTS.MULTI_LEAVE, onLeaveMulti);
+    socket.on(EVENTS.MULTI_START_GAME, M.onStartGameMulti);
+    socket.on(EVENTS.MULTI_LEAVE, M.onLeaveMulti);
   }
 
   public setReady(readyID: Socket["id"], ready: boolean): void {
@@ -74,8 +76,8 @@ export class MultiController {
     const readyGuestsCount = this.getPlayer(hostID).attributes.guests.reduce(reducer, 0);
     const readyPlayersCount = readyGuestsCount + (this.getPlayer(hostID).attributes.ready ? 1 : 0);
 
-    const { socket } = GameControls.getInstance(hostID).attributes;
-    socket.emit(EVENTS.READY_COUNT, readyPlayersCount);
+    const { socket: hostSocket } = GameControls.getInstance(hostID).attributes;
+    hostSocket.emit(EVENTS.READY_COUNT, readyPlayersCount);
   }
 
   public createLobby(hostID: Socket["id"]): void {

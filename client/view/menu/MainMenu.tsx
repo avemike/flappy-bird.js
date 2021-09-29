@@ -1,8 +1,8 @@
-import React, { useContext } from "react";
+import React, { ChangeEvent, useContext } from "react";
 
 import { EVENTS } from "../../../configs/events";
-import { GAME_MODE, MENU_STATE } from "../../../configs/game";
-import * as S from "../../styles";
+import { BIRD_COLORS, GAME_MODE, MENU_STATE } from "../../../configs/game";
+import * as S from "../../styled";
 import MenuContext from "../../utils/context/MenuContext";
 import { socket } from "../../utils/socketSetup";
 
@@ -25,14 +25,42 @@ function MainMenu(): JSX.Element {
     socket.emit(EVENTS.MULTI_JOIN);
   }
 
-  const SingleControls = () => <S.Button onClick={handleSingle}>single</S.Button>;
+  interface ControlsProps {
+    text: string;
+    onClick(): void;
+  }
 
-  const MultiControls = () => <S.Button onClick={handleMulti}>multi</S.Button>;
+  function Controls({ text, onClick }: ControlsProps): JSX.Element {
+    return <S.Button onClick={onClick}>{text}</S.Button>;
+  }
+
+  function handleColorChange(event: ChangeEvent<HTMLSelectElement>) {
+    socket.emit(EVENTS.BIRD_COLOR_CHANGE, event.target.value);
+  }
+
+  function BirdColorSelect(): JSX.Element {
+    function lower(arg: string): string {
+      return arg.toLowerCase();
+    }
+
+    return (
+      <S.ColorSelect as="select" onChange={handleColorChange} defaultValue="yellow">
+        {Object.keys(BIRD_COLORS)
+          .filter((x) => !(parseInt(x) >= 0))
+          .map((color) => (
+            <option key={`key-${color}`} value={lower(color)}>
+              {lower(color)}
+            </option>
+          ))}
+      </S.ColorSelect>
+    );
+  }
 
   return (
     <S.FlexWrapper dir={"column"} animated>
-      <SingleControls></SingleControls>
-      <MultiControls></MultiControls>
+      <Controls onClick={handleSingle} text={"single"} />
+      <Controls onClick={handleMulti} text={"multi"} />
+      <BirdColorSelect />
     </S.FlexWrapper>
   );
 }

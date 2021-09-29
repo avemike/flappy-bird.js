@@ -13,6 +13,8 @@ export const EVENTS = {
   OTHER_BIRD_DC: "otherBirdDc",
 
   BIRD: "bird",
+  BIRD_COLOR_CHANGE: "bird color change",
+  BIRD_COLOR_UPDATE: "bird color update",
   OTHER_BIRD: "otherBird",
   PIPES: "pipes",
   BASES: "bases",
@@ -26,4 +28,6 @@ export const EVENTS = {
 
   READY_ACTION: "ready action",
   READY_COUNT: "ready count",
+
+  DOM_LOADED: "dom loaded",
 } as const;

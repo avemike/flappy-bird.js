@@ -1,14 +1,23 @@
+import { BIRD_COLORS } from "../../../configs/game";
 import Bird from "./Bird";
 
-// TODO clean this up and make it work
+export interface EnemyBirdAttributes {
+  id: string;
+  multiplayerX: number;
+  y: number;
+  angle: number;
+  color: BIRD_COLORS;
+}
 
 class EnemyBird extends Bird {
-  constructor() {
-    super();
+  constructor(socket: SocketIOClient.Socket) {
+    super(socket);
   }
 
-  update(data: { id: string; multiplayerX: number; y: number; angle: number }): void {
-    const { multiplayerX, y, angle } = data;
+  update(data: EnemyBirdAttributes): void {
+    const { multiplayerX, y, angle, color } = data;
+
+    this.setColor(color);
     this.y = y;
     this.angle = angle;
     this.x = multiplayerX;

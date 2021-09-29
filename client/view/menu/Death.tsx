@@ -1,7 +1,7 @@
 import React, { useContext, useState } from "react";
 
 import { GAME_MODE, MENU_STATE } from "../../../configs/game";
-import * as S from "../../styles";
+import * as S from "../../styled";
 import MenuContext from "../../utils/context/MenuContext";
 
 function Single(): JSX.Element {
@@ -40,9 +40,9 @@ function Multi(): JSX.Element {
 function switchRender(gameMode: GAME_MODE): JSX.Element {
   switch (gameMode) {
     case GAME_MODE.SINGLE:
-      return <Single></Single>;
+      return <Single />;
     case GAME_MODE.MULTI:
-      return <Multi></Multi>;
+      return <Multi />;
     default:
       return <></>;
   }

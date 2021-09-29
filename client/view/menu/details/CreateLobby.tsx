@@ -1,7 +1,7 @@
 import React, { useContext } from "react";
 
 import { LOBBY_MODE, MENU_STATE } from "../../../../configs/game";
-import { Button } from "../../../styles";
+import { Button } from "../../../styled";
 import LobbyContext from "../../../utils/context/LobbyContext";
 import MenuContext from "../../../utils/context/MenuContext";
 

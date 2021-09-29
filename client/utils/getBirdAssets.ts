@@ -1,8 +1,38 @@
 import sprites from "url:../../assets/birds/**/*.svg";
 
+import { BIRD_COLORS } from "../../configs/game";
+
+const birdColor = {
+  color: BIRD_COLORS.YELLOW,
+};
+
 type BirdColors = "yellow" | "pink" | "blue" | "green";
 
-function getBirdAssets(color: BirdColors): HTMLImageElement[] {
+function setBirdColor(color: BIRD_COLORS): void {
+  birdColor.color = color;
+}
+
+// function randomColor(): BIRD_COLORS {
+//   let color;
+//   const randomNum = Math.random();
+
+//   if (randomNum < 0.25) {
+//     color = BIRD_COLORS.BLUE;
+//   } else if (randomNum < 0.5) {
+//     color = BIRD_COLORS.YELLOW;
+//   } else if (randomNum < 0.75) {
+//     color = BIRD_COLORS.GREEN;
+//   } else if (randomNum <= 1) {
+//     color = BIRD_COLORS.PINK;
+//   } else {
+//     throw new Error("xd");
+//   }
+//   return color;
+// }
+
+// function getBirdAssets(color: BirdColors = "yellow"): HTMLImageElement[] {
+function getBirdAssets(color: BIRD_COLORS): HTMLImageElement[] {
+  console.log("color is:", color);
   const wingsBot = new Image();
   wingsBot.src = sprites[color].bottom;
 
@@ -16,4 +46,4 @@ function getBirdAssets(color: BirdColors): HTMLImageElement[] {
   return bird_spr;
 }
 
-export { getBirdAssets };
+export { getBirdAssets, setBirdColor };

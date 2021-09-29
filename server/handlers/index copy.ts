@@ -6,30 +6,35 @@ import { GameControls } from "../game/GameControls";
 import { MultiController } from "../game/MultiController";
 import { logger } from "../utils/logger";
 
-export function onLeaveMulti(this: Socket): void {
-  const { id } = this;
+type Callback = () => void;
+type MutliCallback = (hostID: Socket["id"]) => void;
+type ReadyCallback = (ready: boolean) => void;
 
+export function onTest(this: Socket): void {
+  const id = this.id;
+  logger.info(id);
+}
+
+export const onLeaveMulti = (id: Socket["id"]): Callback => () => {
   MultiController.getInstance().deletePlayer(id);
-}
+};
 
-export function onJoinMulti(this: Socket): void {
-  const { id } = this;
+export const onJoinMulti = (id: Socket["id"]): Callback => () => {
   MultiController.getInstance().registerPlayer(id);
-}
+};
 
-export function onStartGameMulti(this: Socket): void {
-  const { id } = this;
-  onStartGame.call(this);
+export const onStartGameMulti = (id: Socket["id"]): Callback => () => {
+  onStartGame(id)();
   const { guests } = MultiController.getInstance().getPlayer(id).attributes;
 
   guests.forEach((guestID) => {
-    const { socket } = GameControls.getInstance(guestID).attributes;
-    onStartGame.call(socket);
+    onStartGame(guestID)();
+    // const { socket } = GameControls.getInstance(guestID).attributes;
+    // socket.emit(EVENTS.MULTI_START_GAME);
   });
-}
+};
 
-export function onAbortLobby(this: Socket): void {
-  const { id } = this;
+export const onAbortLobby = (id: Socket["id"]): Callback => () => {
   MultiController.getInstance().deleteLobby(id);
 
   const host = MultiController.getInstance().getPlayer(id);
@@ -38,23 +43,19 @@ export function onAbortLobby(this: Socket): void {
   guests.forEach((guestID) => {
     host.removeGuest(guestID);
   });
-}
+};
 
-export function onLeaveLobby(this: Socket): void {
-  const { id } = this;
+export const onLeaveLobby = (id: Socket["id"]): Callback => () => {
   MultiController.getInstance().getPlayer(id).leaveLobby();
-}
+};
 
-export function onReadyAction(this: Socket, ready: boolean): void {
-  const { id } = this;
+export const onReadyAction = (id: Socket["id"]): ReadyCallback => (ready: boolean) => {
   const multiController = MultiController.getInstance();
 
   multiController.setReady(id, ready);
-}
+};
 
-export function onJoinLobby(this: Socket, hostID: Socket["id"]): void {
-  const { id } = this;
-
+export const onJoinLobby = (id: Socket["id"]): MutliCallback => (hostID: Socket["id"]) => {
   const multiController = MultiController.getInstance();
 
   multiController.getPlayer(id).joinLobby(hostID);
@@ -72,16 +73,17 @@ export function onJoinLobby(this: Socket, hostID: Socket["id"]): void {
 
   socket.to(hostSocket.id).emit(EVENTS.BIRD_JOINED, socket.id);
   socket.to(hostSocket.id).emit(EVENTS.OTHER_BIRD, bird.attributes);
-}
+};
 
-export function onFrame(this: Socket): void {
-  const { id } = this;
-
+export const onFrame = (id: Socket["id"]): Callback => () => {
   const game = GameControls.getInstance(id);
   const { bird, bases, socket } = game.attributes;
 
+  // const player = MultiController.getInstance().getPlayer(id);
   const { hostID } = MultiController.getInstance().getPlayer(id)?.attributes || {};
+  // const hostGame = GameControls.getInstance(hostID) || {};
 
+  // const { pipes } = hostID ? hostGame.attributes : game.attributes;
   const { pipes } = game.attributes;
 
   bird.updateScore(pipes.attributes);
@@ -89,47 +91,53 @@ export function onFrame(this: Socket): void {
   socket.emit(EVENTS.PIPES, pipes.attributes);
   socket.emit(EVENTS.BASES, bases.attributes);
   socket.emit(EVENTS.BIRD, bird.attributes);
-
+  // socket.emit(EVENTS.GAME, { state: hostID ? hostGame.state : game.state });
   socket.emit(EVENTS.GAME, { state: game.state });
   hostID && socket.to(hostID).emit(EVENTS.OTHER_BIRD, bird.attributes);
-}
+};
 
-export function onDisconnect(this: Socket): void {
-  const { id } = this;
+export const onDisconnect = (id: Socket["id"]): Callback => () => {
   logger.info(`${id}: disconnect`);
   const { socket } = GameControls.getInstance(id).attributes;
 
   const { hostID } = MultiController.getInstance().getPlayer(id)?.attributes || {};
 
   hostID && socket.to(hostID).emit(EVENTS.OTHER_BIRD_DC, id);
-}
+};
 
-export function onJump(this: Socket): void {
-  const { id } = this;
+export const onJump = (id: Socket["id"]): Callback => () => {
   const { socket, bird } = GameControls.getInstance(id).attributes;
   const { hostID } = MultiController.getInstance().getPlayer(id)?.attributes || {};
 
   bird.jump();
   socket.emit(EVENTS.BIRD, bird.attributes);
   hostID && socket.to(hostID).emit(EVENTS.OTHER_BIRD, bird.attributes);
-}
+};
 
-export function onStartGame(this: Socket): void {
-  const { id } = this;
+export const onStartGame = (id: Socket["id"]): Callback => () => {
+  // const game = GameControls.getInstance(id);
+  // const { pipes, bird, frameHandler } = game.attributes;
+
+  // game.state = STATES.STARTED;
+  // frameHandler.addCallback(() => bird.gravity());
+  // frameHandler.addCallback(() => bird.angleControl());
+  // frameHandler.addCallback(() => pipes.run());
+  // frameHandler.addCallback(() => game.checkOver());
 
   const game = GameControls.getInstance(id);
   const { pipes, bird, frameHandler } = game.attributes;
 
+  const { hostID } = MultiController.getInstance().getPlayer(id)?.attributes || {};
+
   game.state = STATES.STARTED;
   frameHandler.addCallback(() => bird.gravity());
   frameHandler.addCallback(() => bird.angleControl());
+  // !hostID && frameHandler.addCallback(() => pipes.run());
   frameHandler.addCallback(() => pipes.run());
   frameHandler.addCallback(() => game.checkOver());
-}
+};
 
-export function onRestart(this: Socket): void {
-  const { id } = this;
-
+export const onRestart = (id: Socket["id"]): Callback => () => {
   const game = GameControls.getInstance(id);
   const { pipes, bird, frameHandler, bases } = game.attributes;
 
@@ -138,4 +146,4 @@ export function onRestart(this: Socket): void {
   pipes.resetState();
   frameHandler.clear();
   frameHandler.addCallback(() => bases.run());
-}
+};

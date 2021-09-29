@@ -1,5 +1,11 @@
-import { BASE_PROPS, BG_SPEED, BIRD_PROPS, PIPE_PROPS, tmp_canvas_size } from "../../configs/game";
+import { Socket } from "socket.io";
+
+import { CANVAS_SIZE } from "../../configs/canvas";
+import { EVENTS } from "../../configs/events";
+import { BASE_PROPS, BG_SPEED, BIRD_COLORS, BIRD_PROPS, PIPE_PROPS } from "../../configs/game";
+import { onBirdColorChange } from "../handlers/general";
 import { BirdAttributes, PipeAttributes } from "../types";
+import { getCanvasSize } from "../utils/canvasSize";
 
 export class Bird {
   public id = "";
@@ -12,8 +18,16 @@ export class Bird {
   private highscore = 0;
   private collision: boolean = BIRD_PROPS.COLLISION;
 
-  constructor(id: string) {
-    this.id = id;
+  private color: BIRD_COLORS = BIRD_COLORS.YELLOW;
+
+  constructor(socket: Socket) {
+    this.id = socket.id;
+
+    socket.on(EVENTS.BIRD_COLOR_CHANGE, onBirdColorChange);
+  }
+
+  setColor(color: BIRD_COLORS): void {
+    this.color = color;
   }
 
   resetState(): void {
@@ -79,6 +93,7 @@ export class Bird {
       score: this.score,
       highscore: this.highscore,
       collision: this.collision,
+      color: this.color,
     };
   }
 
@@ -90,7 +105,8 @@ export class Bird {
     // check if bird is too far away for collision
     if (
       (this.x + BIRD_PROPS.WIDTH < pipesAttribs[0].offsetX || this.x > pipesAttribs[0].offsetX + PIPE_PROPS.WIDTH) &&
-      this.y < tmp_canvas_size - BASE_PROPS.HEIGHT
+      // this.y < tmp_canvas_size - BASE_PROPS.HEIGHT
+      this.y < getCanvasSize().HEIGHT - BASE_PROPS.HEIGHT
     )
       return false;
 
@@ -126,13 +142,14 @@ export class Bird {
   checkGroundCollsion(): boolean {
     const bottomRotatedBird = this.y + BIRD_PROPS.WIDTH;
 
-    if (bottomRotatedBird >= tmp_canvas_size - BASE_PROPS.HEIGHT) return true;
+    if (bottomRotatedBird >= getCanvasSize().HEIGHT - BASE_PROPS.HEIGHT) return true;
+    // if (bottomRotatedBird >= tmp_canvas_size - BASE_PROPS.HEIGHT) return true;
 
     return false;
   }
 
   resolveGroundCollision(): void {
     this.collision = true;
-    this.y = tmp_canvas_size - BASE_PROPS.HEIGHT - BIRD_PROPS.WIDTH / 2;
+    this.y = getCanvasSize().HEIGHT - BASE_PROPS.HEIGHT - BIRD_PROPS.WIDTH / 2;
   }
 }

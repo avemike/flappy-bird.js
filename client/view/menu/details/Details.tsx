@@ -2,7 +2,7 @@ import React, { useContext } from "react";
 
 import { GAME_MODE } from "../../../../configs/game";
 import { Back } from "../../../components/Back";
-import * as S from "../../../styles";
+import * as S from "../../../styled";
 import MenuContext from "../../../utils/context/MenuContext";
 import CreateLink from "./CreateLobby";
 import JoinMenu from "./JoinLobby";
@@ -21,10 +21,10 @@ function Details(): JSX.Element {
   return (
     <S.FlexWrapper dir={"column"} animated>
       <S.Nav>
-        <Back onClick={handleBackToMenu}></Back>
+        <Back onClick={handleBackToMenu} />
       </S.Nav>
-      <CreateLink></CreateLink>
-      <JoinMenu></JoinMenu>
+      <CreateLink />
+      <JoinMenu />
     </S.FlexWrapper>
   );
 }

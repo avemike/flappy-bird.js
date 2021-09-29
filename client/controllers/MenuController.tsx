@@ -5,7 +5,7 @@ import styled from "styled-components";
 import { CANVAS_SIZE } from "../../configs/canvas";
 import { EVENTS } from "../../configs/events";
 import { GAME_MODE, LOBBY_MODE, MENU_STATE } from "../../configs/game";
-import * as S from "../styles";
+import * as S from "../styled";
 import { LobbyContext, MenuContext } from "../utils/context";
 import { socket } from "../utils/socketSetup";
 import Death from "../view/menu/Death";

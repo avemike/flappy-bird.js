@@ -1,11 +1,50 @@
-import styled, { css } from "styled-components";
+import styled, { createGlobalStyle, css } from "styled-components";
 
 import { CANVAS_SIZE } from "../configs/canvas";
+
+export const Global = createGlobalStyle`
+  * {
+    margin: 0;
+    padding: 0;
+    -webkit-box-sizing: border-box;
+            box-sizing: border-box;
+  }
+
+  html,
+  body {
+    height: 100%;
+    width: 100%;
+  }
+
+  body {
+    position: relative;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: center;
+        -ms-flex-pack: center;
+            justify-content: center;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+  }
+
+
+  canvas {
+    display: block;
+    border: 1px solid black;
+    background-color: lightskyblue;
+    -webkit-transform: scale(1.5);
+            transform: scale(1.5);
+  }
+`;
 
 export const Button = styled.button`
   width: ${CANVAS_SIZE.WIDTH * 0.4}px;
   height: ${CANVAS_SIZE.HEIGHT * 0.1}px;
 `;
+
+export const ColorSelect = styled(Button)``;
 
 const menuAnimation = css`
   .fade-appear &,
