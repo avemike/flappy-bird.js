@@ -42,7 +42,7 @@ export const BASE_PROPS = {
 
 export const DIST_BETW_PIPES = 300;
 export const BG_SPEED = 2;
-export const UPDATE_MILLISECONDS = 16;
+// export const UPDATE_MILLISECONDS = 16.6; // FIXME ????
 
 export const ANIMATION_DURATION = {
   seconds: 1,

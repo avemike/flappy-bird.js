@@ -6,35 +6,28 @@ import * as S from "../../styled";
 import MenuContext from "../../utils/context/MenuContext";
 import { socket } from "../../utils/socketSetup";
 
+interface ControlsProps {
+  text: string;
+  onClick(): void;
+}
+
 function MainMenu(): JSX.Element {
   const {
     startGame,
-    menuStateHook: [, setMenuState],
+    handleMulti,
     gameModeHook: [, setGameMode],
   } = useContext(MenuContext);
 
-  function handleSingle() {
+  function handleSingle(): void {
     setGameMode(GAME_MODE.SINGLE);
     startGame(GAME_MODE.SINGLE);
-  }
-
-  function handleMulti() {
-    setGameMode(GAME_MODE.MULTI);
-    setMenuState(MENU_STATE.MULTI_DETAILS);
-
-    socket.emit(EVENTS.MULTI_JOIN);
-  }
-
-  interface ControlsProps {
-    text: string;
-    onClick(): void;
   }
 
   function Controls({ text, onClick }: ControlsProps): JSX.Element {
     return <S.Button onClick={onClick}>{text}</S.Button>;
   }
 
-  function handleColorChange(event: ChangeEvent<HTMLSelectElement>) {
+  function handleColorChange(event: ChangeEvent<HTMLSelectElement>): void {
     socket.emit(EVENTS.BIRD_COLOR_CHANGE, event.target.value);
   }
 

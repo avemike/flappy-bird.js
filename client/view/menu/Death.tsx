@@ -1,38 +1,27 @@
 import React, { useContext, useState } from "react";
 
-import { GAME_MODE, MENU_STATE } from "../../../configs/game";
+import { GAME_MODE } from "../../../configs/game";
 import * as S from "../../styled";
 import MenuContext from "../../utils/context/MenuContext";
 
 function Single(): JSX.Element {
-  const {
-    restartGame,
-    menuStateHook: [, setMenuState],
-    gameModeHook: [, setGameMode],
-  } = useContext(MenuContext);
+  const { handleMulti, backToMenu } = useContext(MenuContext);
 
   return (
     <>
-      <S.Button onClick={restartGame}>restart</S.Button>
-      <S.Button
-        onClick={() => {
-          setGameMode(GAME_MODE.MULTI);
-          setMenuState(MENU_STATE.MULTI_DETAILS);
-        }}
-      >
-        multi
-      </S.Button>
+      <S.Button onClick={backToMenu}>back to menu</S.Button>
+      <S.Button onClick={handleMulti}>multi</S.Button>
     </>
   );
 }
 
 function Multi(): JSX.Element {
-  const { restartGame } = useContext(MenuContext);
+  const { backToMenu } = useContext(MenuContext);
   return (
     <>
-      <S.Button>go to single</S.Button>
-      <S.Button>create new link</S.Button>
-      <S.Button onClick={restartGame}>main menu</S.Button>
+      <S.Button>leaderboard</S.Button>
+      <S.Button>restart</S.Button>
+      <S.Button onClick={backToMenu}>main menu</S.Button>
     </>
   );
 }

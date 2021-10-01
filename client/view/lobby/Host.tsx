@@ -12,7 +12,7 @@ import { Share } from "./";
 function Host(): JSX.Element {
   const [isReady, setReady] = useState(false);
   const [readyCount, setReadyCount] = useState(0);
-  const [maxPlayers, setMaxPlayers] = useState(2);
+  const [maxPlayers, setMaxPlayers] = useState(1);
 
   const inputRef = useRef<HTMLInputElement>(null);
 

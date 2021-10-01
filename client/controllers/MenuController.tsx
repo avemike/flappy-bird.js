@@ -20,7 +20,6 @@ const MenuStyled = styled.div`
   transform: translate(-50%, -50%) scale(1.5);
   width: ${CANVAS_SIZE.WIDTH}px;
   height: ${CANVAS_SIZE.HEIGHT}px;
-  /* background: tomato; */
   opacity: 0.5;
   z-index: 1;
   overflow: hidden;
@@ -52,6 +51,8 @@ const MenuController = (): JSX.Element => {
   function startGame(gameMode: GAME_MODE) {
     setMenuState(MENU_STATE.DISABLED);
 
+    socket.emit(EVENTS.GAME_RESTART);
+
     switch (gameMode) {
       case GAME_MODE.SINGLE:
         socket.emit(EVENTS.GAME_START);
@@ -62,7 +63,16 @@ const MenuController = (): JSX.Element => {
     }
   }
 
-  function restartGame() {
+  function handleMulti(): void {
+    const [, setGameMode] = gameModeHook;
+
+    setGameMode(GAME_MODE.MULTI);
+    setMenuState(MENU_STATE.MULTI_DETAILS);
+
+    socket.emit(EVENTS.MULTI_JOIN);
+  }
+
+  function backToMenu() {
     setMenuState(MENU_STATE.MAIN);
 
     const [gameMode, setGameMode] = gameModeHook;
@@ -88,7 +98,7 @@ const MenuController = (): JSX.Element => {
       case MENU_STATE.LOBBY:
         return <Lobby type={lobbyModeRef.current} />;
       case MENU_STATE.DISABLED:
-        return <></>;
+        return <></>; // TODO delete whole case
     }
   }
 
@@ -99,7 +109,8 @@ const MenuController = (): JSX.Element => {
         <MenuContext.Provider
           value={{
             startGame,
-            restartGame,
+            handleMulti,
+            backToMenu,
             menuStateHook,
             gameModeHook,
           }}

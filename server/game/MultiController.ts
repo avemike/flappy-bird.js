@@ -66,8 +66,8 @@ export class MultiController {
     socket.on(EVENTS.MULTI_LEAVE, M.onLeaveMulti);
   }
 
-  public setReady(readyID: Socket["id"], ready: boolean): void {
-    this.getPlayer(readyID).setReady(ready);
+  public setReady(readyID: Socket["id"], value: boolean): void {
+    this.getPlayer(readyID).setReady(value);
 
     const reducer = (acc: number, curr: Socket["id"]) => acc + Number(this.getPlayer(curr).attributes.ready);
 

@@ -1,16 +1,16 @@
-import { UPDATE_MILLISECONDS } from "../../configs/game";
-
-interface CallbackType {
-  (): void;
-}
+type CallbackType = () => void;
 
 export class FrameHandler {
   private callbacks: CallbackType[] = [];
 
   constructor() {
-    setInterval(() => {
-      this.callbacks.forEach((callback) => callback());
-    }, UPDATE_MILLISECONDS);
+    // setInterval(() => {
+    //   this.callbacks.forEach((callback) => callback());
+    // }, UPDATE_MILLISECONDS);
+  }
+
+  runCallbacks(): void {
+    this.callbacks.forEach((callback) => callback());
   }
 
   addCallback(callback: CallbackType): void {

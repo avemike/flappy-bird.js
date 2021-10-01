@@ -33,11 +33,14 @@ export function onFrame(this: Socket): void {
 
   const game = GameControls.getInstance(id);
   if (!game) return;
-  const { bird, bases } = game.attributes;
+
+  const { bird, bases, frameHandler } = game.attributes;
 
   const { hostID } = MultiController.getInstance().getPlayer(id)?.attributes || {};
 
   const { pipes } = game.attributes;
+
+  frameHandler.runCallbacks();
 
   bird.updateScore(pipes.attributes);
 
@@ -52,7 +55,12 @@ export function onFrame(this: Socket): void {
 export function onDisconnect(this: Socket): void {
   const { id } = this;
   logger.info(`${id}: disconnect`);
-  const { socket } = GameControls.getInstance(id).attributes;
+
+  const { socket, frameHandler } = GameControls.getInstance(id)?.attributes || {}; // TODO remove OR operator for production;
+  // const { socket, frameHandler } = GameControls.getInstance(id).attributes;
+
+  frameHandler?.clear(); // TODO this too
+  GameControls.removeInstance(id);
 
   const { hostID } = MultiController.getInstance().getPlayer(id)?.attributes || {};
 

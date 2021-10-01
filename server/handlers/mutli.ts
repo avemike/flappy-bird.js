@@ -19,6 +19,7 @@ export function onJoinMulti(this: Socket): void {
 export function onStartGameMulti(this: Socket): void {
   const { id } = this;
   onStartGame.call(this);
+
   const { guests } = MultiController.getInstance().getPlayer(id).attributes;
 
   guests.forEach((guestID) => {

@@ -7,11 +7,12 @@ class BackgroundController {
   private images: HTMLImageElement[] = [];
 
   constructor() {
-    for (let i = 0; CANVAS_SIZE.WIDTH < i * BACKGROUND_PROPS.WIDTH; i++) {}
     const image = new Image();
     image.src = BACKGROUND_SPR;
 
-    this.images.push(image);
+    for (let i = 0; CANVAS_SIZE.WIDTH > i * BACKGROUND_PROPS.WIDTH; i++) {
+      this.images.push(image);
+    }
   }
 
   draw(ctx: CanvasRenderingContext2D): void {

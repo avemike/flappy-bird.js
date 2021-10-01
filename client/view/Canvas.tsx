@@ -20,28 +20,38 @@ const Canvas = (props: Props): JSX.Element => {
       let animationFrameID: number;
       let fpsInterval: number, now: number, then: number, elapsed: number;
 
-      function startAnimation(fps: number) {
-        fpsInterval = 1000 / fps;
-        then = window.performance.now();
-        animationFrameID = requestAnimationFrame(animate);
-      }
+      const render = () => {
+        socket.emit(EVENTS.FRAME);
+        ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
+        game.create_tmp();
 
-      function animate(timestamp: DOMHighResTimeStamp) {
-        requestAnimationFrame(animate);
+        animationFrameID = window.requestAnimationFrame(render);
+      };
 
-        now = timestamp;
-        elapsed = now - then;
+      render();
 
-        if (elapsed > fpsInterval) {
-          socket.emit(EVENTS.FRAME);
-          ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
-          game.create_tmp();
+      // function startAnimation(fps: number) {
+      //   fpsInterval = 1000 / fps;
+      //   then = window.performance.now();
+      //   animationFrameID = requestAnimationFrame(animate);
+      // }
 
-          then = now - (elapsed % fpsInterval);
-        }
-      }
+      // function animate(timestamp: DOMHighResTimeStamp) {
+      //   requestAnimationFrame(animate);
 
-      startAnimation(60);
+      //   now = timestamp;
+      //   elapsed = now - then;
+
+      //   if (elapsed > fpsInterval) {
+      //     socket.emit(EVENTS.FRAME);
+      //     ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
+      //     game.create_tmp();
+
+      //     then = now - (elapsed % fpsInterval);
+      //   }
+      // }
+
+      // startAnimation(60);
 
       return () => {
         window.cancelAnimationFrame(animationFrameID);
