@@ -3,7 +3,7 @@ import { render } from "react-dom";
 
 import { CANVAS_SIZE } from "../configs/canvas";
 import { EVENTS } from "../configs/events";
-import MenuController from "./controllers/MenuController";
+import MenuController from "./controllers/menu/MenuController";
 import { Global } from "./styled";
 import { socket } from "./utils/socketSetup";
 import Canvas from "./view/Canvas";
