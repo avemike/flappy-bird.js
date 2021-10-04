@@ -51,7 +51,7 @@ function Host(): JSX.Element {
   }
 
   return (
-    <S.FlexWrapper dir={"column"} animated>
+    <S.FlexWrapper direction="column" animated>
       <S.Nav>
         <Back onClick={handleLeave} />
         <Share>
@@ -64,7 +64,14 @@ function Host(): JSX.Element {
       </S.ReadyCounter>
       <form onSubmit={handleFormSubmit}>
         <label htmlFor="max_players">max: </label>
-        <input ref={inputRef} id="max_players" type="number" min="1" max="10" defaultValue={maxPlayers} />
+        <input
+          ref={inputRef}
+          id="max_players"
+          type="number"
+          min="1"
+          max="10"
+          defaultValue={maxPlayers}
+        />
         <button type="submit">set</button>
       </form>
       <S.Button onClick={toggleReady}>set ready</S.Button>

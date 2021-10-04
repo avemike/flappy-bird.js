@@ -26,17 +26,6 @@ function Multi(): JSX.Element {
   );
 }
 
-function switchRender(gameMode: GAME_MODE): JSX.Element {
-  switch (gameMode) {
-    case GAME_MODE.SINGLE:
-      return <Single />;
-    case GAME_MODE.MULTI:
-      return <Multi />;
-    default:
-      return <></>;
-  }
-}
-
 function DeathControls(): JSX.Element {
   const {
     gameModeHook: [gameMode],
@@ -45,8 +34,8 @@ function DeathControls(): JSX.Element {
   const [lastGameMode] = useState(gameMode);
 
   return (
-    <S.FlexWrapper dir={"column"} animated>
-      {switchRender(lastGameMode)}
+    <S.FlexWrapper direction={"column"} animated>
+      {lastGameMode === GAME_MODE.SINGLE ? <Single /> : <Multi />}
     </S.FlexWrapper>
   );
 }

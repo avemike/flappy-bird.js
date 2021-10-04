@@ -36,6 +36,7 @@ const MenuController = (): JSX.Element => {
   const lobbyModeRef = useRef(LOBBY_MODE.NORMAL);
   const gameModeHook = useState(GAME_MODE.NOT_SET);
   const menuStateHook = useState(MENU_STATE.MAIN);
+
   const [menuState, setMenuState] = menuStateHook;
 
   useEffect(() => {
@@ -73,11 +74,10 @@ const MenuController = (): JSX.Element => {
   }
 
   function backToMenu() {
-    setMenuState(MENU_STATE.MAIN);
-
     const [gameMode, setGameMode] = gameModeHook;
     gameMode === GAME_MODE.MULTI && socket.emit(EVENTS.MULTI_LEAVE);
 
+    setMenuState(MENU_STATE.MAIN);
     setGameMode(GAME_MODE.NOT_SET);
 
     socket.emit(EVENTS.GAME_RESTART);
@@ -98,38 +98,40 @@ const MenuController = (): JSX.Element => {
       case MENU_STATE.LOBBY:
         return <Lobby type={lobbyModeRef.current} />;
       case MENU_STATE.DISABLED:
-        return <></>; // TODO delete whole case
+        return <></>;
     }
   }
 
   return (
-    <>
-      <MenuStyled>
-        <Title>{menuState}</Title>
-        <MenuContext.Provider
-          value={{
-            startGame,
-            handleMulti,
-            backToMenu,
-            menuStateHook,
-            gameModeHook,
-          }}
-        >
-          <SwitchTransition>
-            <CSSTransition
-              key={menuState}
-              appear={true}
-              addEndListener={(node, done) => {
-                node.addEventListener("transitionend", done, false);
-              }}
-              classNames="fade"
-            >
-              {menuState !== MENU_STATE.DISABLED ? <S.Container>{switchRender(menuState)}</S.Container> : <></>}
-            </CSSTransition>
-          </SwitchTransition>
-        </MenuContext.Provider>
-      </MenuStyled>
-    </>
+    <MenuStyled>
+      <Title>{menuState}</Title>
+      <MenuContext.Provider
+        value={{
+          startGame,
+          handleMulti,
+          backToMenu,
+          menuStateHook,
+          gameModeHook,
+        }}
+      >
+        <SwitchTransition>
+          <CSSTransition
+            key={menuState}
+            appear={true}
+            addEndListener={(node, done) => {
+              node.addEventListener("transitionend", done, false);
+            }}
+            classNames="fade"
+          >
+            {menuState !== MENU_STATE.DISABLED ? (
+              <S.Container>{switchRender(menuState)}</S.Container>
+            ) : (
+              <></>
+            )}
+          </CSSTransition>
+        </SwitchTransition>
+      </MenuContext.Provider>
+    </MenuStyled>
   );
 };
 

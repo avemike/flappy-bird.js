@@ -1,10 +1,10 @@
 import React, { ChangeEvent, useContext } from "react";
 
 import { EVENTS } from "../../../configs/events";
-import { BIRD_COLORS, GAME_MODE, MENU_STATE } from "../../../configs/game";
+import { GAME_MODE } from "../../../configs/game";
+import ColorSelect from "../../components/ColorSelect";
 import * as S from "../../styled";
 import MenuContext from "../../utils/context/MenuContext";
-import { socket } from "../../utils/socketSetup";
 
 interface ControlsProps {
   text: string;
@@ -27,33 +27,11 @@ function MainMenu(): JSX.Element {
     return <S.Button onClick={onClick}>{text}</S.Button>;
   }
 
-  function handleColorChange(event: ChangeEvent<HTMLSelectElement>): void {
-    socket.emit(EVENTS.BIRD_COLOR_CHANGE, event.target.value);
-  }
-
-  function BirdColorSelect(): JSX.Element {
-    function lower(arg: string): string {
-      return arg.toLowerCase();
-    }
-
-    return (
-      <S.ColorSelect as="select" onChange={handleColorChange} defaultValue="yellow">
-        {Object.keys(BIRD_COLORS)
-          .filter((x) => !(parseInt(x) >= 0))
-          .map((color) => (
-            <option key={`key-${color}`} value={lower(color)}>
-              {lower(color)}
-            </option>
-          ))}
-      </S.ColorSelect>
-    );
-  }
-
   return (
-    <S.FlexWrapper dir={"column"} animated>
+    <S.FlexWrapper direction="column" animated>
       <Controls onClick={handleSingle} text={"single"} />
       <Controls onClick={handleMulti} text={"multi"} />
-      <BirdColorSelect />
+      <ColorSelect />
     </S.FlexWrapper>
   );
 }

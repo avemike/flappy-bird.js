@@ -28,12 +28,13 @@ const JoinLobby = (): JSX.Element => {
     } else {
       return;
     }
+    // TODO don't set LOBBY_MODE until server accepts link
+    lobbyModeRef.current = LOBBY_MODE.NORMAL;
     setMenu(MENU_STATE.LOBBY);
   }
 
   function handleClick() {
     setOpen((open) => !open);
-    lobbyModeRef.current = LOBBY_MODE.NORMAL;
     // TODO generate link
   }
 

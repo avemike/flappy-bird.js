@@ -31,7 +31,7 @@ function Share({ children }: Props): JSX.Element {
           {open ? (
             <S.Container>
               <S.ShareDropdown>
-                <S.FlexWrapper dir="column">
+                <S.FlexWrapper direction="column">
                   <LabelStyled htmlFor="url">{socket.id}</LabelStyled>
                   <input id="url" value="im an url" readOnly />
                 </S.FlexWrapper>

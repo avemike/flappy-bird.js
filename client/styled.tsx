@@ -44,8 +44,6 @@ export const Button = styled.button`
   height: ${CANVAS_SIZE.HEIGHT * 0.1}px;
 `;
 
-export const ColorSelect = styled(Button)``;
-
 const menuAnimation = css`
   .fade-appear &,
   .fade-enter & {
@@ -106,14 +104,24 @@ const shareAnimation = css`
   }
 `;
 
-export const FlexWrapper = styled.div<{ dir: string; animated?: boolean }>`
-  position: relative;
+export const FlexWrapper = styled.div<{
+  direction: string;
+  dontInheritSize?: boolean;
+  animated?: boolean;
+}>`
   display: flex;
-  flex-direction: ${({ dir }) => dir};
+  flex-direction: ${({ direction }) => direction};
   justify-content: space-around;
   align-items: center;
   height: inherit;
   width: inherit;
+
+  ${({ dontInheritSize }) =>
+    dontInheritSize &&
+    `
+  height: unset;
+  width: unset;
+  `}
 
   ${({ animated }) => animated && `${menuAnimation}`}
 `;
@@ -132,7 +140,8 @@ export const ShareDropdown = styled.span`
 `;
 
 export const TopButton = styled.button<{ position: "left" | "right" }>`
-  margin: ${({ position }) => (position === "left" && `5px 0 5px 5px`) || (position === "right" && `5px 5px 5px 0`)};
+  margin: ${({ position }) =>
+    (position === "left" && `5px 0 5px 5px`) || (position === "right" && `5px 5px 5px 0`)};
   padding: 5px 10px;
 `;
 

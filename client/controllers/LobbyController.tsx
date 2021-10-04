@@ -9,16 +9,7 @@ interface Props {
 }
 
 function Lobby({ type }: Props): JSX.Element {
-  function render(type: LOBBY_MODE): JSX.Element {
-    switch (type) {
-      case LOBBY_MODE.HOST:
-        return <Host />;
-      default:
-        return <Normal />;
-    }
-  }
-
-  return <>{render(type)}</>;
+  return type === LOBBY_MODE.HOST ? <Host /> : <Normal />;
 }
 
 export default Lobby;
