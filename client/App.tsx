@@ -1,17 +1,23 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { render } from "react-dom";
 
 import { CANVAS_SIZE } from "../configs/canvas";
-import Canvas from "./components/Canvas";
-// import Overlay from "./components/overlay/Overlay";
-import Menu from "./components/overlay/Menu";
+import { EVENTS } from "../configs/events";
+import MenuController from "./controllers/MenuController";
+import { Global } from "./styled";
+import { socket } from "./utils/socketSetup";
+import Canvas from "./view/Canvas";
 
 const App = () => {
+  useEffect(() => {
+    socket.emit(EVENTS.DOM_LOADED, CANVAS_SIZE);
+  }, []);
+
   return (
     <>
-      {/* <Overlay></Overlay> */}
-      <Menu></Menu>
-      <Canvas width={CANVAS_SIZE.WIDTH} height={CANVAS_SIZE.HEIGHT}></Canvas>
+      <Global />
+      <MenuController />
+      <Canvas width={CANVAS_SIZE.WIDTH} height={CANVAS_SIZE.HEIGHT} />
     </>
   );
 };

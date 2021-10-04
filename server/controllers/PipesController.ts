@@ -6,20 +6,28 @@ export class PipesController {
   private pipes: Pipe[] = [];
   constructor() {
     for (let i = 0; i < 7; i += 1) {
-      this.pipes.push(new Pipe(1000 + DIST_BETW_PIPES * i));
+      this.pipes.push(new Pipe({ offsetX: 1000 + DIST_BETW_PIPES * i }));
+    }
+  }
+
+  syncWith(hostPipes: PipesController): void {
+    this.pipes = [];
+    for (let i = 0; i < 7; i += 1) {
+      const hostPipeAttrbs = hostPipes.attributes[i];
+      this.pipes.push(new Pipe({ attributes: hostPipeAttrbs }));
     }
   }
 
   resetState(): void {
     this.pipes = [];
     for (let i = 0; i < 7; i += 1) {
-      this.pipes.push(new Pipe(1000 + DIST_BETW_PIPES * i));
+      this.pipes.push(new Pipe({ offsetX: 1000 + DIST_BETW_PIPES * i }));
     }
   }
 
   create(): void {
     const lastPipeOffsetX = this.pipes[this.pipes.length - 1].attributes.offsetX;
-    this.pipes.push(new Pipe(lastPipeOffsetX + DIST_BETW_PIPES));
+    this.pipes.push(new Pipe({ offsetX: lastPipeOffsetX + DIST_BETW_PIPES }));
   }
 
   // run every frame

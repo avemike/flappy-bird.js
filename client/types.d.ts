@@ -1,15 +1,14 @@
-interface BirdData {
+import { BIRD_COLORS } from "../configs/game";
+
+export interface BirdData {
   x: number;
   y: number;
   angle: number;
+  color: BIRD_COLORS;
   sprites?: HTMLImageElement[];
-  width?: number;
-  height?: number;
-  state?: number;
-  i?: number;
 }
 
-interface PlayerBirdData extends BirdData {
+export interface PlayerBirdData extends BirdData {
   score: number;
   highscore: number;
   collision: boolean;
@@ -17,22 +16,16 @@ interface PlayerBirdData extends BirdData {
   controlsAdded: boolean;
 }
 
-interface CanvasProps {
-  width: number;
-  height: number;
-}
+export type ToDraw = [Backgorund, PipesFactory, BaseFactory, PlayerBird, EnemyBirdsFactory];
 
-type toDraw = [Backgorund, PipesFactory, BaseFactory, PlayerBird, EnemyBirdsFactory];
-
-interface BaseData {
+export interface BaseData {
   width: number;
   height: number;
   offsetX: number;
   offsetY: number;
 }
 
-interface PipeData {
-  width: number;
+export interface PipeData {
   width: number;
   height: number;
   offsetX: number;

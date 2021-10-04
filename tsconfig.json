@@ -1,5 +1,5 @@
 {
-  "include": ["./client/**/*", "./server/**/*", "./configs/*"],
+  "include": ["./client/**/*", "./server/**/*", "./configs/*", "./assets/birds/blue/*"],
   "compilerOptions": {
     "target": "es2015",
     "module": "commonjs",

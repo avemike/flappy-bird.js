@@ -27,7 +27,7 @@ export abstract class InstanceContainer {
   protected constructor(socket: Socket) {
     this.id = socket.id;
 
-    this.bird = new Bird(socket.id);
+    this.bird = new Bird(socket);
     this.socket = socket;
     this.pipes = new PipesController();
     this.bases = new BasesController();

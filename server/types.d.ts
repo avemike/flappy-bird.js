@@ -1,5 +1,8 @@
+import { BIRD_COLORS } from "../configs/game";
+
 export interface BirdAttributes {
   x: number;
+  multiplayerX: number;
   y: number;
   momentum: number;
   angle: number;
@@ -7,6 +10,7 @@ export interface BirdAttributes {
   highscore: number;
   collision: boolean;
   id: string;
+  color: BIRD_COLORS;
 }
 
 export interface BaseAttributes {

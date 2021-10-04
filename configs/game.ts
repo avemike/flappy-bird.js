@@ -1,59 +1,75 @@
-const PIPE_PROPS = {
+export const BACKGROUND_PROPS = {
+  WIDTH: 350,
+  HEIGHT: 612,
+};
+
+export const PIPE_PROPS = {
   WIDTH: 52,
   HEIGHT: 968,
   GAP: 100,
   ONE_PIPE_HEIGHT: (968 - 100) / 2,
 };
 
-const BIRD_PROPS = {
+export const BIRD_PROPS = {
   WIDTH: 25,
-  HEIGHT: (25 * 12) / 17,
+  HEIGHT: 12 * (25 / 17), // 25/17 is scale
   X: 100,
-  STARTING_Y: 100,
+  Y: 100,
   MAX_ANGLE: Math.PI / 2,
   MIN_ANGLE: -Math.PI / 7,
   MOMENTUM: 2,
   COLLISION: false,
 };
 
-const BASE_PROPS = {
+export enum BIRD_COLORS {
+  PINK = "pink",
+  YELLOW = "yellow",
+  BLUE = "blue",
+  GREEN = "green",
+}
+
+export const BIRD_COLORS_2 = {
+  PINK: "pink",
+  YELLOW: "yellow",
+  BLUE: "blue",
+  GREEN: "green",
+} as const;
+
+export const BASE_PROPS = {
   WIDTH: 336,
   HEIGHT: 112,
 };
 
-const DIST_BETW_PIPES = 300;
-const BG_SPEED = 2;
-const UPDATE_MILLISECONDS = 16;
+export const DIST_BETW_PIPES = 300;
+export const BG_SPEED = 2;
+// export const UPDATE_MILLISECONDS = 16.6; // FIXME ????
 
-enum MenuState {
-  MAIN,
-  MULTI_DETAILS,
-  DEATH,
-  DISABLED,
+export const ANIMATION_DURATION = {
+  seconds: 1,
+  miliseconds: 1000,
+};
+
+export enum MENU_STATE {
+  MAIN = "main",
+  MULTI_DETAILS = "multi",
+  DEATH = "death",
+  LOBBY = "lobby",
+  DISABLED = "",
 }
 
-enum GameMode {
+export enum GAME_MODE {
   SINGLE,
   MULTI,
   NOT_SET,
 }
 
-export {
-  PIPE_PROPS,
-  BIRD_PROPS,
-  BASE_PROPS,
-  DIST_BETW_PIPES,
-  BG_SPEED,
-  UPDATE_MILLISECONDS,
-  MenuState,
-  GameMode,
-};
+export enum LOBBY_MODE {
+  HOST,
+  NORMAL,
+}
 
-// module.exports = {
-//   BG_SPEED,
-//   DIST_BETW_PIPES,
-//   PIPE_PROPS,
-//   BIRD_PROPS,
-//   BASE_PROPS,
-//   UPDATE_MILLISECONDS,
-// };
+export const GAME_STATES = {
+  RUNNING: "RUNNING",
+  STARTED: "STARTED",
+  OVER: "OVER",
+} as const;
