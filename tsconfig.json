@@ -1,6 +1,9 @@
 {
   "include": ["./client/**/*", "./server/**/*", "./configs/*", "./assets/birds/blue/*"],
   "compilerOptions": {
+    "paths": {
+      "/*" : ["./*"]
+    },
     "target": "es2015",
     "module": "commonjs",
     "jsx": "react",
