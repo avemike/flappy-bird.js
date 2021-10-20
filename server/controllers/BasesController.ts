@@ -1,6 +1,6 @@
 import { BASE_PROPS } from "../../configs/game";
+import { BaseAttributes } from "../../configs/types";
 import { Base } from "../components/Base";
-import { BaseAttributes } from "../types";
 import { getCanvasSize } from "../utils/canvasSize";
 
 export class BasesController {

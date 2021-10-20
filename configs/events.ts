@@ -3,6 +3,7 @@ export const EVENTS = {
   MULTI_START_GAME: "multi start game",
   MULTI_JOIN: "multi join",
 
+  LOBBY_CREATE: "lobby create",
   LOBBY_JOIN: "lobby join",
   LOBBY_ABORT: "lobby abort",
   LBOBY_LEAVE: "lobby leave",
@@ -30,4 +31,7 @@ export const EVENTS = {
   READY_COUNT: "ready count",
 
   DOM_LOADED: "dom loaded",
+
+  LINK_REQ: "req link",
+  LINK_RES: "res link",
 } as const;

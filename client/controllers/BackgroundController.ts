@@ -1,7 +1,7 @@
-import BACKGROUND_SPR from "url:../../assets/background.jpeg";
+import BACKGROUND_SPR from "url:~assets/background.jpeg";
 
-import { CANVAS_SIZE } from "../../configs/canvas";
-import { BACKGROUND_PROPS } from "../../configs/game";
+import { CANVAS_SIZE } from "~configs/canvas";
+import { BACKGROUND_PROPS } from "~configs/game";
 
 class BackgroundController {
   private images: HTMLImageElement[] = [];
@@ -22,4 +22,4 @@ class BackgroundController {
   }
 }
 
-export default BackgroundController;
+export { BackgroundController };

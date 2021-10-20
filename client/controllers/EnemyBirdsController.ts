@@ -1,5 +1,5 @@
 import { EVENTS } from "../../configs/events";
-import EnemyBird, { EnemyBirdAttributes } from "../view/birds/EnemyBird";
+import { EnemyBird, EnemyBirdAttributes } from "../view/birds/EnemyBird";
 
 // EnemyBirdsFactory creates new EnemyBirds and updates existing ones
 class EnemyBirdsController {
@@ -21,7 +21,6 @@ class EnemyBirdsController {
     });
   }
 
-  // use(bird: { id: string; y: number; momentum: number }): void {
   use(bird: EnemyBirdAttributes): void {
     if (!this.storedBirds[bird.id]) {
       // create new bird
@@ -40,4 +39,4 @@ class EnemyBirdsController {
   }
 }
 
-export default EnemyBirdsController;
+export { EnemyBirdsController };

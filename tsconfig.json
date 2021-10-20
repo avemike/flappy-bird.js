@@ -1,8 +1,9 @@
 {
-  "include": ["./client/**/*", "./server/**/*", "./configs/*", "./assets/birds/blue/*"],
+  "include": ["./client/**/*", "./server/**/*", "./configs/*"],
   "compilerOptions": {
+    "baseUrl": ".",
     "paths": {
-      "/*" : ["./*"]
+      "~*" : ["./*"],
     },
     "target": "es2015",
     "module": "commonjs",

@@ -26,7 +26,7 @@ const FlexItem = styled.div`
   padding: 0 0.2em 0 0.2em;
 `;
 
-export default function ColorSelect(): JSX.Element {
+const ColorSelect = (): JSX.Element => {
   return (
     <S.FlexWrapper direction="row" dontInheritSize>
       {Object.keys(BIRD_COLORS)
@@ -40,4 +40,6 @@ export default function ColorSelect(): JSX.Element {
         ))}
     </S.FlexWrapper>
   );
-}
+};
+
+export { ColorSelect };

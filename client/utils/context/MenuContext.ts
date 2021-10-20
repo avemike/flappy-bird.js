@@ -34,4 +34,4 @@ const MenuContext = createContext<MenuContextType>({
   ],
 });
 
-export default MenuContext;
+export { MenuContext };

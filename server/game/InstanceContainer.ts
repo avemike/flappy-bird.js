@@ -16,7 +16,7 @@ export interface Attributes {
 }
 
 export abstract class InstanceContainer {
-  protected id = "";
+  protected id: Attributes["id"];
   protected socket: Attributes["socket"];
 
   protected bird: Attributes["bird"];

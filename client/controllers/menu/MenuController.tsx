@@ -1,16 +1,20 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 
-import { EVENTS } from "../../../configs/events";
-import { GAME_MODE, MENU_STATE } from "../../../configs/game";
-import { MenuContext } from "../../utils/context";
-import { socket } from "../../utils/socketSetup";
-import { Fade } from "../../utils/transitions";
-import Menu from "./Menu";
+import { EVENTS } from "~configs/events";
+import { GAME_MODE, LOBBY_MODE, MENU_STATE } from "~configs/game";
+
+import { LobbyContext } from "~client/utils/context/LobbyContext";
+import { MenuContext } from "~client/utils/context/MenuContext";
+import { socket } from "~client/utils/socketSetup";
+import { Fade } from "~client/utils/transitions";
+
+import { MenuWrapper as Menu } from "./Menu";
 import { MenuStyled, Title } from "./styles";
 
 const MenuController = (): JSX.Element => {
   const [gameMode, setGameMode] = useState(GAME_MODE.NOT_SET);
   const [menuState, setMenuState] = useState(MENU_STATE.MAIN);
+  const lobbyModeRef = useRef(LOBBY_MODE.NORMAL);
 
   useEffect(() => {
     socket.on(EVENTS.GAME_OVER, () => {
@@ -62,10 +66,12 @@ const MenuController = (): JSX.Element => {
           gameModeHook: [gameMode, setGameMode],
         }}
       >
-        <Fade key={menuState}>{renderedMenu}</Fade>
+        <LobbyContext.Provider value={{ lobbyModeRef }}>
+          <Fade primary={menuState}>{renderedMenu}</Fade>
+        </LobbyContext.Provider>
       </MenuContext.Provider>
     </MenuStyled>
   );
 };
 
-export default MenuController;
+export { MenuController };

@@ -1,85 +1,40 @@
-import React, { FormEvent, useContext, useEffect, useRef, useState } from "react";
+import React, { useContext } from "react";
 import { AiOutlineShareAlt } from "react-icons/ai";
 
-import { EVENTS } from "../../../configs/events";
-import { GAME_MODE, MENU_STATE } from "../../../configs/game";
-import { Back } from "../../components/Back";
-import * as S from "../../styled";
-import MenuContext from "../../utils/context/MenuContext";
-import { socket } from "../../utils/socketSetup";
-import { Share } from "./";
+import * as S from "~client/styled";
 
-function Host(): JSX.Element {
-  const [isReady, setReady] = useState(false);
-  const [readyCount, setReadyCount] = useState(0);
-  const [maxPlayers, setMaxPlayers] = useState(1);
+import { EVENTS } from "~configs/events";
+import { MENU_STATE } from "~configs/game";
 
-  const inputRef = useRef<HTMLInputElement>(null);
+import { Back } from "~client/components/Back";
+import { ControlPanel } from "~client/components/ControlPanel";
+import { ShareLink } from "~client/components/ShareLink";
 
+import { MenuContext } from "~client/utils/context/MenuContext";
+import { socket } from "~client/utils/socketSetup";
+
+const Host = (): JSX.Element => {
   const {
     menuStateHook: [, setMenu],
-    startGame,
   } = useContext(MenuContext);
-
-  useEffect(() => {
-    socket.on(EVENTS.READY_COUNT, (readyCount: number) => {
-      setReadyCount(readyCount);
-    });
-
-    return () => {
-      socket.off(EVENTS.READY_COUNT);
-    };
-  }, [setReadyCount]);
-
-  function handleFormSubmit(event: FormEvent) {
-    event.preventDefault();
-    if (inputRef.current) setMaxPlayers(+inputRef.current?.value);
-  }
-
-  function toggleReady() {
-    setReady((ready) => !ready);
-    socket.emit(EVENTS.READY_ACTION, isReady ? false : true);
-  }
 
   function handleLeave() {
     setMenu(MENU_STATE.MULTI_DETAILS);
     socket.emit(EVENTS.LOBBY_ABORT);
   }
 
-  function runGame() {
-    if (readyCount === maxPlayers) startGame(GAME_MODE.MULTI);
-  }
-
   return (
     <S.FlexWrapper direction="column" animated>
       <S.Nav>
         <Back onClick={handleLeave} />
-        <Share>
+        <ShareLink>
           <AiOutlineShareAlt />
-        </Share>
+        </ShareLink>
       </S.Nav>
       <div>you are host</div>
-      <S.ReadyCounter>
-        ready: {readyCount}/{maxPlayers}
-      </S.ReadyCounter>
-      <form onSubmit={handleFormSubmit}>
-        <label htmlFor="max_players">max: </label>
-        <input
-          ref={inputRef}
-          id="max_players"
-          type="number"
-          min="1"
-          max="10"
-          defaultValue={maxPlayers}
-        />
-        <button type="submit">set</button>
-      </form>
-      <S.Button onClick={toggleReady}>set ready</S.Button>
-      <S.ButtonSuper onClick={runGame} ready={readyCount === maxPlayers}>
-        {readyCount === maxPlayers ? "start" : `${readyCount}/${maxPlayers} ready`}
-      </S.ButtonSuper>
+      <ControlPanel />
     </S.FlexWrapper>
   );
-}
+};
 
-export default Host;
+export { Host };

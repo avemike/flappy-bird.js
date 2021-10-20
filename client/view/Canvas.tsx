@@ -1,8 +1,10 @@
 import React, { useEffect, useRef } from "react";
 
-import { EVENTS } from "../../configs/events";
-import { socket } from "../utils/socketSetup";
-import Game from "./Game";
+import { EVENTS } from "~configs/events";
+
+import { socket } from "~client/utils/socketSetup";
+
+import { Game } from "./Game";
 
 interface Props {
   width: number;
@@ -62,4 +64,4 @@ const Canvas = (props: Props): JSX.Element => {
   return <canvas ref={canvasRef} {...props}></canvas>;
 };
 
-export default Canvas;
+export { Canvas };

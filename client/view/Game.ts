@@ -1,19 +1,20 @@
-import { EVENTS } from "../../configs/events";
-import { GAME_STATES } from "../../configs/game";
-import SCORE_PROPS from "../../configs/score";
-import BackgroundController from "../controllers/BackgroundController";
-import BaseController from "../controllers/BaseController";
-import EnemyBirdsController from "../controllers/EnemyBirdsController";
-import PipesController from "../controllers/PipesController";
-import { ToDraw } from "../types";
+import { EVENTS } from "/configs/events";
+import { GAME_STATES } from "/configs/game";
+import SCORE_PROPS from "/configs/score";
+import { ToDraw } from "/configs/types";
+
+import { BackgroundController } from "../controllers/BackgroundController";
+import { BaseController } from "../controllers/BaseController";
+import { EnemyBirdsController } from "../controllers/EnemyBirdsController";
+import { PipesController } from "../controllers/PipesController";
 import { socket } from "../utils/socketSetup";
-import PlayerBird from "./birds/PlayerBird";
+import { PlayerBird } from "./birds/PlayerBird";
 
 interface GameInfo {
   state: keyof typeof GAME_STATES;
 }
 
-export default class Game {
+class Game {
   private ctx: CanvasRenderingContext2D;
   private bird: PlayerBird;
   private enemyBirds: EnemyBirdsController;
@@ -62,3 +63,5 @@ export default class Game {
     this.renderScore();
   }
 }
+
+export { Game };

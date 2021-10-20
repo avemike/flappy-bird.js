@@ -56,10 +56,10 @@ export function onDisconnect(this: Socket): void {
   const { id } = this;
   logger.info(`${id}: disconnect`);
 
-  const { socket, frameHandler } = GameControls.getInstance(id)?.attributes || {}; // TODO remove OR operator for production;
+  const { socket, frameHandler } = GameControls.getInstance(id)?.attributes || {}; // TRASH remove OR operator for production;
   // const { socket, frameHandler } = GameControls.getInstance(id).attributes;
 
-  frameHandler?.clear(); // TODO this too
+  frameHandler?.clear(); // TRASH this too
   GameControls.removeInstance(id);
 
   const { hostID } = MultiController.getInstance().getPlayer(id)?.attributes || {};

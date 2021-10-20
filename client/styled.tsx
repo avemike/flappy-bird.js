@@ -1,6 +1,6 @@
 import styled, { createGlobalStyle, css } from "styled-components";
 
-import { CANVAS_SIZE } from "../configs/canvas";
+import { CANVAS_SIZE } from "~configs/canvas";
 
 export const Global = createGlobalStyle`
   * {
@@ -44,7 +44,7 @@ export const Button = styled.button`
   height: ${CANVAS_SIZE.HEIGHT * 0.1}px;
 `;
 
-const menuAnimation = css`
+const FadeAnimation = css`
   .fade-appear &,
   .fade-enter & {
     opacity: 0;
@@ -74,36 +74,6 @@ const menuAnimation = css`
   }
 `;
 
-const shareAnimation = css`
-  .share-dropdown-appear &,
-  .share-dropdown-enter & {
-    opacity: 0;
-    transform: translateX(-50%);
-  }
-
-  .share-dropdown-appear-active &,
-  .share-dropdown-enter-active & {
-    opacity: 1;
-    transform: translateX(0%);
-  }
-
-  .share-dropdown-exit & {
-    opacity: 1;
-    transform: translateX(0%);
-  }
-
-  .share-dropdown-exit-active & {
-    opacity: 0;
-    transform: translateX(50%);
-  }
-
-  .share-dropdown-appear-active &,
-  .share-dropdown-enter-active &,
-  .share-dropdown-exit-active & {
-    transition: opacity 200ms, transform 200ms;
-  }
-`;
-
 export const FlexWrapper = styled.div<{
   direction: string;
   dontInheritSize?: boolean;
@@ -123,7 +93,7 @@ export const FlexWrapper = styled.div<{
   width: unset;
   `}
 
-  ${({ animated }) => animated && `${menuAnimation}`}
+  ${({ animated }) => animated && `${FadeAnimation}`}
 `;
 
 export const ShareDropdown = styled.span`
@@ -136,7 +106,7 @@ export const ShareDropdown = styled.span`
   top: 100%;
   right: 1%;
 
-  ${shareAnimation}
+  ${FadeAnimation}
 `;
 
 export const TopButton = styled.button<{ position: "left" | "right" }>`

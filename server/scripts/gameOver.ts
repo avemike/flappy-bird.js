@@ -1,7 +1,8 @@
 import { Socket } from "socket.io";
 
-import { EVENTS } from "../../configs/events";
-import { GAME_STATES as STATES } from "../../configs/game";
+import { EVENTS } from "~configs/events";
+import { GAME_STATES as STATES } from "~configs/game";
+
 import { GameControls } from "../game/GameControls";
 
 export const gameOver = (id: Socket["id"]): void => {

@@ -1,10 +1,9 @@
-import React, { ChangeEvent, useContext } from "react";
+import React, { useContext } from "react";
 
-import { EVENTS } from "../../../configs/events";
 import { GAME_MODE } from "../../../configs/game";
-import ColorSelect from "../../components/ColorSelect";
+import { ColorSelect } from "../../components/ColorSelect";
 import * as S from "../../styled";
-import MenuContext from "../../utils/context/MenuContext";
+import { MenuContext } from "../../utils/context/MenuContext";
 
 interface ControlsProps {
   text: string;
@@ -29,11 +28,11 @@ function MainMenu(): JSX.Element {
 
   return (
     <S.FlexWrapper direction="column" animated>
-      <Controls onClick={handleSingle} text={"single"} />
-      <Controls onClick={handleMulti} text={"multi"} />
+      <Controls onClick={handleSingle} text="single" />
+      <Controls onClick={handleMulti} text="multi" />
       <ColorSelect />
     </S.FlexWrapper>
   );
 }
 
-export default MainMenu;
+export { MainMenu };

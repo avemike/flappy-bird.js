@@ -10,4 +10,4 @@ const LobbyContext = createContext<LobbyModeType>({
   lobbyModeRef: { current: LOBBY_MODE.NORMAL },
 });
 
-export default LobbyContext;
+export { LobbyContext };

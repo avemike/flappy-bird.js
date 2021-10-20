@@ -1,6 +1,10 @@
 import { Socket } from "socket.io";
+import { generateKey } from "~server/scripts/authenticate";
 
-import { EVENTS } from "../../configs/events";
+import { EVENTS } from "~configs/events";
+import { Link } from "~configs/types";
+
+import { logger } from "../utils/logger";
 import { GameControls } from "./GameControls";
 
 interface Attributes {
@@ -8,6 +12,12 @@ interface Attributes {
   hostID: Socket["id"];
   guests: Socket["id"][];
   ready: boolean;
+  lobbyActive: boolean;
+}
+
+interface Hidden {
+  link: Link;
+  key: string;
 }
 
 export class MultiProfile {
@@ -15,9 +25,21 @@ export class MultiProfile {
   private hostID: Attributes["hostID"] = "";
   private guests: Attributes["guests"] = [];
   private ready: Attributes["ready"] = false;
+  private lobbyActive: Attributes["lobbyActive"] = false;
+
+  private link: Hidden["link"] = "";
+  private key: Hidden["key"] = "";
 
   constructor(id: Socket["id"]) {
     this.id = id;
+  }
+
+  public generateLink(): Hidden["link"] {
+    this.key = generateKey();
+    this.link = `http://website.domain/join?hostID=${this.id}&key=${this.key}`;
+    logger.warn(this.link); // TRASH delete
+
+    return this.link;
   }
 
   public setReady(value: boolean): void {
@@ -38,7 +60,12 @@ export class MultiProfile {
     this.guests.filter((guestID) => guestID !== id);
   }
 
+  public createLobby(): void {
+    this.lobbyActive = true;
+  }
+
   public leaveLobby(): void {
+    this.lobbyActive = false;
     this.hostID = "";
 
     const { socket } = GameControls.getInstance(this.id).attributes;
@@ -55,6 +82,7 @@ export class MultiProfile {
       hostID: this.hostID,
       guests: this.guests,
       ready: this.ready,
+      lobbyActive: this.lobbyActive,
     };
   }
 }

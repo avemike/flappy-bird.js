@@ -1,10 +1,13 @@
 import React, { useContext } from "react";
 
-import { Back } from "../../../components/Back";
-import * as S from "../../../styled";
-import MenuContext from "../../../utils/context/MenuContext";
-import CreateLink from "./CreateLobby";
-import JoinLobby from "./JoinLobby";
+import * as S from "~client/styled";
+
+import { Back } from "~client/components/Back";
+
+import { MenuContext } from "~client/utils/context/MenuContext";
+
+import { CreateLobby } from "./CreateLobby";
+import { JoinLobby } from "./JoinLobby";
 
 function Details(): JSX.Element {
   const { backToMenu } = useContext(MenuContext);
@@ -14,10 +17,10 @@ function Details(): JSX.Element {
       <S.Nav>
         <Back onClick={backToMenu} />
       </S.Nav>
-      <CreateLink />
+      <CreateLobby />
       <JoinLobby />
     </S.FlexWrapper>
   );
 }
 
-export default Details;
+export { Details };

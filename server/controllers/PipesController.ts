@@ -1,6 +1,6 @@
 import { DIST_BETW_PIPES } from "../../configs/game";
+import { PipeAttributes } from "../../configs/types";
 import { Pipe } from "../components/Pipe";
-import { PipeAttributes } from "../types";
 
 export class PipesController {
   private pipes: Pipe[] = [];

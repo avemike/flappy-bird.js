@@ -1,13 +1,13 @@
 import { Socket } from "socket.io";
+import { GameControls } from "~server/game/GameControls";
+import { MultiController } from "~server/game/MultiController";
 
-import { EVENTS } from "../../configs/events";
-import { GameControls } from "../game/GameControls";
-import { MultiController } from "../game/MultiController";
+import { EVENTS } from "~configs/events";
+
 import { onStartGame } from "./general";
 
 export function onLeaveMulti(this: Socket): void {
   const { id } = this;
-
   MultiController.getInstance().deletePlayer(id);
 }
 
@@ -26,6 +26,20 @@ export function onStartGameMulti(this: Socket): void {
     const { socket } = GameControls.getInstance(guestID).attributes;
     onStartGame.call(socket);
   });
+}
+
+export function onLinkRequest(this: Socket): void {
+  const { id } = this;
+
+  const player = MultiController.getInstance().getPlayer(id);
+  const inviteLink = player.generateLink();
+
+  this.emit(EVENTS.LINK_RES, inviteLink);
+}
+
+export function onCreateLobby(this: Socket): void {
+  const { id } = this;
+  MultiController.getInstance().createLobby(id);
 }
 
 export function onAbortLobby(this: Socket): void {
@@ -53,6 +67,12 @@ export function onReadyAction(this: Socket, ready: boolean): void {
 }
 
 export function onJoinLobby(this: Socket, hostID: Socket["id"]): void {
+  // TODO check if lobby exists
+  // TODO create function that checks the link (hostID param), then either add user to lobby or return
+
+  const { lobbyActive } = MultiController.getInstance().getPlayer(hostID).attributes;
+  if (!lobbyActive) return;
+
   const { id } = this;
 
   const multiController = MultiController.getInstance();

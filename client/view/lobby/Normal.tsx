@@ -1,11 +1,14 @@
 import React, { useCallback, useContext, useEffect, useState } from "react";
 
-import { EVENTS } from "../../../configs/events";
-import { MENU_STATE } from "../../../configs/game";
-import { Back } from "../../components/Back";
-import * as S from "../../styled";
-import MenuContext from "../../utils/context/MenuContext";
-import { socket } from "../../utils/socketSetup";
+import * as S from "~client/styled";
+
+import { EVENTS } from "~configs/events";
+import { MENU_STATE } from "~configs/game";
+
+import { Back } from "~client/components/Back";
+
+import { MenuContext } from "~client/utils/context/MenuContext";
+import { socket } from "~client/utils/socketSetup";
 
 function Normal(): JSX.Element {
   const [ready, setReady] = useState(false);
@@ -35,7 +38,7 @@ function Normal(): JSX.Element {
   }
 
   return (
-    <S.FlexWrapper dir={"column"} animated>
+    <S.FlexWrapper direction="column" animated>
       <S.Nav>
         <Back onClick={handleLeave} />
       </S.Nav>
@@ -45,4 +48,4 @@ function Normal(): JSX.Element {
   );
 }
 
-export default Normal;
+export { Normal };

@@ -1,9 +1,10 @@
 import { Socket } from "socket.io";
+import { logger } from "~server/utils/logger";
 
-import { EVENTS } from "../../configs/events";
+import { EVENTS } from "~configs/events";
+
 import { onBirdColorChange } from "../handlers/general";
 import * as M from "../handlers/mutli";
-import { logger } from "../utils/logger";
 import { GameControls } from "./GameControls";
 import { MultiProfile } from "./MultiProfile";
 
@@ -40,12 +41,15 @@ export class MultiController {
     socket.removeListener(EVENTS.BIRD_COLOR_CHANGE, onBirdColorChange);
     socket.removeListener(EVENTS.READY_ACTION, M.onReadyAction);
 
+    socket.removeListener(EVENTS.LOBBY_CREATE, M.onCreateLobby);
     socket.removeListener(EVENTS.LOBBY_JOIN, M.onJoinLobby);
     socket.removeListener(EVENTS.LOBBY_ABORT, M.onAbortLobby);
     socket.removeListener(EVENTS.LBOBY_LEAVE, M.onLeaveLobby);
 
     socket.removeListener(EVENTS.MULTI_START_GAME, M.onStartGameMulti);
     socket.removeListener(EVENTS.MULTI_LEAVE, M.onLeaveMulti);
+
+    socket.removeListener(EVENTS.LINK_REQ, M.onLinkRequest);
 
     logger.info(`removed: ${id}\n listerers reamining: ${socket.eventNames()}`);
 
@@ -58,18 +62,22 @@ export class MultiController {
     const { socket } = GameControls.getInstance(id).attributes;
     socket.on(EVENTS.READY_ACTION, M.onReadyAction);
 
+    socket.on(EVENTS.LOBBY_CREATE, M.onCreateLobby);
     socket.on(EVENTS.LOBBY_JOIN, M.onJoinLobby);
     socket.on(EVENTS.LOBBY_ABORT, M.onAbortLobby);
     socket.on(EVENTS.LBOBY_LEAVE, M.onLeaveLobby);
 
     socket.on(EVENTS.MULTI_START_GAME, M.onStartGameMulti);
     socket.on(EVENTS.MULTI_LEAVE, M.onLeaveMulti);
+
+    socket.on(EVENTS.LINK_REQ, M.onLinkRequest);
   }
 
   public setReady(readyID: Socket["id"], value: boolean): void {
     this.getPlayer(readyID).setReady(value);
 
-    const reducer = (acc: number, curr: Socket["id"]) => acc + Number(this.getPlayer(curr).attributes.ready);
+    const reducer = (acc: number, curr: Socket["id"]) =>
+      acc + Number(this.getPlayer(curr).attributes.ready);
 
     const hostID = this.getPlayer(readyID).attributes.hostID || readyID;
 
@@ -81,7 +89,7 @@ export class MultiController {
   }
 
   public createLobby(hostID: Socket["id"]): void {
-    this.registerPlayer(hostID);
+    this.getPlayer(hostID).createLobby();
   }
 
   public deleteLobby(hostID: Socket["id"]): void {

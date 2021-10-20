@@ -1,15 +1,25 @@
 import { EVENTS } from "../../../configs/events";
 import { GAME_STATES } from "../../../configs/game";
-import { PlayerBirdData } from "../../types";
-import Bird from "./Bird";
+import { BirdAttributes } from "../../../configs/types";
+import { Bird } from "./Bird";
+
+interface Attributes {
+  score: number;
+  highscore: number;
+  collision: boolean;
+  socket: SocketIOClient.Socket;
+  controlsAdded: boolean;
+  controlTheBird(event: KeyboardEvent): void;
+}
 
 class PlayerBird extends Bird {
-  public score = 0;
-  public highscore = 0;
-  private collision = false;
-  private socket: SocketIOClient.Socket;
-  private controlsAdded = false;
-  private controlTheBird = (event: KeyboardEvent) => {
+  public score: Attributes["score"] = 0;
+  public highscore: Attributes["highscore"] = 0;
+  private collision: Attributes["collision"] = false;
+  private socket: Attributes["socket"];
+  private controlsAdded: Attributes["controlsAdded"] = false;
+
+  private controlTheBird: Attributes["controlTheBird"] = (event: KeyboardEvent) => {
     const isCapsOn = event.getModifierState("CapsLock");
     if (event.key === "w" || (isCapsOn && event.key === "W")) {
       this.socket.emit(EVENTS.JUMP);
@@ -20,19 +30,11 @@ class PlayerBird extends Bird {
     super(socket);
     this.socket = socket;
 
-    // TEMP - DEBUGGING
-    /*
-    setInterval(() => {
-      this.socket.emit('jump');
-    }, 670);
-    */
-    // TEMP
-
-    this.setupUpdateSocket();
+    this.setupUpdateListener();
   }
 
-  setupUpdateSocket(): void {
-    this.socket.on(EVENTS.BIRD, (data: PlayerBirdData) => {
+  setupUpdateListener(): void {
+    this.socket.on(EVENTS.BIRD, (data: BirdAttributes) => {
       const { x, y, angle, score, highscore, collision, color } = data;
       this.x = x;
       this.y = y;
@@ -55,7 +57,6 @@ class PlayerBird extends Bird {
     if (this.controlsAdded && this.collision) {
       document.removeEventListener("keypress", this.controlTheBird);
       this.controlsAdded = !this.controlsAdded;
-      return;
     }
   }
 
@@ -71,4 +72,4 @@ class PlayerBird extends Bird {
   }
 }
 
-export default PlayerBird;
+export { PlayerBird };

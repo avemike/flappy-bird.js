@@ -2,8 +2,8 @@ import { Socket } from "socket.io";
 
 import { EVENTS } from "../../configs/events";
 import { BASE_PROPS, BG_SPEED, BIRD_COLORS, BIRD_PROPS, PIPE_PROPS } from "../../configs/game";
+import { BirdAttributes, PipeAttributes } from "../../configs/types";
 import { onBirdColorChange } from "../handlers/general";
-import { BirdAttributes, PipeAttributes } from "../types";
 import { getCanvasSize } from "../utils/canvasSize";
 
 export class Bird {
@@ -15,7 +15,7 @@ export class Bird {
   private angle = 0;
   private score = 0;
   private highscore = 0;
-  private collision: boolean = BIRD_PROPS.COLLISION;
+  private collision = BIRD_PROPS.COLLISION;
 
   private color: BIRD_COLORS = BIRD_COLORS.YELLOW;
 
@@ -47,7 +47,9 @@ export class Bird {
     const distBetweenBirdAndPipe = middleOfBird - middleOfPipe;
     // check if bird is in the middle of the closest pipe in X axis
 
-    return distBetweenBirdAndPipe < BG_SPEED && distBetweenBirdAndPipe >= 0 && this.collision === false;
+    return (
+      distBetweenBirdAndPipe < BG_SPEED && distBetweenBirdAndPipe >= 0 && this.collision === false
+    );
   }
 
   updateScore(pipesData: PipeAttributes[]): void {
@@ -101,7 +103,8 @@ export class Bird {
   checkPipeCollision(pipesAttribs: PipeAttributes[]): boolean {
     // check if bird is too far away for collision
     if (
-      (this.x + BIRD_PROPS.WIDTH < pipesAttribs[0].offsetX || this.x > pipesAttribs[0].offsetX + PIPE_PROPS.WIDTH) &&
+      (this.x + BIRD_PROPS.WIDTH < pipesAttribs[0].offsetX ||
+        this.x > pipesAttribs[0].offsetX + PIPE_PROPS.WIDTH) &&
       // this.y < tmp_canvas_size - BASE_PROPS.HEIGHT
       this.y < getCanvasSize().HEIGHT - BASE_PROPS.HEIGHT
     )

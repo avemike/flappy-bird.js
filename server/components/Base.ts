@@ -1,19 +1,20 @@
 import { BASE_PROPS, BG_SPEED } from "../../configs/game";
-import { BaseAttributes } from "../types";
+import { BaseAttributes } from "../../configs/types";
 
-interface Props {
-  offsetX: number;
-  offsetY: number;
+type Attributes = BaseAttributes;
+
+interface Params {
+  offsetX: Attributes["offsetX"];
+  offsetY: Attributes["offsetY"];
 }
-export class Base {
-  private width: number;
-  private height: number;
-  private offsetX: number;
-  private offsetY: number;
 
-  constructor({ offsetX, offsetY }: Props) {
-    this.width = BASE_PROPS.WIDTH;
-    this.height = BASE_PROPS.HEIGHT;
+export class Base {
+  private width: Attributes["width"] = BASE_PROPS.WIDTH;
+  private height: Attributes["height"] = BASE_PROPS.HEIGHT;
+  private offsetX: Attributes["offsetX"];
+  private offsetY: Attributes["offsetY"];
+
+  constructor({ offsetX, offsetY }: Params) {
     this.offsetX = offsetX;
     this.offsetY = offsetY;
   }

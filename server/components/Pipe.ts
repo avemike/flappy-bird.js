@@ -1,5 +1,5 @@
 import { BG_SPEED, PIPE_PROPS } from "../../configs/game";
-import { PipeAttributes } from "../types";
+import { PipeAttributes } from "../../configs/types";
 
 interface AttributesParameter {
   attributes: PipeAttributes;

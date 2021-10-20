@@ -2,14 +2,14 @@ import React, { ReactElement } from "react";
 import { CSSTransition, SwitchTransition } from "react-transition-group";
 
 interface Props {
-  key: string;
+  primary: string;
   children: React.ReactNode;
 }
 
-export const Fade = ({ key, children }: Props): ReactElement => (
+export const Fade = ({ primary, children }: Props): ReactElement => (
   <SwitchTransition>
     <CSSTransition
-      key={key}
+      key={primary}
       appear={true}
       addEndListener={(node, done) => {
         node.addEventListener("transitionend", done, false);
