@@ -1,11 +1,15 @@
 import React, { ReactElement, useContext } from "react";
 
-import { MENU_STATE } from "../../../configs/game";
-import * as S from "../../styled";
-import { LobbyContext } from "../../utils/context/LobbyContext";
-import { Death } from "../../view/menu/death/Death";
-import { Details } from "../../view/menu/details/Details";
-import { MainMenu } from "../../view/menu/MainMenu";
+import * as S from "~client/styled";
+
+import { MENU_STATE } from "~configs/game";
+
+import { LobbyContext } from "~client/utils/context/LobbyContext";
+
+import { MainMenu } from "~client/view/menu/MainMenu";
+import { Death } from "~client/view/menu/death/Death";
+import { Details } from "~client/view/menu/details/Details";
+
 import { Lobby } from "../LobbyController";
 
 interface Props {

@@ -1,6 +1,6 @@
 import React, { createContext } from "react";
 
-import { GAME_MODE, MENU_STATE } from "../../../configs/game";
+import { GAME_MODE, MENU_STATE } from "~configs/game";
 
 interface MenuContextType {
   startGame: (GAME_MODE: GAME_MODE) => void;
@@ -34,4 +34,4 @@ const MenuContext = createContext<MenuContextType>({
   ],
 });
 
-export { MenuContext };
+export { MenuContext, MenuContextType };

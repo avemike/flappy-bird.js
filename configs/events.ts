@@ -34,4 +34,6 @@ export const EVENTS = {
 
   LINK_REQ: "req link",
   LINK_RES: "res link",
+
+  SET_LOBBY: "set lobby",
 } as const;

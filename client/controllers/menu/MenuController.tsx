@@ -1,10 +1,11 @@
 import React, { useEffect, useRef, useState } from "react";
+import { BrowserRouter as Router, Redirect, Route } from "react-router-dom";
 
 import { EVENTS } from "~configs/events";
 import { GAME_MODE, LOBBY_MODE, MENU_STATE } from "~configs/game";
 
 import { LobbyContext } from "~client/utils/context/LobbyContext";
-import { MenuContext } from "~client/utils/context/MenuContext";
+import { MenuContext, MenuContextType } from "~client/utils/context/MenuContext";
 import { socket } from "~client/utils/socketSetup";
 import { Fade } from "~client/utils/transitions";
 
@@ -20,6 +21,10 @@ const MenuController = (): JSX.Element => {
     socket.on(EVENTS.GAME_OVER, () => {
       setMenuState(MENU_STATE.DEATH);
     });
+
+    // socket.on(EVENTS.SET_LOBBY, () => {
+    //   setMenuState(MENU_STATE.LOBBY);
+    // });
 
     return () => {
       socket.off(EVENTS.GAME_OVER);
@@ -54,19 +59,29 @@ const MenuController = (): JSX.Element => {
 
   const renderedMenu = menuState !== MENU_STATE.DISABLED ? <Menu state={menuState} /> : <></>;
 
+  function test() {
+    setMenuState(MENU_STATE.LOBBY);
+    // return <Redirect to="/" />;
+  }
+
+  const context: MenuContextType = {
+    startGame,
+    handleMulti,
+    backToMenu,
+    menuStateHook: [menuState, setMenuState],
+    gameModeHook: [gameMode, setGameMode],
+  };
+
   return (
     <MenuStyled>
       <Title>{menuState}</Title>
-      <MenuContext.Provider
-        value={{
-          startGame,
-          handleMulti,
-          backToMenu,
-          menuStateHook: [menuState, setMenuState],
-          gameModeHook: [gameMode, setGameMode],
-        }}
-      >
+      <MenuContext.Provider value={context}>
         <LobbyContext.Provider value={{ lobbyModeRef }}>
+          <Router>
+            <Route exact path="/join">
+              {({ match }) => (match ? test() : <></>)}
+            </Route>
+          </Router>
           <Fade primary={menuState}>{renderedMenu}</Fade>
         </LobbyContext.Provider>
       </MenuContext.Provider>
