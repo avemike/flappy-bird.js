@@ -1,6 +1,6 @@
 import React, { ReactElement, useContext } from "react";
 
-import * as S from "~client/styled";
+import { Container } from "~client/styled";
 
 import { MENU_STATE } from "~configs/game";
 
@@ -34,9 +34,9 @@ const Menu = ({ state }: Props): JSX.Element => {
 };
 
 const MenuWrapper = ({ state }: Props): ReactElement => (
-  <S.Container>
+  <Container>
     <Menu state={state} />
-  </S.Container>
+  </Container>
 );
 
 export { MenuWrapper };

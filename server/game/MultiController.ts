@@ -44,7 +44,7 @@ export class MultiController {
     socket.removeListener(EVENTS.LOBBY_CREATE, M.onCreateLobby);
     socket.removeListener(EVENTS.LOBBY_JOIN, M.onJoinLobby);
     socket.removeListener(EVENTS.LOBBY_ABORT, M.onAbortLobby);
-    socket.removeListener(EVENTS.LBOBY_LEAVE, M.onLeaveLobby);
+    socket.removeListener(EVENTS.LOBBY_LEAVE, M.onLeaveLobby);
 
     socket.removeListener(EVENTS.MULTI_START_GAME, M.onStartGameMulti);
     socket.removeListener(EVENTS.MULTI_LEAVE, M.onLeaveMulti);
@@ -65,7 +65,7 @@ export class MultiController {
     socket.on(EVENTS.LOBBY_CREATE, M.onCreateLobby);
     socket.on(EVENTS.LOBBY_JOIN, M.onJoinLobby);
     socket.on(EVENTS.LOBBY_ABORT, M.onAbortLobby);
-    socket.on(EVENTS.LBOBY_LEAVE, M.onLeaveLobby);
+    socket.on(EVENTS.LOBBY_LEAVE, M.onLeaveLobby);
 
     socket.on(EVENTS.MULTI_START_GAME, M.onStartGameMulti);
     socket.on(EVENTS.MULTI_LEAVE, M.onLeaveMulti);
@@ -73,16 +73,22 @@ export class MultiController {
     socket.on(EVENTS.LINK_REQ, M.onLinkRequest);
   }
 
+  public countActivePlayers(hostID: Socket["id"]): number {
+    const host = this.getPlayer(hostID);
+    const reducer = (acc: number, curr: Socket["id"]) =>
+      acc + Number(this.getPlayer(curr).attributes.ready);
+    const readyGuestsCount = host.attributes.guests.reduce(reducer, 0);
+    const readyPlayersCount = readyGuestsCount + (host.attributes.ready ? 1 : 0);
+
+    return readyPlayersCount;
+  }
+
   public setReady(readyID: Socket["id"], value: boolean): void {
     this.getPlayer(readyID).setReady(value);
 
-    const reducer = (acc: number, curr: Socket["id"]) =>
-      acc + Number(this.getPlayer(curr).attributes.ready);
-
     const hostID = this.getPlayer(readyID).attributes.hostID || readyID;
 
-    const readyGuestsCount = this.getPlayer(hostID).attributes.guests.reduce(reducer, 0);
-    const readyPlayersCount = readyGuestsCount + (this.getPlayer(hostID).attributes.ready ? 1 : 0);
+    const readyPlayersCount = this.countActivePlayers(hostID);
 
     const { socket: hostSocket } = GameControls.getInstance(hostID).attributes;
     hostSocket.emit(EVENTS.READY_COUNT, readyPlayersCount);
@@ -90,11 +96,5 @@ export class MultiController {
 
   public createLobby(hostID: Socket["id"]): void {
     this.getPlayer(hostID).createLobby();
-  }
-
-  public deleteLobby(hostID: Socket["id"]): void {
-    this.getPlayer(hostID).attributes.guests.forEach((guestID: Socket["id"]) => {
-      this.getPlayer(guestID).leaveLobby();
-    });
   }
 }

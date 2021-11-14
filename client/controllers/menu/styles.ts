@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-import { CANVAS_SIZE } from "../../../configs/canvas";
+import { CANVAS_SIZE } from "~configs/canvas";
 
 export const MenuStyled = styled.div`
   position: absolute;

@@ -10,6 +10,7 @@ export const Fade = ({ primary, children }: Props): ReactElement => (
   <SwitchTransition>
     <CSSTransition
       key={primary}
+      timeout={1000}
       appear={true}
       addEndListener={(node, done) => {
         node.addEventListener("transitionend", done, false);

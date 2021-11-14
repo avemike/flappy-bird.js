@@ -40,8 +40,6 @@ const ShareLink = ({ children }: Props): JSX.Element => {
   const [isOpen, toggleOpen] = useToggle();
   const [url, setUrl] = useState("");
 
-  // TODO create both url and both host&key to just paste into input
-
   useEffect(() => {
     socket.emit(EVENTS.LINK_REQ);
     socket.on(EVENTS.LINK_RES, (url: Link) => {

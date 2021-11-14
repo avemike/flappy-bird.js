@@ -1,6 +1,7 @@
 import { Socket } from "socket.io";
 import { GameControls } from "~server/game/GameControls";
 import { MultiController } from "~server/game/MultiController";
+import { logger } from "~server/utils/logger";
 
 import { EVENTS } from "~configs/events";
 
@@ -44,19 +45,34 @@ export function onCreateLobby(this: Socket): void {
 
 export function onAbortLobby(this: Socket): void {
   const { id } = this;
-  MultiController.getInstance().deleteLobby(id);
 
   const host = MultiController.getInstance().getPlayer(id);
   const { guests } = host.attributes;
 
-  guests.forEach((guestID) => {
+  guests.forEach((guestID: Socket["id"]) => {
+    MultiController.getInstance().getPlayer(guestID).leaveLobby();
     host.removeGuest(guestID);
+
+    const { socket } = GameControls.getInstance(guestID).attributes;
+    socket.emit(EVENTS.LOBBY_KICK_OUT);
   });
+
+  logger.info(`${JSON.stringify(host.attributes)}`);
+  host.deleteLobby();
 }
 
 export function onLeaveLobby(this: Socket): void {
   const { id } = this;
-  MultiController.getInstance().getPlayer(id).leaveLobby();
+  const player = MultiController.getInstance().getPlayer(id);
+  const { hostID } = player.attributes;
+  const host = MultiController.getInstance().getPlayer(hostID);
+
+  player.leaveLobby();
+
+  const readyPlayersCount = MultiController.getInstance().countActivePlayers(hostID);
+
+  this.to(hostID).emit(EVENTS.READY_COUNT, readyPlayersCount);
+  host.removeGuest(id);
 }
 
 export function onReadyAction(this: Socket, ready: boolean): void {
@@ -70,12 +86,11 @@ export function onJoinLobby(this: Socket, hostID: Socket["id"]): void {
   // TODO check if lobby exists
   // TODO create function that checks the link (hostID param), then either add user to lobby or return
 
-  const { lobbyActive } = MultiController.getInstance().getPlayer(hostID).attributes;
+  const multiController = MultiController.getInstance();
+  const { lobbyActive } = multiController.getPlayer(hostID).attributes;
   if (!lobbyActive) return;
 
   const { id } = this;
-
-  const multiController = MultiController.getInstance();
 
   multiController.getPlayer(id).joinLobby(hostID);
   multiController.getPlayer(hostID).addGuest(id);

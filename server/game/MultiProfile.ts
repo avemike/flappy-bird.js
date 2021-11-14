@@ -4,7 +4,6 @@ import { generateKey } from "~server/scripts/authenticate";
 import { EVENTS } from "~configs/events";
 import { Link } from "~configs/types";
 
-import { logger } from "../utils/logger";
 import { GameControls } from "./GameControls";
 
 interface Attributes {
@@ -20,12 +19,20 @@ interface Hidden {
   key: string;
 }
 
+const initialState: Attributes = {
+  id: "",
+  hostID: "",
+  guests: [],
+  ready: false,
+  lobbyActive: false,
+};
+
 export class MultiProfile {
   private id: Attributes["id"];
-  private hostID: Attributes["hostID"] = "";
-  private guests: Attributes["guests"] = [];
-  private ready: Attributes["ready"] = false;
-  private lobbyActive: Attributes["lobbyActive"] = false;
+  private hostID: Attributes["hostID"] = initialState.hostID;
+  private guests: Attributes["guests"] = initialState.guests;
+  private ready: Attributes["ready"] = initialState.ready;
+  private lobbyActive: Attributes["lobbyActive"] = initialState.lobbyActive;
 
   private link: Hidden["link"] = "";
   private key: Hidden["key"] = "";
@@ -36,8 +43,7 @@ export class MultiProfile {
 
   public generateLink(): Hidden["link"] {
     this.key = generateKey();
-    this.link = `http://website.domain/join?hostID=${this.id}&key=${this.key}`;
-    logger.warn(this.link); // TRASH delete
+    this.link = `http://localhost:3000/join?hostID=${this.id}&key=${this.key}`;
 
     return this.link;
   }
@@ -64,16 +70,17 @@ export class MultiProfile {
     this.lobbyActive = true;
   }
 
-  public leaveLobby(): void {
+  public deleteLobby(): void {
     this.lobbyActive = false;
-    this.hostID = "";
+  }
 
+  public leaveLobby(): void {
     const { socket } = GameControls.getInstance(this.id).attributes;
-
     socket.leave(this.hostID);
     socket.broadcast.emit(EVENTS.OTHER_BIRD_DC, this.id);
 
-    socket.emit(EVENTS.LBOBY_LEAVE);
+    this.ready = initialState.ready;
+    this.hostID = initialState.hostID;
   }
 
   get attributes(): Attributes {

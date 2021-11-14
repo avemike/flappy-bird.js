@@ -17,7 +17,7 @@ const Death = (): JSX.Element => {
   const [lastGameMode] = useState(gameMode);
 
   return (
-    <S.FlexWrapper direction="column" animated>
+    <S.FlexWrapper direction="column">
       {lastGameMode === GAME_MODE.SINGLE ? <Single /> : <Multi />}
     </S.FlexWrapper>
   );

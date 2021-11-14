@@ -1,13 +1,18 @@
+import * as core from "express-serve-static-core";
 import { Socket } from "socket.io";
 
-import { getEnumKeyByEnumValue } from "../../client/utils/getEnumKeyByEnumValue";
-import { CanvasSizeAttributes } from "../../configs/canvas";
-import { EVENTS } from "../../configs/events";
-import { BIRD_COLORS, GAME_STATES as STATES } from "../../configs/game";
+import { CanvasSizeAttributes } from "~configs/canvas";
+import { EVENTS } from "~configs/events";
+import { BIRD_COLORS, GAME_STATES as STATES } from "~configs/game";
+import { Callback } from "~configs/types";
+
+import { getEnumKeyByEnumValue } from "~client/utils/getEnumKeyByEnumValue";
+
 import { GameControls } from "../game/GameControls";
 import { MultiController } from "../game/MultiController";
 import { setCanvasSize } from "../utils/canvasSize";
 import { logger } from "../utils/logger";
+import { onJoinLobby, onJoinMulti } from "./mutli";
 
 export function onDomLoaded(this: Socket, canvasSize: CanvasSizeAttributes): void {
   setCanvasSize(canvasSize);
@@ -15,6 +20,19 @@ export function onDomLoaded(this: Socket, canvasSize: CanvasSizeAttributes): voi
 
   const { bird } = game.attributes;
   this.emit(EVENTS.BIRD, bird.attributes);
+}
+
+export function getDestination(app: core.Express): Callback {
+  const { destination } = app.get("want_to_join");
+  return function redirectToLobby(this: Socket): void {
+    if (destination) {
+      this.emit(EVENTS.LOBBY_SET);
+      onJoinMulti.call(this);
+      onJoinLobby.call(this, destination);
+    } else {
+      logger.error(`wrong destination = ${destination}`);
+    }
+  };
 }
 
 export function onBirdColorChange(this: Socket, color: BIRD_COLORS): void {

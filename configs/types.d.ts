@@ -28,3 +28,4 @@ export interface PipeAttributes {
 }
 
 export type Link = string;
+export type Callback = () => void;

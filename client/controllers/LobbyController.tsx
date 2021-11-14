@@ -1,8 +1,10 @@
 import React from "react";
 
-import { LOBBY_MODE } from "../../configs/game";
+import { LOBBY_MODE } from "~configs/game";
+
+import { Normal } from "~client/view/lobby/Normal";
+
 import { Host } from "../view/lobby/Host";
-import { Normal } from "../view/lobby/Normal";
 
 interface Props {
   type: LOBBY_MODE;

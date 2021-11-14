@@ -8,7 +8,7 @@ export function generateKey(): string {
   return key;
 }
 
-export function authenticateLink(key: string): boolean {
+export function authenticateKey(key: string): boolean {
   if (keys.includes(key)) return true;
   return false;
 }
@@ -17,11 +17,12 @@ function deleteKey(keyToBeDeleted: string): void {
   keys.filter((key) => key !== keyToBeDeleted);
 }
 
-const minute = 1000 * 60;
-
 export function useKey(): string {
   const key = generateKey();
+
+  const minute = 1000 * 60;
   const timeout = minute * 5;
+
   setTimeout(() => deleteKey(key), timeout);
   return key;
 }

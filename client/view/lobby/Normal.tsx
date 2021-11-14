@@ -4,6 +4,7 @@ import * as S from "~client/styled";
 
 import { EVENTS } from "~configs/events";
 import { MENU_STATE } from "~configs/game";
+import { Callback } from "~configs/types";
 
 import { Back } from "~client/components/Back";
 
@@ -19,31 +20,37 @@ function Normal(): JSX.Element {
 
   const handleLeave = useCallback(() => {
     setMenu(MENU_STATE.MULTI_DETAILS);
+    socket.emit(EVENTS.LOBBY_LEAVE);
   }, [setMenu]);
 
-  useEffect(() => {
-    socket.on(EVENTS.LBOBY_LEAVE, handleLeave);
+  const handleKickedOut = useCallback(() => {
+    setMenu(MENU_STATE.MULTI_DETAILS);
+  }, [setMenu]);
+
+  useEffect(handleSockets, [handleLeave, handleKickedOut]);
+
+  function handleSockets(): Callback {
+    socket.on(EVENTS.LOBBY_LEAVE, handleLeave);
+    socket.on(EVENTS.LOBBY_KICK_OUT, handleKickedOut);
+
     return () => {
-      socket.off(EVENTS.LBOBY_LEAVE);
+      socket.off(EVENTS.LOBBY_LEAVE);
+      socket.off(EVENTS.LOBBY_KICK_OUT);
     };
-  }, [handleLeave]);
+  }
 
   function toggleReady() {
     setReady((ready) => !ready);
-    if (!ready) {
-      socket.emit(EVENTS.READY_ACTION, true);
-    } else {
-      socket.emit(EVENTS.READY_ACTION, false);
-    }
+    socket.emit(EVENTS.READY_ACTION, ready ? false : true); // ready is not updated yet, so values are reversed
   }
 
   return (
-    <S.FlexWrapper direction="column" animated>
+    <S.FlexWrapper direction="column">
       <S.Nav>
         <Back onClick={handleLeave} />
       </S.Nav>
       <S.Button onClick={toggleReady}>{ready ? "turn off" : "set ready"}</S.Button>
-      <S.Button onClick={() => setMenu(MENU_STATE.MULTI_DETAILS)}>leave</S.Button>
+      <S.Button onClick={handleLeave}>leave</S.Button>
     </S.FlexWrapper>
   );
 }

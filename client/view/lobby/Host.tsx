@@ -24,7 +24,7 @@ const Host = (): JSX.Element => {
   }
 
   return (
-    <S.FlexWrapper direction="column" animated>
+    <S.FlexWrapper direction="column">
       <S.Nav>
         <Back onClick={handleLeave} />
         <ShareLink>

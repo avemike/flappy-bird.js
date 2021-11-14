@@ -30,10 +30,9 @@ const JoinLobby = (): JSX.Element => {
   function handleFormSubmit(event: FormEvent) {
     event.preventDefault();
 
-    if (inputRef.current?.value != "") socket.emit(EVENTS.LOBBY_JOIN, inputRef.current?.value);
+    if (inputRef.current?.value !== "") socket.emit(EVENTS.LOBBY_JOIN, inputRef.current?.value);
     else return;
 
-    // TODO don't set LOBBY_MODE until server accepts link!!!
     // TODO check input value and send it to server
     // TODO forbid connecting to yourself
     lobbyModeRef.current = LOBBY_MODE.NORMAL;

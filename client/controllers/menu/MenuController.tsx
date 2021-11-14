@@ -1,5 +1,4 @@
 import React, { useEffect, useRef, useState } from "react";
-import { BrowserRouter as Router, Redirect, Route } from "react-router-dom";
 
 import { EVENTS } from "~configs/events";
 import { GAME_MODE, LOBBY_MODE, MENU_STATE } from "~configs/game";
@@ -22,12 +21,14 @@ const MenuController = (): JSX.Element => {
       setMenuState(MENU_STATE.DEATH);
     });
 
-    // socket.on(EVENTS.SET_LOBBY, () => {
-    //   setMenuState(MENU_STATE.LOBBY);
-    // });
+    socket.on(EVENTS.LOBBY_SET, () => {
+      lobbyModeRef.current = LOBBY_MODE.NORMAL;
+      setMenuState(MENU_STATE.LOBBY);
+    });
 
     return () => {
       socket.off(EVENTS.GAME_OVER);
+      socket.off(EVENTS.LOBBY_SET);
     };
   }, [setMenuState]);
 
@@ -59,11 +60,6 @@ const MenuController = (): JSX.Element => {
 
   const renderedMenu = menuState !== MENU_STATE.DISABLED ? <Menu state={menuState} /> : <></>;
 
-  function test() {
-    setMenuState(MENU_STATE.LOBBY);
-    // return <Redirect to="/" />;
-  }
-
   const context: MenuContextType = {
     startGame,
     handleMulti,
@@ -77,12 +73,8 @@ const MenuController = (): JSX.Element => {
       <Title>{menuState}</Title>
       <MenuContext.Provider value={context}>
         <LobbyContext.Provider value={{ lobbyModeRef }}>
-          <Router>
-            <Route exact path="/join">
-              {({ match }) => (match ? test() : <></>)}
-            </Route>
-          </Router>
           <Fade primary={menuState}>{renderedMenu}</Fade>
+          {/* {renderedMenu} */}
         </LobbyContext.Provider>
       </MenuContext.Provider>
     </MenuStyled>

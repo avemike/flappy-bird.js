@@ -6,7 +6,9 @@ export const EVENTS = {
   LOBBY_CREATE: "lobby create",
   LOBBY_JOIN: "lobby join",
   LOBBY_ABORT: "lobby abort",
-  LBOBY_LEAVE: "lobby leave",
+  LOBBY_LEAVE: "lobby leave",
+  LOBBY_SET: "lobby set",
+  LOBBY_KICK_OUT: "lobby kick out",
 
   BIRD_JOINED: "bird joined",
   CONNECTION: "connection",
@@ -34,6 +36,4 @@ export const EVENTS = {
 
   LINK_REQ: "req link",
   LINK_RES: "res link",
-
-  SET_LOBBY: "set lobby",
 } as const;

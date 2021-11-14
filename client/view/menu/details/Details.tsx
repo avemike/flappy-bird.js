@@ -13,7 +13,7 @@ function Details(): JSX.Element {
   const { backToMenu } = useContext(MenuContext);
 
   return (
-    <S.FlexWrapper direction={"column"} animated>
+    <S.FlexWrapper direction={"column"}>
       <S.Nav>
         <Back onClick={backToMenu} />
       </S.Nav>

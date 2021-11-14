@@ -2,6 +2,36 @@ import styled, { createGlobalStyle, css } from "styled-components";
 
 import { CANVAS_SIZE } from "~configs/canvas";
 
+const FadeAnimation = css`
+  .fade-appear &,
+  .fade-enter & {
+    opacity: 0;
+    transform: translateX(-100%);
+  }
+
+  .fade-appear-active &,
+  .fade-enter-active & {
+    opacity: 1;
+    transform: translateX(0%);
+  }
+
+  .fade-exit & {
+    opacity: 1;
+    transform: translateX(0%);
+  }
+
+  .fade-exit-active & {
+    opacity: 0;
+    transform: translateX(100%);
+  }
+
+  .fade-appear-active &,
+  .fade-enter-active &,
+  .fade-exit-active & {
+    transition: opacity 500ms, transform 500ms;
+  }
+`;
+
 export const Global = createGlobalStyle`
   * {
     margin: 0;
@@ -37,41 +67,13 @@ export const Global = createGlobalStyle`
     -webkit-transform: scale(1.5);
             transform: scale(1.5);
   }
+
+  ${FadeAnimation}
 `;
 
 export const Button = styled.button`
   width: ${CANVAS_SIZE.WIDTH * 0.4}px;
   height: ${CANVAS_SIZE.HEIGHT * 0.1}px;
-`;
-
-const FadeAnimation = css`
-  .fade-appear &,
-  .fade-enter & {
-    opacity: 0;
-    transform: translateX(-100%);
-  }
-
-  .fade-appear-active &,
-  .fade-enter-active & {
-    opacity: 1;
-    transform: translateX(0%);
-  }
-
-  .fade-exit & {
-    opacity: 1;
-    transform: translateX(0%);
-  }
-
-  .fade-exit-active & {
-    opacity: 0;
-    transform: translateX(100%);
-  }
-
-  .fade-appear-active &,
-  .fade-enter-active &,
-  .fade-exit-active & {
-    transition: opacity 500ms, transform 500ms;
-  }
 `;
 
 export const FlexWrapper = styled.div<{

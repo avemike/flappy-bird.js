@@ -27,7 +27,7 @@ function MainMenu(): JSX.Element {
   }
 
   return (
-    <S.FlexWrapper direction="column" animated>
+    <S.FlexWrapper direction="column">
       <Controls onClick={handleSingle} text="single" />
       <Controls onClick={handleMulti} text="multi" />
       <ColorSelect />
