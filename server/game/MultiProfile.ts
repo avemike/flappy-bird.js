@@ -63,7 +63,7 @@ export class MultiProfile {
   }
 
   public removeGuest(id: Socket["id"]): void {
-    this.guests.filter((guestID) => guestID !== id);
+    this.guests = this.guests.filter((guestID) => guestID != id);
   }
 
   public createLobby(): void {
