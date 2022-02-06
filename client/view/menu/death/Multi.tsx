@@ -28,7 +28,7 @@ const Multi = (): JSX.Element => {
 
   return (
     <>
-      <S.Button>leaderboard</S.Button>
+      <S.ExtendedButton>leaderboard</S.ExtendedButton>
       {current === LOBBY_MODE.HOST ? (
         <S.Button onClick={handleRestart}>restart</S.Button>
       ) : (

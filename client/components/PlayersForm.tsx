@@ -1,24 +1,28 @@
-import React, { ChangeEvent, FormEvent } from "react";
+import React, { ChangeEvent } from "react";
+import styled from "styled-components";
 
 interface Props {
   maxPlayersHook: [number, React.Dispatch<React.SetStateAction<number>>];
 }
 
+const StyledInput = styled.input`
+  border: none;
+  background: transparent;
+  border: 2px solid black;
+  border-radius: 4px;
+  padding: 2px;
+`;
 const PlayersForm = ({ maxPlayersHook }: Props): JSX.Element => {
   const [maxPlayers, setMaxPlayers] = maxPlayersHook;
-
-  function handleFormSubmit(event: FormEvent) {
-    event.preventDefault();
-  }
 
   function handleInputChange(event: ChangeEvent<HTMLInputElement>): void {
     setMaxPlayers(+event.target.value);
   }
 
   return (
-    <form onSubmit={handleFormSubmit}>
+    <form>
       <label htmlFor="max_players">max: </label>
-      <input
+      <StyledInput
         onChange={handleInputChange}
         value={maxPlayers}
         id="max_players"
@@ -26,7 +30,6 @@ const PlayersForm = ({ maxPlayersHook }: Props): JSX.Element => {
         min="1"
         max="10"
       />
-      <button type="submit">set</button>
     </form>
   );
 };

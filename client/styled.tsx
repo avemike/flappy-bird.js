@@ -38,12 +38,18 @@ export const Global = createGlobalStyle`
     padding: 0;
     -webkit-box-sizing: border-box;
             box-sizing: border-box;
+  
+    font-family: 'Retro';
+    color: white;
+    text-shadow: 2px 2px 0 black;
   }
+          
 
   html,
   body {
     height: 100%;
     width: 100%;
+    background-color: black;
   }
 
   body {
@@ -71,31 +77,50 @@ export const Global = createGlobalStyle`
   ${FadeAnimation}
 `;
 
-export const Button = styled.button`
-  width: ${CANVAS_SIZE.WIDTH * 0.4}px;
+export const Button = styled.button<{ sm?: boolean }>`
+  width: ${({ sm }) => (sm ? CANVAS_SIZE.WIDTH * 0.25 : CANVAS_SIZE.WIDTH * 0.4)}px;
+  height: ${({ sm }) => (sm ? CANVAS_SIZE.HEIGHT * 0.07 : CANVAS_SIZE.HEIGHT * 0.1)}px;
+  cursor: pointer;
+  background: #989898;
+  border: 2px solid #000;
+  box-shadow: 2px 2px 0 0 #111;
+`;
+
+export const ExtendedButton = styled.button`
+  min-width: ${CANVAS_SIZE.WIDTH * 0.4}px;
   height: ${CANVAS_SIZE.HEIGHT * 0.1}px;
+  cursor: pointer;
+  background: #989898;
+  border: 2px solid #000;
+  box-shadow: 2px 2px 0 0 #111;
 `;
 
 export const FlexWrapper = styled.div<{
-  direction: string;
+  direction?: string;
   dontInheritSize?: boolean;
   animated?: boolean;
+  alignItems?: string;
+  justifyContent?: string;
+  w?: string;
+  h?: string;
 }>`
   display: flex;
-  flex-direction: ${({ direction }) => direction};
-  justify-content: space-around;
-  align-items: center;
+  flex-direction: ${({ direction }) => direction || "column"};
+  justify-content: ${({ justifyContent }) => justifyContent || "space-around"};
+  align-items: ${({ alignItems }) => alignItems || "center"};
   height: inherit;
   width: inherit;
 
   ${({ dontInheritSize }) =>
     dontInheritSize &&
     `
-  height: unset;
-  width: unset;
-  `}
+      height: unset;
+      width: unset;
+    `}
 
   ${({ animated }) => animated && `${FadeAnimation}`}
+  ${({ w }) => w && `width: ${w};`}
+  ${({ h }) => h && `height: ${h};`}
 `;
 
 export const ShareDropdown = styled.span`
@@ -115,6 +140,10 @@ export const TopButton = styled.button<{ position: "left" | "right" }>`
   margin: ${({ position }) =>
     (position === "left" && `5px 0 5px 5px`) || (position === "right" && `5px 5px 5px 0`)};
   padding: 5px 10px;
+  background: transparent;
+  border: none;
+  position: relative;
+  cursor: pointer;
 `;
 
 export const Nav = styled.nav`
