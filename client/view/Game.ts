@@ -1,14 +1,13 @@
-import { EVENTS } from "/configs/events";
-import { GAME_STATES } from "/configs/game";
-import SCORE_PROPS from "/configs/score";
-import { ToDraw } from "/configs/types";
-
 import { BackgroundController } from "../controllers/BackgroundController";
 import { BaseController } from "../controllers/BaseController";
 import { EnemyBirdsController } from "../controllers/EnemyBirdsController";
 import { PipesController } from "../controllers/PipesController";
 import { socket } from "../utils/socketSetup";
 import { PlayerBird } from "./birds/PlayerBird";
+import { EVENTS } from "/configs/events";
+import { GAME_STATES } from "/configs/game";
+import SCORE_PROPS from "/configs/score";
+import { ToDraw } from "/configs/types";
 
 interface GameInfo {
   state: keyof typeof GAME_STATES;
