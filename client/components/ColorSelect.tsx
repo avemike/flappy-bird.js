@@ -1,43 +1,43 @@
-import React, { MouseEvent } from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 
 import { EVENTS } from "../../configs/events";
 import { BIRD_COLORS } from "../../configs/game";
 import * as S from "../styled";
 import { socket } from "../utils/socketSetup";
+import { BirdButton } from "./birds/BirdButton";
 
-function lower(arg: string): string {
-  return arg.toLowerCase();
-}
-
-function handleColorChange(event: MouseEvent<HTMLButtonElement>): void {
-  socket.emit(EVENTS.BIRD_COLOR_CHANGE, event.currentTarget.value);
-}
-
-const Color = styled.button<{ color: string }>`
-  border: 1px solid black;
-  width: 1.3rem;
-  height: 1.3rem;
-  border-radius: 50%;
-  background-color: ${({ color }) => color};
+const StyledGrid = styled.div`
+  margin: 1rem;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr 1fr;
 `;
 
-const FlexItem = styled.div`
-  padding: 0 0.2em 0 0.2em;
+const ChooseColorTitle = styled.h4`
+  text-align: center;
 `;
 
 const ColorSelect = (): JSX.Element => {
+  const [activeColor, setActiveColor] = useState(BIRD_COLORS["YELLOW"]);
+  const handleColorChange = (color: BIRD_COLORS) => {
+    setActiveColor(color);
+    socket.emit(EVENTS.BIRD_COLOR_CHANGE, color);
+  };
+
   return (
-    <S.FlexWrapper direction="row" dontInheritSize>
-      {Object.keys(BIRD_COLORS)
-        .filter((x) => !(parseInt(x) >= 0))
-        .map((color) => (
-          <FlexItem key={`key-${color}`}>
-            <Color value={lower(color)} color={lower(color)} onClick={handleColorChange}>
-              &#8203;
-            </Color>
-          </FlexItem>
+    <S.FlexWrapper justifyContent="flex-end">
+      <ChooseColorTitle>Choose color</ChooseColorTitle>
+      <StyledGrid>
+        {Object.values(BIRD_COLORS).map((color) => (
+          <BirdButton
+            key={color}
+            color={color}
+            active={activeColor === color}
+            onClick={() => handleColorChange(color)}
+          />
         ))}
+      </StyledGrid>
     </S.FlexWrapper>
   );
 };
