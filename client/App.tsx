@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import { render } from "react-dom";
 
+import { Canvas } from "~client/Canvas";
 import { Global } from "~client/styled";
 
 import { CANVAS_SIZE } from "~configs/canvas";
@@ -8,9 +9,7 @@ import { EVENTS } from "~configs/events";
 
 import { socket } from "~client/utils/socketSetup";
 
-import { Canvas } from "~client/view/Canvas";
-
-import { MenuController } from "./controllers/menu/MenuController";
+import { Overlay } from "./overlay/Overlay";
 
 // TODO limit players amount on server
 
@@ -22,7 +21,7 @@ const App = () => {
   return (
     <React.StrictMode>
       <Global />
-      <MenuController />
+      <Overlay />
       <Canvas width={CANVAS_SIZE.WIDTH} height={CANVAS_SIZE.HEIGHT} />
     </React.StrictMode>
   );
