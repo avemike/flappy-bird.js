@@ -9,7 +9,7 @@ interface Attributes {
   collision: boolean;
   socket: SocketIOClient.Socket;
   controlsAdded: boolean;
-  controlTheBird(event: KeyboardEvent);
+  controlTheBird: (event: KeyboardEvent) => void;
 }
 
 class PlayerBird extends Bird {

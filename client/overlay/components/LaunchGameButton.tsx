@@ -3,7 +3,7 @@ import React from "react";
 import { ButtonSuper } from "../../styled";
 
 interface Props {
-  onClick();
+  onClick: () => void;
   readyCount: number;
   maxPlayers: number;
 }

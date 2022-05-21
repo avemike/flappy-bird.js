@@ -8,7 +8,7 @@ import { ColorSelect } from "../components/ColorSelect";
 
 interface ControlsProps {
   text: string;
-  onClick();
+  onClick: () => void;
 }
 
 const StyledContainer = styled.div`

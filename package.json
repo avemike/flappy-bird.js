@@ -68,7 +68,8 @@
     "prettier:fix": "prettier --write server/**/*.ts client/**/*.{ts,tsx}",
     "prettier:check": "prettier --check server/**/*.ts client/**/*.{ts,tsx}",
     "lint:fix": "eslint . --fix",
-    "lint:check": "eslint ."
+    "lint:check": "eslint .",
+    "tsc:check": "tsc --project ./tsconfig.json --noEmit"
   },
   "repository": {
     "type": "git",
