@@ -21,7 +21,7 @@ const PaddingWrapper = styled.div`
   height: inherit;
 `;
 
-export const Overlay = (): JSX.Element => {
+export const Overlay = () => {
   const [gameMode, setGameMode] = useState(GAME_MODE.NOT_SET);
   const [menuState, setMenuState] = useState(MENU_STATE.MAIN);
   const lobbyModeRef = useRef(LOBBY_MODE.NORMAL);
@@ -53,7 +53,7 @@ export const Overlay = (): JSX.Element => {
     }, 1000);
   }
 
-  function handleMulti(): void {
+  function handleMulti() {
     setGameMode(GAME_MODE.MULTI);
     setMenuState(MENU_STATE.MULTI_DETAILS);
 
@@ -63,7 +63,9 @@ export const Overlay = (): JSX.Element => {
   function backToMenu() {
     setMenuState(MENU_STATE.MAIN);
 
-    gameMode === GAME_MODE.MULTI && socket.emit(EVENTS.MULTI_LEAVE);
+    if (gameMode === GAME_MODE.MULTI) {
+      socket.emit(EVENTS.MULTI_LEAVE);
+    }
 
     setGameMode(GAME_MODE.NOT_SET);
 

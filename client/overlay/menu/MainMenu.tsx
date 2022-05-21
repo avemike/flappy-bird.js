@@ -8,7 +8,7 @@ import { ColorSelect } from "../components/ColorSelect";
 
 interface ControlsProps {
   text: string;
-  onClick(): void;
+  onClick();
 }
 
 const StyledContainer = styled.div`
@@ -22,19 +22,19 @@ const StyledContainer = styled.div`
   flex: 1 0 0;
 `;
 
-function MainMenu(): JSX.Element {
+function MainMenu() {
   const {
     startGame,
     handleMulti,
     gameModeHook: [, setGameMode],
   } = useContext(MenuContext);
 
-  function handleSingle(): void {
+  function handleSingle() {
     setGameMode(GAME_MODE.SINGLE);
     startGame(GAME_MODE.SINGLE);
   }
 
-  function Controls({ text, onClick }: ControlsProps): JSX.Element {
+  function Controls({ text, onClick }: ControlsProps) {
     return <S.Button onClick={onClick}>{text}</S.Button>;
   }
 
@@ -42,8 +42,8 @@ function MainMenu(): JSX.Element {
     <S.FlexWrapper>
       <StyledContainer>
         <S.FlexWrapper justifyContent="space-around" alignItems="center">
-          <Controls onClick={handleSingle} text="single" />
-          <Controls onClick={handleMulti} text="multi" />
+          <Controls text="single" onClick={handleSingle} />
+          <Controls text="multi" onClick={handleMulti} />
         </S.FlexWrapper>
         <ColorSelect />
       </StyledContainer>

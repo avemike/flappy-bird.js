@@ -6,7 +6,7 @@ class EnemyBird extends Bird {
     super(socket);
   }
 
-  update(data: BirdAttributes): void {
+  update(data: BirdAttributes) {
     const { multiplayerX, y, angle, color } = data;
 
     this.setColor(color);

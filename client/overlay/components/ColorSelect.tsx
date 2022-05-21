@@ -18,8 +18,9 @@ const ChooseColorTitle = styled.h4`
   text-align: center;
 `;
 
-const ColorSelect = (): JSX.Element => {
+const ColorSelect = () => {
   const [activeColor, setActiveColor] = useState(BIRD_COLORS["YELLOW"]);
+
   const handleColorChange = (color: BIRD_COLORS) => {
     setActiveColor(color);
     socket.emit(EVENTS.BIRD_COLOR_CHANGE, color);

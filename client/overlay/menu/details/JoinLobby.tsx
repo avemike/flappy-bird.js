@@ -41,9 +41,9 @@ const StyledInput = styled.input`
   text-shadow: none;
 `;
 
-const JoinLobby = (): JSX.Element => {
+export const JoinLobby = () => {
   const inputRef = useRef<HTMLInputElement>(null);
-  const [isOpen, toggleOpen] = useToggle();
+  const { isOpen, onToggle } = useToggle();
 
   const {
     menuStateHook: [, setMenu],
@@ -65,7 +65,7 @@ const JoinLobby = (): JSX.Element => {
 
   return (
     <div>
-      <Button onClick={toggleOpen}>join lobby</Button>
+      <Button onClick={onToggle}>join lobby</Button>
       <Fade primary={`${isOpen}`}>
         {isOpen ? (
           <FormStyled onSubmit={handleFormSubmit}>
@@ -82,5 +82,3 @@ const JoinLobby = (): JSX.Element => {
     </div>
   );
 };
-
-export { JoinLobby };

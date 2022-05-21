@@ -105,9 +105,9 @@ export const FlexWrapper = styled.div<{
   h?: string;
 }>`
   display: flex;
-  flex-direction: ${({ direction }) => direction || "column"};
-  justify-content: ${({ justifyContent }) => justifyContent || "space-around"};
-  align-items: ${({ alignItems }) => alignItems || "center"};
+  flex-direction: ${({ direction }) => direction ?? "column"};
+  justify-content: ${({ justifyContent }) => justifyContent ?? "space-around"};
+  align-items: ${({ alignItems }) => alignItems ?? "center"};
   height: inherit;
   width: inherit;
 

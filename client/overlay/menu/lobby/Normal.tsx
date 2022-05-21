@@ -10,7 +10,7 @@ import { Callback } from "~configs/types";
 
 import { socket } from "~client/utils/socketSetup";
 
-function Normal(): JSX.Element {
+function Normal() {
   const [ready, setReady] = useState(false);
 
   const {

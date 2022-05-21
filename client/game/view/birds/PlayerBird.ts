@@ -9,7 +9,7 @@ interface Attributes {
   collision: boolean;
   socket: SocketIOClient.Socket;
   controlsAdded: boolean;
-  controlTheBird(event: KeyboardEvent): void;
+  controlTheBird(event: KeyboardEvent);
 }
 
 class PlayerBird extends Bird {
@@ -21,6 +21,7 @@ class PlayerBird extends Bird {
 
   private controlTheBird: Attributes["controlTheBird"] = (event: KeyboardEvent) => {
     const isCapsOn = event.getModifierState("CapsLock");
+
     if (event.key === "w" || (isCapsOn && event.key === "W")) {
       this.socket.emit(EVENTS.JUMP);
     }
@@ -33,9 +34,10 @@ class PlayerBird extends Bird {
     this.setupUpdateListener();
   }
 
-  setupUpdateListener(): void {
+  setupUpdateListener() {
     this.socket.on(EVENTS.BIRD, (data: BirdAttributes) => {
       const { x, y, angle, score, highscore, collision, color } = data;
+
       this.x = x;
       this.y = y;
       this.angle = angle;
@@ -46,21 +48,21 @@ class PlayerBird extends Bird {
     });
   }
 
-  private addControls(): void {
+  private addControls() {
     if (!this.controlsAdded && !this.collision) {
       document.addEventListener("keypress", this.controlTheBird);
       this.controlsAdded = !this.controlsAdded;
     }
   }
 
-  private removeControls(): void {
+  private removeControls() {
     if (this.controlsAdded && this.collision) {
       document.removeEventListener("keypress", this.controlTheBird);
       this.controlsAdded = !this.controlsAdded;
     }
   }
 
-  manageControls(state: keyof typeof GAME_STATES): void {
+  manageControls(state: keyof typeof GAME_STATES) {
     switch (state) {
       case GAME_STATES.STARTED:
         this.addControls();

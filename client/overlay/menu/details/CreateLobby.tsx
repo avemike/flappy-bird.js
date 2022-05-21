@@ -9,7 +9,7 @@ import { LOBBY_MODE, MENU_STATE } from "~configs/game";
 
 import { socket } from "~client/utils/socketSetup";
 
-const CreateLobby = (): JSX.Element => {
+const CreateLobby = () => {
   const {
     menuStateHook: [, setMenu],
   } = useContext(MenuContext);

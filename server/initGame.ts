@@ -7,14 +7,16 @@ import { getDestination, onDisconnect, onDomLoaded, onFrame, onJump } from "./ha
 import { onJoinMulti } from "./handlers/mutli";
 import { logger } from "./utils/logger";
 
-export const initGame = (socketio: Server, app: core.Express): void => {
+export const initGame = (socketio: Server, app: core.Express) => {
   // user has connected
   socketio.on(EVENTS.CONNECTION, (socket: Socket) => {
     logger.info(`Player "${socket.id}" has connected`);
 
     socket.on(EVENTS.DOM_LOADED, onDomLoaded);
     socket.on(EVENTS.DOM_LOADED, () => {
-      app.get("want_to_join")?.destination && getDestination(app).call(socket);
+      if (app.get("want_to_join")?.destination) {
+        getDestination(app).call(socket);
+      }
     });
 
     socket.on(EVENTS.MULTI_JOIN, onJoinMulti);

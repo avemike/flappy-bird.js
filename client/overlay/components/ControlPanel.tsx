@@ -11,7 +11,7 @@ import { socket } from "~client/utils/socketSetup";
 import { LaunchGameButton } from "./LaunchGameButton";
 import { PlayersForm } from "./PlayersForm";
 
-const ControlPanel = (): JSX.Element => {
+const ControlPanel = () => {
   const [isReady, setReady] = useState(false);
   const [readyCount, setReadyCount] = useState(0);
   const [maxPlayers, setMaxPlayers] = useState(DEFAULT_MAX_PLAYERS);
@@ -44,7 +44,7 @@ const ControlPanel = (): JSX.Element => {
       </S.ReadyCounter>
       <PlayersForm maxPlayersHook={[maxPlayers, setMaxPlayers]} />
       <S.Button onClick={toggleReady}>set ready</S.Button>
-      <LaunchGameButton onClick={runGame} readyCount={readyCount} maxPlayers={maxPlayers} />
+      <LaunchGameButton readyCount={readyCount} maxPlayers={maxPlayers} onClick={runGame} />
     </>
   );
 };

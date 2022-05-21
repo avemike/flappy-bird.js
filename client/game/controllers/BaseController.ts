@@ -14,7 +14,7 @@ class BaseController {
     });
   }
 
-  draw(ctx: CanvasRenderingContext2D): void {
+  draw(ctx: CanvasRenderingContext2D) {
     this.basesData.forEach((base) => {
       ctx.drawImage(this.baseImg, base.offsetX, base.offsetY);
     });

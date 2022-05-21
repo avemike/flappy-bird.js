@@ -1,6 +1,5 @@
 import { MutableRefObject, createContext } from "react";
-
-import { LOBBY_MODE } from "../../../configs/game";
+import { LOBBY_MODE } from "~/configs/game";
 
 interface LobbyModeType {
   lobbyModeRef: MutableRefObject<LOBBY_MODE>;

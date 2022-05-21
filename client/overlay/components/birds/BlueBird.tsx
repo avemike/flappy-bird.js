@@ -8,7 +8,7 @@ export const BlueBird = ({ width = 17 }: { width?: number }) => (
     fill="none"
     xmlns="http://www.w3.org/2000/svg"
   >
-    <g clip-path="url(#clip0)">
+    <g clipPath="url(#clip0)">
       <g filter="url(#filter0_d)">
         <path d="M6 2H4V3H6V2Z" fill="white" />
         <path d="M8.98921 1.00857H6.01137V2.00118H8.98921V1.00857Z" fill="white" />
@@ -97,9 +97,9 @@ export const BlueBird = ({ width = 17 }: { width?: number }) => (
         width="17"
         height="20"
         filterUnits="userSpaceOnUse"
-        color-interpolation-filters="sRGB"
+        colorInterpolationFilters="sRGB"
       >
-        <feFlood flood-opacity="0" result="BackgroundImageFix" />
+        <feFlood floodOpacity="0" result="BackgroundImageFix" />
         <feColorMatrix
           in="SourceAlpha"
           type="matrix"

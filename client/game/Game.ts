@@ -41,7 +41,7 @@ class Game {
     });
   }
 
-  renderScore(): void {
+  renderScore() {
     if (this.data.state !== GAME_STATES.RUNNING) {
       this.ctx.fillStyle = "black";
       this.ctx.font = `${SCORE_PROPS.FONT_SIZE}px ${SCORE_PROPS.FONT}`;
@@ -51,7 +51,7 @@ class Game {
     }
   }
 
-  create_tmp(): void {
+  create_tmp() {
     this.bird.manageControls(this.data.state);
 
     // execute all draw animations within given objects

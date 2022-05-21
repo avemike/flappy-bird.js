@@ -9,7 +9,7 @@ interface Props {
   type: LOBBY_MODE;
 }
 
-function Lobby({ type }: Props): JSX.Element {
+function Lobby({ type }: Props) {
   return type === LOBBY_MODE.HOST ? <Host /> : <Normal />;
 }
 

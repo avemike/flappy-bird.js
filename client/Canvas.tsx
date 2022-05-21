@@ -10,16 +10,14 @@ interface Props {
   height: number;
 }
 
-const Canvas = (props: Props): JSX.Element => {
+const Canvas = (props: Props) => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
 
   useEffect(() => {
     if (canvasRef.current !== null) {
       const ctx = canvasRef.current.getContext("2d") as CanvasRenderingContext2D;
       const game = new Game(ctx);
-
       let animationFrameID: number;
-      let fpsInterval: number, now: number, then: number, elapsed: number;
 
       const render = () => {
         socket.emit(EVENTS.FRAME);
@@ -60,7 +58,7 @@ const Canvas = (props: Props): JSX.Element => {
     }
   }, []);
 
-  return <canvas ref={canvasRef} {...props}></canvas>;
+  return <canvas ref={canvasRef} {...props} />;
 };
 
 export { Canvas };

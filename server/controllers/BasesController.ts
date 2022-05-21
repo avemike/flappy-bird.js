@@ -17,7 +17,7 @@ export class BasesController {
     }
   }
 
-  run(): void {
+  run() {
     this.bases.forEach((base) => base.run());
   }
 

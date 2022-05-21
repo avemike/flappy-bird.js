@@ -7,7 +7,7 @@ import * as S from "~client/styled";
 import { CreateLobby } from "./CreateLobby";
 import { JoinLobby } from "./JoinLobby";
 
-function Details(): JSX.Element {
+function Details() {
   const { backToMenu } = useContext(MenuContext);
 
   return (

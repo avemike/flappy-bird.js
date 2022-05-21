@@ -25,7 +25,7 @@ const BlackArrow = styled(AiOutlineArrowLeft)`
   z-index: 30;
 `;
 
-function Back({ onClick }: Props): JSX.Element {
+function Back({ onClick }: Props) {
   return (
     <TopButton position="left" onClick={onClick}>
       <WhiteArrow />

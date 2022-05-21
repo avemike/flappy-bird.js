@@ -28,7 +28,7 @@ export class GameControls extends InstanceContainer {
     return instance;
   }
 
-  public static removeInstance(id: Attributes["id"]): void {
+  public static removeInstance(id: Attributes["id"]) {
     delete this.instances[id];
   }
 
@@ -36,14 +36,19 @@ export class GameControls extends InstanceContainer {
     return this.instances[id];
   }
 
-  public checkOver(): void {
+  public checkOver() {
     const pipeCollision = this.bird.checkPipeCollision(this.pipes.attributes);
     const groundCollision = this.bird.checkGroundCollsion();
 
     if (pipeCollision || groundCollision) gameOver(this.id);
 
-    pipeCollision && this.bird.resolvePipeCollision(this.pipes.attributes);
-    groundCollision && this.bird.resolveGroundCollision();
+    if (pipeCollision) {
+      this.bird.resolvePipeCollision(this.pipes.attributes);
+    }
+
+    if (groundCollision) {
+      this.bird.resolveGroundCollision();
+    }
   }
 
   get attributes(): Attributes & { state: keyof typeof STATES } {

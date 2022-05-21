@@ -3,7 +3,7 @@ import { MenuContext } from "~client/overlay/context/MenuContext";
 
 import * as S from "~client/styled";
 
-const Single = (): JSX.Element => {
+const Single = () => {
   const { handleMulti, backToMenu } = useContext(MenuContext);
 
   return (

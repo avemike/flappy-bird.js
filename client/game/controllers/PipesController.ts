@@ -15,7 +15,7 @@ class PipesController {
     });
   }
 
-  draw(ctx: CanvasRenderingContext2D): void {
+  draw(ctx: CanvasRenderingContext2D) {
     this.pipes.forEach((pipe) => {
       ctx.drawImage(this.pipeImg, pipe.offsetX, pipe.offsetY);
     });

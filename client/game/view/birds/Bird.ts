@@ -19,16 +19,17 @@ class Bird {
     });
   }
 
-  setColor(color: BIRD_COLORS): void {
+  setColor(color: BIRD_COLORS) {
     if (this.color !== color) this.sprites = getBirdAssets(color);
   }
 
-  draw(ctx: CanvasRenderingContext2D): void {
+  draw(ctx: CanvasRenderingContext2D) {
     this.render(ctx);
   }
 
-  render(ctx: CanvasRenderingContext2D): void {
+  render(ctx: CanvasRenderingContext2D) {
     const { sprites, x, y, width, height, angle } = this;
+
     const renderSelectedState = (state: number) => {
       ctx.save();
       ctx.translate(x + width / 2, y + height / 2);
@@ -39,6 +40,7 @@ class Bird {
 
     // every few frames change bird image, used to prevent changing every frame
     this.i += 1;
+
     if (this.i % 5 === 0) {
       if (this.spritesState < 2) {
         this.spritesState += 1;

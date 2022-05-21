@@ -7,7 +7,7 @@ import { Link } from "~configs/types";
 
 import { socket } from "~client/utils/socketSetup";
 
-import * as S from "../../styled";
+import { Container, ShareDropdown, FlexWrapper, TopButton } from "../../styled";
 import { useToggle } from "../hooks/useToggle";
 
 const LabelStyled = styled.label``;
@@ -16,18 +16,18 @@ interface LinkProps {
   url: string;
 }
 
-const LinkInput = ({ url }: LinkProps): JSX.Element => {
+const LinkInput = ({ url }: LinkProps) => {
   return (
-    <S.Container>
-      <S.ShareDropdown>
-        <S.FlexWrapper direction="column">
+    <Container>
+      <ShareDropdown>
+        <FlexWrapper direction="column">
           <LabelStyled htmlFor="url">paste this into input</LabelStyled>
           <input id="url" value={socket.id} readOnly />
           <LabelStyled htmlFor="url">or share this link with a friend</LabelStyled>
           <input id="url" value={url} readOnly />
-        </S.FlexWrapper>
-      </S.ShareDropdown>
-    </S.Container>
+        </FlexWrapper>
+      </ShareDropdown>
+    </Container>
   );
 };
 
@@ -35,8 +35,8 @@ interface Props {
   children: ReactNode;
 }
 
-const ShareLink = ({ children }: Props): JSX.Element => {
-  const [isOpen, toggleOpen] = useToggle();
+export const ShareLink = ({ children }: Props) => {
+  const { isOpen, onToggle } = useToggle();
   const [url, setUrl] = useState("");
 
   useEffect(() => {
@@ -51,16 +51,14 @@ const ShareLink = ({ children }: Props): JSX.Element => {
     };
   }, []);
 
-  const renderedLink = isOpen ? <LinkInput url={url} /> : <></>;
+  const RenderedLink = isOpen ? <LinkInput url={url} /> : <></>;
 
   return (
     <div>
-      <S.TopButton position="right" onClick={toggleOpen}>
+      <TopButton position="right" onClick={onToggle}>
         {children}
-      </S.TopButton>
-      <Fade primary={`${isOpen}`}>{renderedLink}</Fade>
+      </TopButton>
+      <Fade primary={`${isOpen}`}>{RenderedLink}</Fade>
     </div>
   );
 };
-
-export { ShareLink };

@@ -14,7 +14,7 @@ interface Props {
   state: MENU_STATE;
 }
 
-const Menu = ({ state }: Props): JSX.Element => {
+const Menu = ({ state }: Props) => {
   const { lobbyModeRef } = useContext(LobbyContext);
 
   switch (state) {

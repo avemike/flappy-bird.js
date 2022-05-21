@@ -8,7 +8,7 @@ export const GreenBird = ({ width = 17 }: { width?: number }) => (
     fill="none"
     xmlns="http://www.w3.org/2000/svg"
   >
-    <g clip-path="url(#clip0)">
+    <g clipPath="url(#clip0)">
       <g filter="url(#filter0_d)">
         <path d="M6 1H4V2H6V1Z" fill="black" />
         <path d="M4 2H3V3H4V2Z" fill="black" />
@@ -102,9 +102,9 @@ export const GreenBird = ({ width = 17 }: { width?: number }) => (
         width="17"
         height="20"
         filterUnits="userSpaceOnUse"
-        color-interpolation-filters="sRGB"
+        colorInterpolationFilters="sRGB"
       >
-        <feFlood flood-opacity="0" result="BackgroundImageFix" />
+        <feFlood floodOpacity="0" result="BackgroundImageFix" />
         <feColorMatrix
           in="SourceAlpha"
           type="matrix"

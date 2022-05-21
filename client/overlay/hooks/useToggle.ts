@@ -1,14 +1,11 @@
 import { useState } from "react";
 
-// function useToggle(initialValue = false): StateRetrunValue<boolean> {
-function useToggle(initialValue = false): [boolean, () => void] {
+export function useToggle(initialValue = false) {
   const [value, setValue] = useState<boolean>(initialValue);
 
-  function toggle(): void {
+  const onToggle = () => {
     setValue((value) => !value);
-  }
+  };
 
-  return [value, toggle];
+  return { isOpen: value, onToggle };
 }
-
-export { useToggle };

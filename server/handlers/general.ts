@@ -4,7 +4,6 @@ import { Socket } from "socket.io";
 import { CanvasSizeAttributes } from "~configs/canvas";
 import { EVENTS } from "~configs/events";
 import { BIRD_COLORS, GAME_STATES as STATES } from "~configs/game";
-import { Callback } from "~configs/types";
 
 import { getEnumKeyByEnumValue } from "~client/utils/getEnumKeyByEnumValue";
 
@@ -14,17 +13,19 @@ import { setCanvasSize } from "../utils/canvasSize";
 import { logger } from "../utils/logger";
 import { onJoinLobby, onJoinMulti } from "./mutli";
 
-export function onDomLoaded(this: Socket, canvasSize: CanvasSizeAttributes): void {
+export function onDomLoaded(this: Socket, canvasSize: CanvasSizeAttributes) {
   setCanvasSize(canvasSize);
   const game = GameControls.initialize(this);
 
   const { bird } = game.attributes;
+
   this.emit(EVENTS.BIRD, bird.attributes);
 }
 
-export function getDestination(app: core.Express): Callback {
+export function getDestination(app: core.Express) {
   const { destination } = app.get("want_to_join");
-  return function redirectToLobby(this: Socket): void {
+
+  return function redirectToLobby(this: Socket) {
     if (destination) {
       this.emit(EVENTS.LOBBY_SET);
       onJoinMulti.call(this);
@@ -35,7 +36,7 @@ export function getDestination(app: core.Express): Callback {
   };
 }
 
-export function onBirdColorChange(this: Socket, color: BIRD_COLORS): void {
+export function onBirdColorChange(this: Socket, color: BIRD_COLORS) {
   const { bird } = GameControls.getInstance(this.id).attributes;
 
   const key = getEnumKeyByEnumValue(BIRD_COLORS, color.toLowerCase());
@@ -46,10 +47,11 @@ export function onBirdColorChange(this: Socket, color: BIRD_COLORS): void {
   }
 }
 
-export function onFrame(this: Socket): void {
+export function onFrame(this: Socket) {
   const { id } = this;
 
   const game = GameControls.getInstance(id);
+
   if (!game) return;
 
   const { bird, bases, frameHandler } = game.attributes;
@@ -67,11 +69,15 @@ export function onFrame(this: Socket): void {
   this.emit(EVENTS.BIRD, bird.attributes);
 
   this.emit(EVENTS.GAME, { state: game.state });
-  hostID && this.to(hostID).emit(EVENTS.OTHER_BIRD, bird.attributes);
+
+  if (hostID) {
+    this.to(hostID).emit(EVENTS.OTHER_BIRD, bird.attributes);
+  }
 }
 
-export function onDisconnect(this: Socket): void {
+export function onDisconnect(this: Socket) {
   const { id } = this;
+
   logger.info(`${id}: disconnect`);
 
   const { socket, frameHandler } = GameControls.getInstance(id)?.attributes || {}; // TRASH remove OR operator for production;
@@ -82,20 +88,25 @@ export function onDisconnect(this: Socket): void {
 
   const { hostID } = MultiController.getInstance().getPlayer(id)?.attributes || {};
 
-  hostID && socket.to(hostID).emit(EVENTS.OTHER_BIRD_DC, id);
+  if (hostID) {
+    socket.to(hostID).emit(EVENTS.OTHER_BIRD_DC, id);
+  }
 }
 
-export function onJump(this: Socket): void {
+export function onJump(this: Socket) {
   const { id } = this;
   const { bird } = GameControls.getInstance(id).attributes;
   const { hostID } = MultiController.getInstance().getPlayer(id)?.attributes || {};
 
   bird.jump();
   this.emit(EVENTS.BIRD, bird.attributes);
-  hostID && this.to(hostID).emit(EVENTS.OTHER_BIRD, bird.attributes);
+
+  if (hostID) {
+    this.to(hostID).emit(EVENTS.OTHER_BIRD, bird.attributes);
+  }
 }
 
-export function onStartGame(this: Socket): void {
+export function onStartGame(this: Socket) {
   const { id } = this;
 
   const game = GameControls.getInstance(id);
@@ -108,7 +119,7 @@ export function onStartGame(this: Socket): void {
   frameHandler.addCallback(() => game.checkOver());
 }
 
-export function onRestart(this: Socket): void {
+export function onRestart(this: Socket) {
   const { id } = this;
 
   const game = GameControls.getInstance(id);

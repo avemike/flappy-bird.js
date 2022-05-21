@@ -37,6 +37,7 @@ const BirdWrapper = styled.div<{ active: boolean; gradientColor: string }>`
     opacity: 0.75;
   `}
 `;
+
 export const BirdButton = ({
   color,
   active,
@@ -45,7 +46,7 @@ export const BirdButton = ({
   color: typeof BIRD_COLORS[keyof typeof BIRD_COLORS];
   active: boolean;
   onClick: () => void;
-}): JSX.Element => {
+}) => {
   const SelectedBird = {
     [BIRD_COLORS.BLUE]: <BlueBird width={24} />,
     [BIRD_COLORS.PINK]: <PinkBird width={24} />,
@@ -61,7 +62,7 @@ export const BirdButton = ({
   }[color];
 
   return (
-    <BirdWrapper onClick={onClick} active={active} gradientColor={gradientColor}>
+    <BirdWrapper active={active} gradientColor={gradientColor} onClick={onClick}>
       {SelectedBird}
     </BirdWrapper>
   );

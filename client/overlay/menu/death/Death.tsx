@@ -8,7 +8,7 @@ import { GAME_MODE } from "~configs/game";
 import { Multi } from "./Multi";
 import { Single } from "./Single";
 
-const Death = (): JSX.Element => {
+const Death = () => {
   const {
     gameModeHook: [gameMode],
   } = useContext(MenuContext);

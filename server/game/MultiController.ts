@@ -24,9 +24,10 @@ export class MultiController {
     return MultiController.instance;
   }
 
-  public startGame(hostID: Socket["id"]): void {
+  public startGame(hostID: Socket["id"]) {
     this.getPlayer(hostID).attributes.guests.forEach((guestID) => {
       const { socket } = GameControls.getInstance(guestID).attributes;
+
       socket.emit(EVENTS.GAME_START);
     });
   }
@@ -35,7 +36,7 @@ export class MultiController {
     return this.players[id];
   }
 
-  public deletePlayer(id: Socket["id"]): void {
+  public deletePlayer(id: Socket["id"]) {
     const { socket } = GameControls.getInstance(id).attributes;
 
     socket.removeListener(EVENTS.BIRD_COLOR_CHANGE, onBirdColorChange);
@@ -56,10 +57,11 @@ export class MultiController {
     delete this.players[id];
   }
 
-  public registerPlayer(id: Socket["id"]): void {
+  public registerPlayer(id: Socket["id"]) {
     this.players[id] = new MultiProfile(id);
 
     const { socket } = GameControls.getInstance(id).attributes;
+
     socket.on(EVENTS.READY_ACTION, M.onReadyAction);
 
     socket.on(EVENTS.LOBBY_CREATE, M.onCreateLobby);
@@ -83,7 +85,7 @@ export class MultiController {
     return readyPlayersCount;
   }
 
-  public setReady(readyID: Socket["id"], value: boolean): void {
+  public setReady(readyID: Socket["id"], value: boolean) {
     this.getPlayer(readyID).setReady(value);
 
     const hostID = this.getPlayer(readyID).attributes.hostID || readyID;
@@ -91,10 +93,11 @@ export class MultiController {
     const readyPlayersCount = this.countActivePlayers(hostID);
 
     const { socket: hostSocket } = GameControls.getInstance(hostID).attributes;
+
     hostSocket.emit(EVENTS.READY_COUNT, readyPlayersCount);
   }
 
-  public createLobby(hostID: Socket["id"]): void {
+  public createLobby(hostID: Socket["id"]) {
     this.getPlayer(hostID).createLobby();
   }
 }

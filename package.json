@@ -66,7 +66,9 @@
     "dev": "npm run del-cache && parcel watch public/index.html",
     "server": "nodemon --watch './**/*.ts' --exec 'ts-node -r tsconfig-paths/register' server/index.ts | pino-pretty",
     "prettier:fix": "prettier --write server/**/*.ts client/**/*.{ts,tsx}",
-    "prettier:check": "prettier --check server/**/*.ts client/**/*.{ts,tsx}"
+    "prettier:check": "prettier --check server/**/*.ts client/**/*.{ts,tsx}",
+    "lint:fix": "eslint . --fix",
+    "lint:check": "eslint ."
   },
   "repository": {
     "type": "git",

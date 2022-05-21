@@ -8,6 +8,7 @@ class BackgroundController {
 
   constructor() {
     const image = new Image();
+
     image.src = BACKGROUND_SPR;
 
     for (let i = 0; CANVAS_SIZE.WIDTH > i * BACKGROUND_PROPS.WIDTH; i++) {
@@ -15,7 +16,7 @@ class BackgroundController {
     }
   }
 
-  draw(ctx: CanvasRenderingContext2D): void {
+  draw(ctx: CanvasRenderingContext2D) {
     this.images.forEach((image, index) => {
       ctx.drawImage(image, index * BACKGROUND_PROPS.WIDTH, -200);
     });

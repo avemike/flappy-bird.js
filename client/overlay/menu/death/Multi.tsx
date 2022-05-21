@@ -6,7 +6,7 @@ import * as S from "~client/styled";
 
 import { LOBBY_MODE, MENU_STATE } from "~configs/game";
 
-const Multi = (): JSX.Element => {
+const Multi = () => {
   const {
     backToMenu,
     menuStateHook: [, setMenuState],
@@ -16,11 +16,11 @@ const Multi = (): JSX.Element => {
     lobbyModeRef: { current },
   } = useContext(LobbyContext);
 
-  function handleRestart(): void {
+  function handleRestart() {
     setMenuState(MENU_STATE.LOBBY);
   }
 
-  function backToLobby(): void {
+  function backToLobby() {
     // TODO check if host has started the lobby again, if not show message that going back to lobby is not possible
     // setMenuState(MENU_STATE.LOBBY);
   }

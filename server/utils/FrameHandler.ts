@@ -9,15 +9,15 @@ export class FrameHandler {
     // }, UPDATE_MILLISECONDS);
   }
 
-  runCallbacks(): void {
+  runCallbacks() {
     this.callbacks.forEach((callback) => callback());
   }
 
-  addCallback(callback: CallbackType): void {
+  addCallback(callback: CallbackType) {
     this.callbacks.push(callback);
   }
 
-  clear(): void {
+  clear() {
     this.callbacks = [];
   }
 }

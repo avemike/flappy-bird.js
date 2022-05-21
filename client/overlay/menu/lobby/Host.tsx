@@ -12,7 +12,7 @@ import { MENU_STATE } from "~configs/game";
 
 import { socket } from "~client/utils/socketSetup";
 
-const Host = (): JSX.Element => {
+const Host = () => {
   const {
     menuStateHook: [, setMenu],
   } = useContext(MenuContext);

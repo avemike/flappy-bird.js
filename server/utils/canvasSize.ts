@@ -6,7 +6,7 @@ export function getCanvasSize(): CanvasSizeAttributes {
   return SERVER_CAVNAS_SIZE;
 }
 
-export function setCanvasSize(newSize: CanvasSizeAttributes): void {
+export function setCanvasSize(newSize: CanvasSizeAttributes) {
   SERVER_CAVNAS_SIZE.HEIGHT = newSize.HEIGHT;
   SERVER_CAVNAS_SIZE.WIDTH = newSize.WIDTH;
 }
