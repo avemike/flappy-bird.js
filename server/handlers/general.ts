@@ -15,8 +15,8 @@ import { onJoinLobby, onJoinMulti } from "./mutli";
 
 export function onDomLoaded(this: Socket, canvasSize: CanvasSizeAttributes) {
   setCanvasSize(canvasSize);
-  const game = GameControls.initialize(this);
 
+  const game = GameControls.initialize(this);
   const { bird } = game.attributes;
 
   this.emit(EVENTS.BIRD, bird.attributes);
@@ -49,16 +49,12 @@ export function onBirdColorChange(this: Socket, color: BIRD_COLORS) {
 
 export function onFrame(this: Socket) {
   const { id } = this;
-
   const game = GameControls.getInstance(id);
 
   if (!game) return;
 
-  const { bird, bases, frameHandler } = game.attributes;
-
+  const { bird, bases, frameHandler, pipes } = game.attributes;
   const { hostID } = MultiController.getInstance().getPlayer(id)?.attributes || {};
-
-  const { pipes } = game.attributes;
 
   frameHandler.runCallbacks();
 
@@ -77,10 +73,10 @@ export function onFrame(this: Socket) {
 
 export function onDisconnect(this: Socket) {
   const { id } = this;
+  const { socket, frameHandler } = GameControls.getInstance(id)?.attributes || {}; // TRASH remove OR operator for production;
 
   logger.info(`${id}: disconnect`);
 
-  const { socket, frameHandler } = GameControls.getInstance(id)?.attributes || {}; // TRASH remove OR operator for production;
   // const { socket, frameHandler } = GameControls.getInstance(id).attributes;
 
   frameHandler?.clear(); // TRASH this too

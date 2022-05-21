@@ -12,11 +12,9 @@ export const gameOver = (id: Socket["id"]) => {
   game.state = STATES.OVER;
 
   // at first function call, bird.collision is not resolved yet so its value is false
-  const { collision } = bird.attributes;
+  const { collision, score, highscore } = bird.attributes;
 
   if (!collision) socket.emit(EVENTS.GAME_OVER); // used to prevent event spam
-
-  const { score, highscore } = bird.attributes;
 
   if (score > highscore) bird.setHighscore();
 
