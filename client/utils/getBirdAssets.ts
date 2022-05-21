@@ -12,15 +12,11 @@ function setBirdColor(color: BIRD_COLORS) {
 
 function getBirdAssets(color: BIRD_COLORS): HTMLImageElement[] {
   const wingsBot = new Image();
-
-  wingsBot.src = sprites[color].bottom;
-
   const wingsMid = new Image();
-
-  wingsMid.src = sprites[color].mid;
-
   const wingsUp = new Image();
 
+  wingsBot.src = sprites[color].bottom;
+  wingsMid.src = sprites[color].mid;
   wingsUp.src = sprites[color].top;
 
   const bird_spr: HTMLImageElement[] = [wingsBot, wingsMid, wingsUp];
