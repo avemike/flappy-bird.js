@@ -23,11 +23,7 @@ const CreateLobby = () => {
     socket.emit(EVENTS.LOBBY_CREATE);
   }
 
-  return (
-    <>
-      <Button onClick={handleClick}>create lobby</Button>
-    </>
-  );
+  return <Button onClick={handleClick}>create lobby</Button>;
 };
 
 export { CreateLobby };
