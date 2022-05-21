@@ -48,34 +48,36 @@ export class MultiProfile {
     return this.link;
   }
 
-  public setReady(value: boolean): void {
+  public setReady(value: boolean) {
     this.ready = value;
   }
 
-  public joinLobby(hostID: Socket["id"]): void {
+  public joinLobby(hostID: Socket["id"]) {
     const { socket } = GameControls.getInstance(this.id).attributes;
+
     socket.join(hostID);
     this.hostID = hostID;
   }
 
-  public addGuest(id: Socket["id"]): void {
+  public addGuest(id: Socket["id"]) {
     this.guests.push(id);
   }
 
-  public removeGuest(id: Socket["id"]): void {
+  public removeGuest(id: Socket["id"]) {
     this.guests = this.guests.filter((guestID) => guestID != id);
   }
 
-  public createLobby(): void {
+  public createLobby() {
     this.lobbyActive = true;
   }
 
-  public deleteLobby(): void {
+  public deleteLobby() {
     this.lobbyActive = false;
   }
 
-  public leaveLobby(): void {
+  public leaveLobby() {
     const { socket } = GameControls.getInstance(this.id).attributes;
+
     socket.leave(this.hostID);
     socket.broadcast.emit(EVENTS.OTHER_BIRD_DC, this.id);
 

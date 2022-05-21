@@ -22,10 +22,12 @@ export class Pipe {
   constructor(object: Params) {
     if (isAttributes(object)) {
       const { offsetX, offsetY } = object.attributes;
+
       this.offsetX = offsetX;
       this.offsetY = offsetY;
     } else {
       const { offsetX } = object;
+
       this.offsetX = offsetX;
       this.offsetY = -350; // DEBUG
     }
@@ -43,11 +45,11 @@ export class Pipe {
     return this.offsetX <= -PIPE_PROPS.WIDTH;
   }
 
-  changeOffset(): void {
+  changeOffset() {
     this.offsetX -= BG_SPEED;
   }
 
-  run(): void {
+  run() {
     this.changeOffset();
   }
 

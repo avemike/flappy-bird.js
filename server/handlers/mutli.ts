@@ -7,29 +7,33 @@ import { EVENTS } from "~configs/events";
 
 import { onStartGame } from "./general";
 
-export function onLeaveMulti(this: Socket): void {
+export function onLeaveMulti(this: Socket) {
   const { id } = this;
+
   MultiController.getInstance().deletePlayer(id);
 }
 
-export function onJoinMulti(this: Socket): void {
+export function onJoinMulti(this: Socket) {
   const { id } = this;
+
   MultiController.getInstance().registerPlayer(id);
 }
 
-export function onStartGameMulti(this: Socket): void {
+export function onStartGameMulti(this: Socket) {
   const { id } = this;
+
   onStartGame.call(this);
 
   const { guests } = MultiController.getInstance().getPlayer(id).attributes;
 
   guests.forEach((guestID) => {
     const { socket } = GameControls.getInstance(guestID).attributes;
+
     onStartGame.call(socket);
   });
 }
 
-export function onLinkRequest(this: Socket): void {
+export function onLinkRequest(this: Socket) {
   const { id } = this;
 
   const player = MultiController.getInstance().getPlayer(id);
@@ -38,12 +42,13 @@ export function onLinkRequest(this: Socket): void {
   this.emit(EVENTS.LINK_RES, inviteLink);
 }
 
-export function onCreateLobby(this: Socket): void {
+export function onCreateLobby(this: Socket) {
   const { id } = this;
+
   MultiController.getInstance().createLobby(id);
 }
 
-export function onAbortLobby(this: Socket): void {
+export function onAbortLobby(this: Socket) {
   const { id } = this;
 
   const host = MultiController.getInstance().getPlayer(id);
@@ -54,6 +59,7 @@ export function onAbortLobby(this: Socket): void {
     host.removeGuest(guestID);
 
     const { socket } = GameControls.getInstance(guestID).attributes;
+
     socket.emit(EVENTS.LOBBY_KICK_OUT);
   });
 
@@ -61,7 +67,7 @@ export function onAbortLobby(this: Socket): void {
   host.deleteLobby();
 }
 
-export function onLeaveLobby(this: Socket): void {
+export function onLeaveLobby(this: Socket) {
   const { id } = this;
   const player = MultiController.getInstance().getPlayer(id);
   const { hostID } = player.attributes;
@@ -75,19 +81,20 @@ export function onLeaveLobby(this: Socket): void {
   host.removeGuest(id);
 }
 
-export function onReadyAction(this: Socket, ready: boolean): void {
+export function onReadyAction(this: Socket, ready: boolean) {
   const { id } = this;
   const multiController = MultiController.getInstance();
 
   multiController.setReady(id, ready);
 }
 
-export function onJoinLobby(this: Socket, hostID: Socket["id"]): void {
+export function onJoinLobby(this: Socket, hostID: Socket["id"]) {
   // TODO check if lobby exists
   // TODO create function that checks the link (hostID param), then either add user to lobby or return
 
   const multiController = MultiController.getInstance();
   const { lobbyActive } = multiController.getPlayer(hostID).attributes;
+
   if (!lobbyActive) return;
 
   const { id } = this;
@@ -99,6 +106,7 @@ export function onJoinLobby(this: Socket, hostID: Socket["id"]): void {
 
   multiController.getPlayer(hostID).attributes.guests.forEach((guestID) => {
     const { pipes } = GameControls.getInstance(guestID).attributes;
+
     pipes.syncWith(hostPipes);
   });
 

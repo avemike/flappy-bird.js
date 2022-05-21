@@ -19,17 +19,17 @@ export class Base {
     this.offsetY = offsetY;
   }
 
-  changeOffset(): void {
+  changeOffset() {
     this.offsetX -= BG_SPEED;
   }
 
-  isOverScreen(): void {
+  isOverScreen() {
     if (this.offsetX < -this.width) {
       this.offsetX += 20 * 336;
     }
   }
 
-  run(): void {
+  run() {
     this.changeOffset();
     this.isOverScreen();
   }

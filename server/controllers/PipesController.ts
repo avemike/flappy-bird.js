@@ -10,28 +10,30 @@ export class PipesController {
     }
   }
 
-  syncWith(hostPipes: PipesController): void {
+  syncWith(hostPipes: PipesController) {
     this.pipes = [];
     for (let i = 0; i < 7; i += 1) {
       const hostPipeAttrbs = hostPipes.attributes[i];
+
       this.pipes.push(new Pipe({ attributes: hostPipeAttrbs }));
     }
   }
 
-  resetState(): void {
+  resetState() {
     this.pipes = [];
     for (let i = 0; i < 7; i += 1) {
       this.pipes.push(new Pipe({ offsetX: 1000 + DIST_BETW_PIPES * i }));
     }
   }
 
-  create(): void {
+  create() {
     const lastPipeOffsetX = this.pipes[this.pipes.length - 1].attributes.offsetX;
+
     this.pipes.push(new Pipe({ offsetX: lastPipeOffsetX + DIST_BETW_PIPES }));
   }
 
   // run every frame
-  run(): void {
+  run() {
     if (this.pipes[0].isOverScreen()) {
       this.pipes.shift();
       this.create();

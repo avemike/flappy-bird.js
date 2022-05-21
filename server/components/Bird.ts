@@ -25,12 +25,13 @@ export class Bird {
     socket.on(EVENTS.BIRD_COLOR_CHANGE, onBirdColorChange);
   }
 
-  setColor(color: BIRD_COLORS): void {
+  setColor(color: BIRD_COLORS) {
     this.color = color;
   }
 
-  resetState(): void {
+  resetState() {
     const { X, Y, MOMENTUM, COLLISION } = BIRD_PROPS;
+
     this.x = X;
     this.multiplayerX = X;
     this.y = Y;
@@ -52,31 +53,31 @@ export class Bird {
     );
   }
 
-  updateScore(pipesData: PipeAttributes[]): void {
+  updateScore(pipesData: PipeAttributes[]) {
     if (this.checkIfScored(pipesData)) {
       this.score += 1;
     }
   }
 
-  setHighscore(): void {
+  setHighscore() {
     this.highscore = this.score;
   }
 
-  jump(): void {
+  jump() {
     this.momentum = -5.8;
   }
 
-  gravity(): void {
+  gravity() {
     if (this.momentum < 10) this.momentum += 0.3;
 
     this.y += this.momentum;
   }
 
-  deathSlide(): void {
+  deathSlide() {
     if (this.multiplayerX > -BIRD_PROPS.WIDTH) this.multiplayerX -= BG_SPEED;
   }
 
-  angleControl(): void {
+  angleControl() {
     if (this.momentum > 0 && this.angle < BIRD_PROPS.MAX_ANGLE) this.angle += this.momentum / 120;
     else if (this.momentum < 0 && this.angle > BIRD_PROPS.MIN_ANGLE) {
       const missingAngle = (BIRD_PROPS.MIN_ANGLE - this.angle) / 3;
@@ -120,7 +121,7 @@ export class Bird {
     return false;
   }
 
-  resolvePipeCollision(pipesAttribs: PipeAttributes[]): void {
+  resolvePipeCollision(pipesAttribs: PipeAttributes[]) {
     this.collision = true;
     const rightBird = this.x + BIRD_PROPS.WIDTH;
     const topBird = this.y;
@@ -133,6 +134,7 @@ export class Bird {
       // going up
       this.momentum = 0;
       dy = Math.abs(pipesAttribs[0].offsetY + PIPE_PROPS.ONE_PIPE_HEIGHT - topBird);
+
       if (dy < dx) this.y += dy;
     }
 
@@ -148,7 +150,7 @@ export class Bird {
     return false;
   }
 
-  resolveGroundCollision(): void {
+  resolveGroundCollision() {
     this.collision = true;
     this.y = getCanvasSize().HEIGHT - BASE_PROPS.HEIGHT - BIRD_PROPS.WIDTH / 2;
   }
