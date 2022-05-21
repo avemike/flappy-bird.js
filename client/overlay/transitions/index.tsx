@@ -1,12 +1,13 @@
-import React, { ReactElement } from "react";
+import React from "react";
 import { CSSTransition, SwitchTransition } from "react-transition-group";
+import { CSSTransitionProps } from "react-transition-group/CSSTransition";
 
 interface Props {
   primary: string;
-  children: React.ReactNode;
+  children: CSSTransitionProps["children"];
 }
 
-export const Fade = ({ primary, children }: Props): ReactElement => (
+export const Fade = ({ primary, children }: Props) => (
   <SwitchTransition>
     <CSSTransition
       key={primary}
