@@ -4,7 +4,7 @@
   "description": "2P flappy bird in JS",
   "dependencies": {
     "@parcel/transformer-svg-react": "^2.2.1",
-    "express": "^4.17.1",
+    "express": "^4.17.3",
     "pino": "^6.11.3",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
